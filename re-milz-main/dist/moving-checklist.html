@@ -50,14 +50,68 @@
 
 <section class="section">
   <div class="container dashboard-grid">
-    <aside class="dashboard-menu"><a class="active" href="#">6〜9ヶ月前</a><a href="#">4〜6ヶ月前</a><a href="#">2〜3ヶ月前</a><a href="#">1ヶ月前</a><a href="#">到着直後</a><a href="#">帰国後</a></aside>
+    <aside class="dashboard-menu">
+      <a class="active" href="#" data-period="period-1">6〜9ヶ月前</a>
+      <a href="#" data-period="period-2">4〜6ヶ月前</a>
+      <a href="#" data-period="period-3">2〜3ヶ月前</a>
+      <a href="#" data-period="period-4">1ヶ月前</a>
+      <a href="#" data-period="period-5">到着直後</a>
+      <a href="#" data-period="period-6">帰国後</a>
+    </aside>
     <div class="panel">
-      <div class="panel-head"><h2 class="panel-title">6〜9ヶ月前のチェック</h2><a class="more-link" href="dashboard.html">マイページで管理</a></div>
-      <div class="todo-list">
-        <div class="todo"><div class="todo-check"></div><div><strong>帰国時期と帰国先を決める</strong><span>家族・仕事・学校の予定を合わせて確認</span></div><a class="more-link" href="#">詳細</a></div>
-        <div class="todo"><div class="todo-check"></div><div><strong>求人情報の収集を始める</strong><span>帰国前面談に対応する求人を確認</span></div><a class="more-link" href="jobs.html">求人</a></div>
-        <div class="todo"><div class="todo-check"></div><div><strong>引越し会社へ相談する</strong><span>荷物量・希望時期を伝えて概算見積もり</span></div><a class="more-link" href="support-companies.html">企業</a></div>
-        <div class="todo"><div class="todo-check"></div><div><strong>住まいの条件を整理する</strong><span>エリア・家賃・家族構成・入居時期</span></div><a class="more-link" href="housing.html">住まい</a></div>
+      <div id="period-1" class="checklist-period">
+        <div class="panel-head"><h2 class="panel-title">6〜9ヶ月前のチェック</h2><a class="more-link" href="dashboard.html">マイページで管理</a></div>
+        <div class="todo-list">
+          <div class="todo"><div class="todo-check"></div><div><strong>帰国時期と帰国先を決める</strong><span>家族・仕事・学校の予定を合わせて確認</span></div><a class="more-link" href="moving-detail.html">詳細</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>求人情報の収集を始める</strong><span>帰国前面談に対応する求人を確認</span></div><a class="more-link" href="jobs.html">求人</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>引越し会社へ相談する</strong><span>荷物量・希望時期を伝えて概算見積もり</span></div><a class="more-link" href="support-companies.html">企業</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>住まいの条件を整理する</strong><span>エリア・家賃・家族構成・入居時期</span></div><a class="more-link" href="housing.html">住まい</a></div>
+        </div>
+      </div>
+      <div id="period-2" class="checklist-period" style="display:none">
+        <div class="panel-head"><h2 class="panel-title">4〜6ヶ月前のチェック</h2><a class="more-link" href="dashboard.html">マイページで管理</a></div>
+        <div class="todo-list">
+          <div class="todo"><div class="todo-check"></div><div><strong>引越し業者を正式に選定する</strong><span>見積もり比較・契約条件の確認</span></div><a class="more-link" href="support-companies.html">企業</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>保険の切り替えを検討する</strong><span>海外保険の終了時期と日本の保険加入</span></div><a class="more-link" href="insurance.html">保険</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>子どもの学校を調べる</strong><span>転入手続き・必要書類の確認</span></div><a class="more-link" href="articles.html">記事</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>住居の候補を絞り込む</strong><span>内見予約・オンライン相談</span></div><a class="more-link" href="housing.html">住まい</a></div>
+        </div>
+      </div>
+      <div id="period-3" class="checklist-period" style="display:none">
+        <div class="panel-head"><h2 class="panel-title">2〜3ヶ月前のチェック</h2><a class="more-link" href="dashboard.html">マイページで管理</a></div>
+        <div class="todo-list">
+          <div class="todo"><div class="todo-check"></div><div><strong>航空券を予約する</strong><span>片道・帰国日程の確定</span></div><a class="more-link" href="moving-detail.html">詳細</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>荷物の仕分けを始める</strong><span>船便・航空便・処分品の分類</span></div><a class="more-link" href="moving-detail.html">詳細</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>転職活動を本格化する</strong><span>面接日程の調整・条件交渉</span></div><a class="more-link" href="jobs.html">求人</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>賃貸契約の解約通知</strong><span>退去日の確認・デポジット手続き</span></div><a class="more-link" href="moving-detail.html">詳細</a></div>
+        </div>
+      </div>
+      <div id="period-4" class="checklist-period" style="display:none">
+        <div class="panel-head"><h2 class="panel-title">1ヶ月前のチェック</h2><a class="more-link" href="dashboard.html">マイページで管理</a></div>
+        <div class="todo-list">
+          <div class="todo"><div class="todo-check"></div><div><strong>転出届を提出する</strong><span>在留届の抹消・領事館への届出</span></div><a class="more-link" href="moving-detail.html">詳細</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>銀行口座・カードの整理</strong><span>解約・残高移動・住所変更</span></div><a class="more-link" href="moving-detail.html">詳細</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>公共料金の解約手続き</strong><span>電気・ガス・水道・インターネット</span></div><a class="more-link" href="moving-detail.html">詳細</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>郵便物の転送設定</strong><span>USPS Mail Forwarding の手続き</span></div><a class="more-link" href="moving-detail.html">詳細</a></div>
+        </div>
+      </div>
+      <div id="period-5" class="checklist-period" style="display:none">
+        <div class="panel-head"><h2 class="panel-title">到着直後のチェック</h2><a class="more-link" href="dashboard.html">マイページで管理</a></div>
+        <div class="todo-list">
+          <div class="todo"><div class="todo-check"></div><div><strong>転入届を提出する</strong><span>市区町村役場で14日以内に届出</span></div><a class="more-link" href="moving-detail.html">詳細</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>マイナンバーカードを申請する</strong><span>身分証明・各種手続きに必要</span></div><a class="more-link" href="moving-detail.html">詳細</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>国民健康保険に加入する</strong><span>転入届と同時に手続き可能</span></div><a class="more-link" href="insurance.html">保険</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>銀行口座を開設する</strong><span>給与振込・生活費管理用</span></div><a class="more-link" href="moving-detail.html">詳細</a></div>
+        </div>
+      </div>
+      <div id="period-6" class="checklist-period" style="display:none">
+        <div class="panel-head"><h2 class="panel-title">帰国後のチェック</h2><a class="more-link" href="dashboard.html">マイページで管理</a></div>
+        <div class="todo-list">
+          <div class="todo"><div class="todo-check"></div><div><strong>確定申告の準備をする</strong><span>米国・日本の所得申告</span></div><a class="more-link" href="articles.html">記事</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>運転免許を切り替える</strong><span>国際免許 → 日本の免許への切り替え</span></div><a class="more-link" href="moving-detail.html">詳細</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>子どもの学校転入手続き</strong><span>必要書類の提出・面談</span></div><a class="more-link" href="articles.html">記事</a></div>
+          <div class="todo"><div class="todo-check"></div><div><strong>生活インフラを整える</strong><span>携帯・ネット・各種サービス契約</span></div><a class="more-link" href="moving-detail.html">詳細</a></div>
+        </div>
       </div>
     </div>
   </div>
@@ -112,6 +166,16 @@
   const current = document.body.dataset.current;
   document.querySelectorAll('[data-nav]').forEach(a => {
     if (a.dataset.nav === current) a.classList.add('active');
+  });
+
+  document.querySelectorAll('.dashboard-menu a[data-period]').forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelectorAll('.dashboard-menu a').forEach(a => a.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('.checklist-period').forEach(p => p.style.display = 'none');
+      document.getElementById(tab.dataset.period).style.display = '';
+    });
   });
 </script>
 </body>
