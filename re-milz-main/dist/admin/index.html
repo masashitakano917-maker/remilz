@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ダッシュボード｜Milz2 Admin</title>
+  <meta name="theme-color" content="#00327f" />
+  <link rel="stylesheet" crossorigin href="/assets/style-On9mAbuf.css">
+</head>
+<body class="admin-body" data-admin-current="dashboard">
+  <div class="admin-shell">
+    <aside class="admin-sidebar">
+  <a class="admin-logo" href="index.html">Milz2<small>Admin Console</small></a>
+  <nav class="admin-menu">
+    <a href="index.html" data-admin="dashboard">ダッシュボード</a>
+    <a href="inquiries.html" data-admin="inquiries">お問い合わせ</a>
+    <a href="articles.html" data-admin="articles">記事管理</a>
+    <a href="users.html" data-admin="users">登録者管理</a>
+    <a href="emails.html" data-admin="emails">一括メール</a>
+    <div class="sep"></div>
+    <a href="jobs.html" data-admin="jobs">求人管理</a>
+    <a href="companies.html" data-admin="companies">企業管理</a>
+    <a href="checklists.html" data-admin="checklists">チェックリスト</a>
+    <a href="analytics.html" data-admin="analytics">分析</a>
+    <a href="settings.html" data-admin="settings">設定</a>
+    <a href="audit-log.html" data-admin="audit">操作ログ</a>
+    <div class="sep"></div>
+    <a href="../index.html">公開サイトへ</a>
+  </nav>
+  <div class="admin-side-note">管理画面は静的モックです。実運用時はSupabase等のDB、認証、メール配信APIと接続してください。</div>
+</aside>
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <div class="admin-title"><h1>ダッシュボード</h1><p>Milz2 管理画面</p></div>
+        <div class="admin-actions"><a class="btn btn-outline btn-mini" href="settings.html">設定</a><a class="btn btn-primary btn-mini" href="login.html">ログアウト</a><div class="admin-user"><span class="admin-avatar">A</span>Admin</div></div>
+      </header>
+      <div class="admin-content">
+        <section class="admin-grid cols-4">
+  <div class="admin-stat"><span>未対応お問い合わせ</span><strong>18</strong><p>本日追加 5件</p></div>
+  <div class="admin-stat"><span>登録者数</span><strong>12,845</strong><p>今週 +126人</p></div>
+  <div class="admin-stat"><span>掲載求人</span><strong>3,420</strong><p>公開中 3,186件</p></div>
+  <div class="admin-stat"><span>メール配信</span><strong>42%</strong><p>直近配信の開封率</p></div>
+</section>
+<section class="admin-grid cols-2">
+  <div class="admin-panel"><div class="admin-panel-head"><h2 class="admin-panel-title">今日の対応</h2><a class="more-link" href="inquiries.html">すべて見る</a></div><div class="admin-list">
+    <div class="admin-list-item"><h3>国際引越しの見積もり相談</h3><div class="admin-list-meta"><span>10:24</span><span>未対応</span><span>カテゴリ: 引越し</span></div><p>帰国予定日が近いため、優先対応が必要です。</p></div>
+    <div class="admin-list-item"><h3>法人掲載プランについて</h3><div class="admin-list-meta"><span>09:40</span><span>確認中</span><span>法人</span></div><p>求人掲載と帰任サポートのセットプランに関する問い合わせ。</p></div>
+  </div></div>
+  <div class="admin-panel"><div class="admin-panel-head"><h2 class="admin-panel-title">アクセス推移</h2><a class="more-link" href="analytics.html">分析を見る</a></div><div class="admin-chart"><div class="bar" style="height:40%"></div><div class="bar" style="height:58%"></div><div class="bar" style="height:46%"></div><div class="bar" style="height:72%"></div><div class="bar" style="height:65%"></div><div class="bar" style="height:86%"></div><div class="bar" style="height:78%"></div></div></div>
+</section>
+<section class="admin-panel"><div class="admin-panel-head"><h2 class="admin-panel-title">管理メニュー</h2></div><div class="admin-grid cols-4">
+  <a class="admin-stat" href="articles.html"><span>CONTENT</span><strong>記事</strong><p>追加・編集・削除</p></a>
+  <a class="admin-stat" href="users.html"><span>USERS</span><strong>登録者</strong><p>検索・詳細確認</p></a>
+  <a class="admin-stat" href="emails.html"><span>MAIL</span><strong>一括メール</strong><p>セグメント配信</p></a>
+  <a class="admin-stat" href="jobs.html"><span>JOBS</span><strong>求人</strong><p>公開・非公開管理</p></a>
+</div></section>
+      </div>
+    </main>
+  </div>
+<script>
+  const current = document.body.dataset.adminCurrent;
+  document.querySelectorAll('[data-admin]').forEach(a => { if(a.dataset.admin === current) a.classList.add('active'); });
+</script>
+</body>
+</html>

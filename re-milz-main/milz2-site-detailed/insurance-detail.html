@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>保険見直しガイド｜Milz2</title>
+  <meta name="description" content="Milz2は、米国から日本へ帰国する方に必要な仕事・引越し・保険・住まい・行政手続きをワンストップで支援するプラットフォームです。" />
+  <meta name="theme-color" content="#00327f" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-current="insurance">
+<header class="top-header">
+  <div class="container">
+    <div class="header-main">
+      <a href="index.html" class="brand" aria-label="Milz2">
+        <div class="brand-logo">Milz2</div>
+        <div class="brand-tagline">米国から日本への帰国を、安心と確かな情報でサポートする</div>
+      </a>
+      <div></div>
+      <div class="header-actions">
+        <a class="btn btn-outline" href="login.html">ログイン</a>
+        <a class="btn btn-primary" href="signup.html">無料会員登録</a>
+      </div>
+    </div>
+    <div class="nav-row">
+      <nav class="global-nav" aria-label="メインナビゲーション">
+        <a href="index.html" data-nav="home">トップ</a>
+        <a href="jobs.html" data-nav="jobs">求人を探す</a>
+        <a href="moving.html" data-nav="moving">引越し・手続き</a>
+        <a href="insurance.html" data-nav="insurance">保険</a>
+        <a href="housing.html" data-nav="housing">住まい</a>
+        <a href="articles.html" data-nav="articles">お役立ち記事</a>
+        <a href="company.html" data-nav="company">法人の方へ</a>
+      </nav>
+    </div>
+  </div>
+</header>
+<main>
+
+<section class="page-hero">
+  <div class="container page-hero-grid">
+    <div>
+      <div class="breadcrumb">トップ / 保険 / 詳細</div>
+      <h1 class="page-title">保険見直しガイド</h1>
+      <p class="page-lead">米国側の保険解約、日本帰国後の公的保険・民間保険の確認ポイントを整理します。</p>
+    </div>
+    <div class="hero-side-card"><h3>注意点</h3><p>個別の保険判断は専門家へ確認する前提で、ここでは一般的な確認事項を掲載します。</p></div>
+  </div>
+</section>
+
+<section class="section"><div class="container detail-layout"><article class="detail-main"><h2>米国側で確認する保険</h2><p>帰国時には、医療保険、自動車保険、住居保険、生命保険などの継続・解約・住所変更を確認します。解約日と帰国日がずれる場合、補償が途切れないよう注意が必要です。</p><h2>日本帰国後に確認する保険</h2><ul><li>会社員として加入する健康保険</li><li>国民健康保険への加入</li><li>扶養に入る場合の条件確認</li><li>民間保険の加入・見直し</li></ul><h2>相談前に用意したい情報</h2><p>帰国予定日、勤務開始予定、家族構成、現在加入している保険、既往歴や希望補償内容などを整理しておくと相談がスムーズです。</p></article><aside class="detail-side"><div class="side-panel"><h3>保険相談先を探す</h3><p>帰国者対応の保険相談先を確認できます。</p><a class="btn btn-primary" href="support-companies.html">企業を見る</a></div></aside></div></section>
+
+</main>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-main">
+      <div>
+        <div class="footer-logo">Milz2</div>
+        <p class="footer-desc">米国から日本への帰国を、安心と確かな情報でサポートするプラットフォーム。</p>
+      </div>
+      <div class="footer-col">
+        <h3>サービス</h3>
+        <a href="jobs.html">求人を探す</a>
+        <a href="moving.html">引越し・手続き</a>
+        <a href="insurance.html">保険</a>
+        <a href="housing.html">住まい</a>
+        <a href="articles.html">お役立ち記事</a>
+      </div>
+      <div class="footer-col">
+        <h3>サポート</h3>
+        <a href="signup.html">はじめての方へ</a>
+        <a href="faq.html">よくある質問</a>
+        <a href="company.html">お問い合わせ</a>
+        <a href="company.html">運営会社</a>
+      </div>
+      <div class="footer-col">
+        <h3>法人の方へ</h3>
+        <a href="company.html">法人向けサービス</a>
+        <a href="company.html">帰国サポートプラン</a>
+        <a href="company.html">資料ダウンロード</a>
+        <a href="company.html">お問い合わせ</a>
+      </div>
+      <div class="footer-actions">
+        <a class="btn" href="login.html">ログイン</a>
+        <a class="btn footer-white" href="signup.html">無料会員登録</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-links">
+        <a href="#">利用規約</a>
+        <a href="#">プライバシーポリシー</a>
+        <a href="#">特定商取引法に基づく表記</a>
+      </div>
+      <div>© 2024 Milz2. All Rights Reserved.</div>
+    </div>
+  </div>
+</footer>
+<script>
+  const current = document.body.dataset.current;
+  document.querySelectorAll('[data-nav]').forEach(a => {
+    if (a.dataset.nav === current) a.classList.add('active');
+  });
+</script>
+</body>
+</html>

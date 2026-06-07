@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>マイページ｜Milz2</title>
+  <meta name="description" content="Milz2は、米国から日本へ帰国する方に必要な仕事・引越し・保険・住まい・行政手続きをワンストップで支援するプラットフォームです。" />
+  <meta name="theme-color" content="#00327f" />
+  <link rel="stylesheet" crossorigin href="/assets/style-On9mAbuf.css">
+</head>
+<body data-current="">
+<header class="top-header">
+  <div class="container">
+    <div class="header-main">
+      <a href="index.html" class="brand" aria-label="Milz2">
+        <div class="brand-logo">Milz2</div>
+        <div class="brand-tagline">米国から日本への帰国を、安心と確かな情報でサポートする</div>
+      </a>
+      <div></div>
+      <div class="header-actions">
+        <a class="btn btn-outline" href="login.html">ログイン</a>
+        <a class="btn btn-primary" href="signup.html">無料会員登録</a>
+      </div>
+    </div>
+    <div class="nav-row">
+      <nav class="global-nav" aria-label="メインナビゲーション">
+        <a href="index.html" data-nav="home">トップ</a>
+        <a href="jobs.html" data-nav="jobs">求人を探す</a>
+        <a href="moving.html" data-nav="moving">引越し・手続き</a>
+        <a href="insurance.html" data-nav="insurance">保険</a>
+        <a href="housing.html" data-nav="housing">住まい</a>
+        <a href="articles.html" data-nav="articles">お役立ち記事</a>
+        <a href="company.html" data-nav="company">法人の方へ</a>
+      </nav>
+    </div>
+  </div>
+</header>
+<main>
+
+<section class="page-hero">
+  <div class="container page-hero-grid">
+    <div>
+      <div class="breadcrumb">トップ / マイページ</div>
+      <h1 class="page-title">マイページ</h1>
+      <p class="page-lead">保存した求人、チェックリスト、最近見た記事を確認できます。実装時はログイン後ページとして利用できます。</p>
+    </div>
+    <div class="hero-side-card"><h3>帰国予定時期</h3><p>3〜6ヶ月前として表示しています。</p></div>
+  </div>
+</section>
+
+<section class="section"><div class="container dashboard-grid"><aside class="dashboard-menu"><a class="active" href="#">ダッシュボード</a><a href="#">保存した求人</a><a href="#">チェックリスト</a><a href="#">最近見た記事</a><a href="#">アカウント設定</a></aside><div class="list-stack"><div class="panel"><div class="panel-head"><h2 class="panel-title">次に確認すること</h2><a class="more-link" href="moving-checklist.html">チェックリスト</a></div><div class="todo-list"><div class="todo"><div class="todo-check"></div><div><strong>引越し会社へ見積もり相談</strong><span>帰国予定日の4〜6ヶ月前に確認</span></div><a class="more-link" href="support-companies.html">企業</a></div><div class="todo"><div class="todo-check"></div><div><strong>帰国者向け求人を保存</strong><span>オンライン面談可能な求人を確認</span></div><a class="more-link" href="jobs.html">求人</a></div></div></div><div class="panel"><div class="panel-head"><h2 class="panel-title">保存中の求人</h2></div><div class="list-card"><div class="list-top"><h2 class="list-title">グローバル営業（北米担当）</h2><span class="badge new">NEW</span></div><div class="meta-line"><span>Panasonic</span><span>東京都 港区</span></div></div></div></div></div></section>
+
+</main>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-main">
+      <div>
+        <div class="footer-logo">Milz2</div>
+        <p class="footer-desc">米国から日本への帰国を、安心と確かな情報でサポートするプラットフォーム。</p>
+      </div>
+      <div class="footer-col">
+        <h3>サービス</h3>
+        <a href="jobs.html">求人を探す</a>
+        <a href="moving.html">引越し・手続き</a>
+        <a href="insurance.html">保険</a>
+        <a href="housing.html">住まい</a>
+        <a href="articles.html">お役立ち記事</a>
+      </div>
+      <div class="footer-col">
+        <h3>サポート</h3>
+        <a href="signup.html">はじめての方へ</a>
+        <a href="faq.html">よくある質問</a>
+        <a href="company.html">お問い合わせ</a>
+        <a href="company.html">運営会社</a>
+      </div>
+      <div class="footer-col">
+        <h3>法人の方へ</h3>
+        <a href="company.html">法人向けサービス</a>
+        <a href="company.html">帰国サポートプラン</a>
+        <a href="company.html">資料ダウンロード</a>
+        <a href="company.html">お問い合わせ</a>
+      </div>
+      <div class="footer-actions">
+        <a class="btn" href="login.html">ログイン</a>
+        <a class="btn footer-white" href="signup.html">無料会員登録</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-links">
+        <a href="#">利用規約</a>
+        <a href="#">プライバシーポリシー</a>
+        <a href="#">特定商取引法に基づく表記</a>
+      </div>
+      <div>© 2024 Milz2. All Rights Reserved.</div>
+    </div>
+  </div>
+</footer>
+<script>
+  const current = document.body.dataset.current;
+  document.querySelectorAll('[data-nav]').forEach(a => {
+    if (a.dataset.nav === current) a.classList.add('active');
+  });
+</script>
+</body>
+</html>

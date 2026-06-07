@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>登録者管理｜Milz2 Admin</title>
+  <meta name="theme-color" content="#00327f" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body class="admin-body" data-admin-current="users">
+  <div class="admin-shell">
+    <aside class="admin-sidebar">
+  <a class="admin-logo" href="index.html">Milz2<small>Admin Console</small></a>
+  <nav class="admin-menu">
+    <a href="index.html" data-admin="dashboard">ダッシュボード</a>
+    <a href="inquiries.html" data-admin="inquiries">お問い合わせ</a>
+    <a href="articles.html" data-admin="articles">記事管理</a>
+    <a href="users.html" data-admin="users">登録者管理</a>
+    <a href="emails.html" data-admin="emails">一括メール</a>
+    <div class="sep"></div>
+    <a href="jobs.html" data-admin="jobs">求人管理</a>
+    <a href="companies.html" data-admin="companies">企業管理</a>
+    <a href="checklists.html" data-admin="checklists">チェックリスト</a>
+    <a href="analytics.html" data-admin="analytics">分析</a>
+    <a href="settings.html" data-admin="settings">設定</a>
+    <a href="audit-log.html" data-admin="audit">操作ログ</a>
+    <div class="sep"></div>
+    <a href="../index.html">公開サイトへ</a>
+  </nav>
+  <div class="admin-side-note">管理画面は静的モックです。実運用時はSupabase等のDB、認証、メール配信APIと接続してください。</div>
+</aside>
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <div class="admin-title"><h1>登録者管理</h1><p>Milz2 管理画面</p></div>
+        <div class="admin-actions"><a class="btn btn-outline btn-mini" href="settings.html">設定</a><a class="btn btn-primary btn-mini" href="login.html">ログアウト</a><div class="admin-user"><span class="admin-avatar">A</span>Admin</div></div>
+      </header>
+      <div class="admin-content">
+        <section class="admin-panel"><div class="admin-toolbar"><div class="admin-tabs"><a class="admin-tab active" href="#">全員 12,845</a><a class="admin-tab" href="#">米国在住</a><a class="admin-tab" href="#">帰国済み</a><a class="admin-tab" href="#">法人担当</a></div><div class="admin-search"><input type="search" placeholder="氏名・メール・居住地で検索"><button class="btn btn-primary btn-mini">検索</button></div></div><table class="admin-table"><thead><tr><th>氏名</th><th>メール</th><th>居住地</th><th>帰国予定</th><th>登録日</th><th></th></tr></thead><tbody>
+<tr><td>Yuki Sato</td><td>yuki@example.com</td><td>New York</td><td>3ヶ月以内</td><td>2024.05.10</td><td class="right"><a href="user-detail.html">詳細</a></td></tr>
+<tr><td>Mika Tanaka</td><td>mika@example.com</td><td>California</td><td>6ヶ月以上先</td><td>2024.05.09</td><td class="right"><a href="user-detail.html">詳細</a></td></tr>
+<tr><td>Ken Mori</td><td>ken@example.com</td><td>Tokyo</td><td>帰国済み</td><td>2024.05.08</td><td class="right"><a href="user-detail.html">詳細</a></td></tr>
+</tbody></table></section>
+      </div>
+    </main>
+  </div>
+<script>
+  const current = document.body.dataset.adminCurrent;
+  document.querySelectorAll('[data-admin]').forEach(a => { if(a.dataset.admin === current) a.classList.add('active'); });
+</script>
+</body>
+</html>
