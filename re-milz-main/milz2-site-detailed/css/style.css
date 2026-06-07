@@ -242,16 +242,13 @@ h1{margin:0;font-family:var(--serif);font-size:36px;line-height:1.56;letter-spac
 /* Schedule page */
 .feature-cards-section{padding:48px 0}
 .feature-cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.feature-card{display:grid;gap:12px;padding:32px 28px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-soft);transition:.22s ease}
+.feature-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-soft);overflow:hidden;transition:.22s ease}
 .feature-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--blue)}
-.feature-card h3{margin:0;color:var(--navy);font-size:18px;font-weight:900}
-.feature-card p{margin:0;color:var(--text);font-size:13px;line-height:1.9;font-weight:700}
+.feature-card-header{background:var(--navy);padding:20px 28px}
+.feature-card-header h3{margin:0;color:#fff;font-family:var(--serif);font-size:20px;letter-spacing:.06em;font-weight:700}
+.feature-card-body{padding:24px 28px;display:grid;gap:12px}
+.feature-card-body p{margin:0;color:var(--text);font-size:13px;line-height:1.9;font-weight:700}
 .feature-card-link{color:var(--blue);font-size:13px;font-weight:900}
-.feature-card-navy{background:var(--navy);border-color:var(--navy)}
-.feature-card-navy h3{color:#fff}
-.feature-card-navy p{color:rgba(255,255,255,.82)}
-.feature-card-navy .feature-card-link{color:rgba(255,255,255,.95)}
-.feature-card-navy:hover{border-color:var(--blue);box-shadow:0 12px 32px rgba(0,34,84,.22)}
 
 .schedule-input-card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:48px 32px;text-align:center;max-width:640px;margin:0 auto}
 .schedule-input-inner{display:grid;gap:20px;justify-items:center}
