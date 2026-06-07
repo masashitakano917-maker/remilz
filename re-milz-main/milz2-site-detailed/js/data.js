@@ -136,3 +136,15 @@ export async function getHomeStats() {
     articles: articlesRes.count || 0
   };
 }
+
+export async function getCompanyCounts() {
+  const { data, error } = await supabase
+    .from('support_companies')
+    .select('category');
+  if (error) throw error;
+  const counts = {};
+  (data || []).forEach(row => {
+    counts[row.category] = (counts[row.category] || 0) + 1;
+  });
+  return counts;
+}
