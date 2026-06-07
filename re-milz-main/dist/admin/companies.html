@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>企業管理｜Milz2 Admin</title>
   <meta name="theme-color" content="#00327f" />
+  <script type="module" crossorigin src="/assets/admin/companies-1kzhRm7O.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/supabase-CGTu0p87.js">
+  <link rel="modulepreload" crossorigin href="/assets/auth-fCQxssmt.js">
+  <link rel="modulepreload" crossorigin href="/assets/admin-data-Bahd-xFg.js">
   <link rel="stylesheet" crossorigin href="/assets/style-On9mAbuf.css">
 </head>
 <body class="admin-body" data-admin-current="companies">
@@ -27,21 +31,18 @@
     <div class="sep"></div>
     <a href="../index.html">公開サイトへ</a>
   </nav>
-  <div class="admin-side-note">管理画面は静的モックです。実運用時はSupabase等のDB、認証、メール配信APIと接続してください。</div>
+  <div class="admin-side-note">管理画面はSupabaseに接続されています。</div>
 </aside>
     <main class="admin-main">
       <header class="admin-topbar">
         <div class="admin-title"><h1>企業管理</h1><p>Milz2 管理画面</p></div>
-        <div class="admin-actions"><a class="btn btn-outline btn-mini" href="settings.html">設定</a><a class="btn btn-primary btn-mini" href="login.html">ログアウト</a><div class="admin-user"><span class="admin-avatar">A</span>Admin</div></div>
+        <div class="admin-actions"><a class="btn btn-outline btn-mini" href="settings.html">設定</a><a class="btn btn-primary btn-mini" href="login.html" id="logout-btn">ログアウト</a><div class="admin-user"><span class="admin-avatar">A</span>Admin</div></div>
       </header>
       <div class="admin-content">
-        <section class="admin-panel"><div class="admin-toolbar"><div class="admin-tabs"><a class="admin-tab active" href="#">掲載中</a><a class="admin-tab" href="#">審査中</a><a class="admin-tab" href="#">非公開</a></div><a class="btn btn-primary btn-mini" href="company-edit.html">企業を追加</a></div><table class="admin-table"><tr><th>企業名</th><th>カテゴリ</th><th>対応</th><th>状態</th><th></th></tr><tr><td>Milz International Moving</td><td>引越し</td><td>オンライン / 法人</td><td><span class="admin-badge green">掲載中</span></td><td class="right"><a href="company-edit.html">編集</a></td></tr><tr><td>Return Insurance Desk</td><td>保険</td><td>オンライン</td><td><span class="admin-badge green">掲載中</span></td><td class="right"><a href="company-edit.html">編集</a></td></tr></table></section>
+        <section class="admin-panel"><div class="admin-toolbar"><div class="admin-tabs"><a class="admin-tab active" href="#">全て</a></div><a class="btn btn-primary btn-mini" href="company-edit.html">企業を追加</a></div><table class="admin-table"><thead><tr><th>企業名</th><th>カテゴリ</th><th>対応</th><th></th></tr></thead><tbody>
+</tbody></table></section>
       </div>
     </main>
   </div>
-<script>
-  const current = document.body.dataset.adminCurrent;
-  document.querySelectorAll('[data-admin]').forEach(a => { if(a.dataset.admin === current) a.classList.add('active'); });
-</script>
 </body>
 </html>

@@ -27,21 +27,65 @@
     <div class="sep"></div>
     <a href="../index.html">公開サイトへ</a>
   </nav>
-  <div class="admin-side-note">管理画面は静的モックです。実運用時はSupabase等のDB、認証、メール配信APIと接続してください。</div>
+  <div class="admin-side-note">管理画面はSupabaseに接続されています。</div>
 </aside>
     <main class="admin-main">
       <header class="admin-topbar">
         <div class="admin-title"><h1>企業管理</h1><p>Milz2 管理画面</p></div>
-        <div class="admin-actions"><a class="btn btn-outline btn-mini" href="settings.html">設定</a><a class="btn btn-primary btn-mini" href="login.html">ログアウト</a><div class="admin-user"><span class="admin-avatar">A</span>Admin</div></div>
+        <div class="admin-actions"><a class="btn btn-outline btn-mini" href="settings.html">設定</a><a class="btn btn-primary btn-mini" href="login.html" id="logout-btn">ログアウト</a><div class="admin-user"><span class="admin-avatar">A</span>Admin</div></div>
       </header>
       <div class="admin-content">
-        <section class="admin-panel"><div class="admin-toolbar"><div class="admin-tabs"><a class="admin-tab active" href="#">掲載中</a><a class="admin-tab" href="#">審査中</a><a class="admin-tab" href="#">非公開</a></div><a class="btn btn-primary btn-mini" href="company-edit.html">企業を追加</a></div><table class="admin-table"><tr><th>企業名</th><th>カテゴリ</th><th>対応</th><th>状態</th><th></th></tr><tr><td>Milz International Moving</td><td>引越し</td><td>オンライン / 法人</td><td><span class="admin-badge green">掲載中</span></td><td class="right"><a href="company-edit.html">編集</a></td></tr><tr><td>Return Insurance Desk</td><td>保険</td><td>オンライン</td><td><span class="admin-badge green">掲載中</span></td><td class="right"><a href="company-edit.html">編集</a></td></tr></table></section>
+        <section class="admin-panel"><div class="admin-toolbar"><div class="admin-tabs"><a class="admin-tab active" href="#">全て</a></div><a class="btn btn-primary btn-mini" href="company-edit.html">企業を追加</a></div><table class="admin-table"><thead><tr><th>企業名</th><th>カテゴリ</th><th>対応</th><th></th></tr></thead><tbody>
+</tbody></table></section>
       </div>
     </main>
   </div>
-<script>
+<script type="module">
+  import { requireAdmin, signOut } from '../js/auth.js';
+  import { getAllCompanies, deleteCompany } from '../js/admin-data.js';
+
   const current = document.body.dataset.adminCurrent;
   document.querySelectorAll('[data-admin]').forEach(a => { if(a.dataset.admin === current) a.classList.add('active'); });
+
+  (async () => {
+    const profile = await requireAdmin();
+    if (!profile) return;
+    loadCompanies();
+  })();
+
+  async function loadCompanies() {
+    const tbody = document.querySelector('.admin-table tbody');
+    try {
+      const companies = await getAllCompanies();
+      tbody.innerHTML = companies.map(c => `
+        <tr>
+          <td>${c.name}</td>
+          <td>${c.category || '-'}</td>
+          <td>${[c.online && 'オンライン', c.corporate && '法人'].filter(Boolean).join(' / ') || '-'}</td>
+          <td class="right"><a href="company-edit.html?id=${c.id}">編集</a> / <a href="#" data-delete="${c.id}">削除</a></td>
+        </tr>
+      `).join('');
+      if (companies.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:24px;color:var(--muted)">企業が登録されていません</td></tr>';
+      }
+      tbody.querySelectorAll('[data-delete]').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          if (!confirm('この企業を削除しますか？')) return;
+          await deleteCompany(btn.dataset.delete);
+          loadCompanies();
+        });
+      });
+    } catch (e) {
+      tbody.innerHTML = '<tr><td colspan="4" style="color:var(--red)">読み込みエラー</td></tr>';
+    }
+  }
+
+  document.getElementById('logout-btn')?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    await signOut();
+    window.location.href = 'login.html';
+  });
 </script>
 </body>
 </html>

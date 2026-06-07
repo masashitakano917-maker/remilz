@@ -35,10 +35,7 @@
         <div class="admin-actions"><a class="btn btn-outline btn-mini" href="settings.html">設定</a><a class="btn btn-primary btn-mini" href="login.html">ログアウト</a><div class="admin-user"><span class="admin-avatar">A</span>Admin</div></div>
       </header>
       <div class="admin-content">
-        <section class="admin-panel"><div class="admin-toolbar"><div class="admin-tabs"><a class="admin-tab active" href="#">全員 12,845</a><a class="admin-tab" href="#">米国在住</a><a class="admin-tab" href="#">帰国済み</a><a class="admin-tab" href="#">法人担当</a></div><div class="admin-search"><input type="search" placeholder="氏名・メール・居住地で検索"><button class="btn btn-primary btn-mini">検索</button></div></div><table class="admin-table"><thead><tr><th>氏名</th><th>メール</th><th>居住地</th><th>帰国予定</th><th>登録日</th><th></th></tr></thead><tbody>
-<tr><td>Yuki Sato</td><td>yuki@example.com</td><td>New York</td><td>3ヶ月以内</td><td>2024.05.10</td><td class="right"><a href="user-detail.html">詳細</a></td></tr>
-<tr><td>Mika Tanaka</td><td>mika@example.com</td><td>California</td><td>6ヶ月以上先</td><td>2024.05.09</td><td class="right"><a href="user-detail.html">詳細</a></td></tr>
-<tr><td>Ken Mori</td><td>ken@example.com</td><td>Tokyo</td><td>帰国済み</td><td>2024.05.08</td><td class="right"><a href="user-detail.html">詳細</a></td></tr>
+        <section class="admin-panel"><div class="admin-toolbar"><div class="admin-tabs"><a class="admin-tab active" href="#" id="tab-all">全員 <span id="count-all">0</span></a></div><div class="admin-search"><input type="search" id="user-search" placeholder="氏名・メール・居住地で検索"><button class="btn btn-primary btn-mini" id="search-btn">検索</button></div></div><table class="admin-table"><thead><tr><th>氏名</th><th>メール</th><th>居住地</th><th>帰国予定</th><th>登録日</th><th></th></tr></thead><tbody>
 </tbody></table></section>
       </div>
     </main>
@@ -56,7 +53,28 @@
 
     try {
       const users = await getAllUsers();
+      document.getElementById('count-all').textContent = users.length;
       const tbody = document.querySelector('.admin-table tbody');
+      renderUsers(users, tbody);
+
+      document.getElementById('search-btn').addEventListener('click', () => {
+        const q = document.getElementById('user-search').value.toLowerCase();
+        const filtered = users.filter(u =>
+          (u.full_name || '').toLowerCase().includes(q) ||
+          (u.email || '').toLowerCase().includes(q) ||
+          (u.current_residence || '').toLowerCase().includes(q)
+        );
+        renderUsers(filtered, tbody);
+      });
+    } catch (e) {
+      console.error('Users load error:', e);
+    }
+
+    function renderUsers(users, tbody) {
+      if (users.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted)">登録者がいません</td></tr>';
+        return;
+      }
       tbody.innerHTML = users.map(u => `
         <tr>
           <td>${u.full_name || '-'}</td>
@@ -67,11 +85,6 @@
           <td class="right"><a href="user-detail.html?id=${u.id}">詳細</a></td>
         </tr>
       `).join('');
-      if (users.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted)">登録者がいません</td></tr>';
-      }
-    } catch (e) {
-      console.error('Users load error:', e);
     }
   })();
 

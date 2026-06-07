@@ -1,8 +1,0 @@
-import"../supabase-CGTu0p87.js";/* empty css               */import{r as o,s as l}from"../auth-fCQxssmt.js";import{i as u}from"../admin-data-n9O3WkQU.js";import"https://esm.sh/@supabase/supabase-js@2";const m=document.body.dataset.adminCurrent;document.querySelectorAll("[data-admin]").forEach(t=>{t.dataset.admin===m&&t.classList.add("active")});let r="published";(async()=>await o()&&c())();const s=document.querySelectorAll(".admin-tab");s.forEach(t=>{t.addEventListener("click",a=>{a.preventDefault(),s.forEach(d=>d.classList.remove("active")),t.classList.add("active");const n=t.textContent;n==="公開中"?r="published":n==="下書き"?r="draft":r="ended",c()})});async function c(){const t=document.querySelector(".admin-table");try{const a=await u({status:r}),n={published:"公開",draft:"下書き",ended:"終了"},d={published:"green",draft:"",ended:"orange"};t.innerHTML="<tr><th>求人名</th><th>企業</th><th>勤務地</th><th>状態</th><th>応募</th><th></th></tr>"+a.map(e=>`<tr>
-          <td>${e.title}</td>
-          <td>${e.company_name}</td>
-          <td>${e.location||""}</td>
-          <td><span class="admin-badge ${d[e.status]||""}">${n[e.status]||e.status}</span></td>
-          <td>${e.application_count}</td>
-          <td class="right"><a href="job-edit.html?id=${e.id}">編集</a></td>
-        </tr>`).join(""),a.length===0&&(t.innerHTML+='<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted)">該当する求人がありません</td></tr>')}catch{t.innerHTML='<tr><td colspan="6" style="color:var(--red)">読み込みエラー</td></tr>'}}var i;(i=document.querySelector(".admin-actions .btn-primary"))==null||i.addEventListener("click",async t=>{t.preventDefault(),await l(),window.location.href="login.html"});

@@ -27,21 +27,77 @@
     <div class="sep"></div>
     <a href="../index.html">公開サイトへ</a>
   </nav>
-  <div class="admin-side-note">管理画面は静的モックです。実運用時はSupabase等のDB、認証、メール配信APIと接続してください。</div>
+  <div class="admin-side-note">管理画面はSupabaseに接続されています。</div>
 </aside>
     <main class="admin-main">
       <header class="admin-topbar">
         <div class="admin-title"><h1>登録者詳細</h1><p>Milz2 管理画面</p></div>
-        <div class="admin-actions"><a class="btn btn-outline btn-mini" href="settings.html">設定</a><a class="btn btn-primary btn-mini" href="login.html">ログアウト</a><div class="admin-user"><span class="admin-avatar">A</span>Admin</div></div>
+        <div class="admin-actions"><a class="btn btn-outline btn-mini" href="users.html">一覧に戻る</a><a class="btn btn-primary btn-mini" href="login.html" id="logout-btn">ログアウト</a><div class="admin-user"><span class="admin-avatar">A</span>Admin</div></div>
       </header>
       <div class="admin-content">
-        <section class="admin-grid cols-2"><div class="admin-panel"><div class="admin-panel-head"><h2 class="admin-panel-title">登録者情報</h2><span class="admin-badge green">会員</span></div><table class="table"><tr><th>氏名</th><td>Yuki Sato</td></tr><tr><th>メール</th><td>yuki@example.com</td></tr><tr><th>現在地</th><td>New York, NY</td></tr><tr><th>帰国予定</th><td>3ヶ月以内</td></tr><tr><th>興味カテゴリ</th><td>求人 / 引越し / 住まい</td></tr></table></div><div class="admin-panel"><div class="admin-panel-head"><h2 class="admin-panel-title">行動履歴</h2></div><div class="admin-list"><div class="admin-list-item"><h3>求人を保存</h3><div class="admin-list-meta"><span>2024.05.10</span><span>グローバル営業</span></div></div><div class="admin-list-item"><h3>記事を閲覧</h3><div class="admin-list-meta"><span>2024.05.09</span><span>行政手続きまとめ</span></div></div><div class="admin-list-item"><h3>問い合わせ</h3><div class="admin-list-meta"><span>2024.05.09</span><span>引越し相談</span></div></div></div></div></section>
+        <section class="admin-grid cols-2">
+          <div class="admin-panel">
+            <div class="admin-panel-head"><h2 class="admin-panel-title">登録者情報</h2><span class="admin-badge green" id="badge">会員</span></div>
+            <table class="table" id="user-info">
+              <tr><th>氏名</th><td id="name">-</td></tr>
+              <tr><th>メール</th><td id="email">-</td></tr>
+              <tr><th>現在地</th><td id="residence">-</td></tr>
+              <tr><th>帰国予定</th><td id="return-date">-</td></tr>
+              <tr><th>登録日</th><td id="created-at">-</td></tr>
+              <tr><th>管理者</th><td id="is-admin">-</td></tr>
+            </table>
+          </div>
+          <div class="admin-panel">
+            <div class="admin-panel-head"><h2 class="admin-panel-title">メモ</h2></div>
+            <p style="padding:16px;color:var(--muted);font-size:14px">ユーザーに関するメモ機能は今後追加予定です。</p>
+          </div>
+        </section>
       </div>
     </main>
   </div>
-<script>
+<script type="module">
+  import { requireAdmin, signOut } from '../js/auth.js';
+  import { supabase } from '../js/supabase.js';
+
   const current = document.body.dataset.adminCurrent;
   document.querySelectorAll('[data-admin]').forEach(a => { if(a.dataset.admin === current) a.classList.add('active'); });
+
+  (async () => {
+    const profile = await requireAdmin();
+    if (!profile) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const userId = params.get('id');
+    if (!userId) {
+      document.getElementById('name').textContent = 'ユーザーIDが指定されていません';
+      return;
+    }
+
+    const { data: user, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .maybeSingle();
+
+    if (error || !user) {
+      document.getElementById('name').textContent = 'ユーザーが見つかりません';
+      return;
+    }
+
+    document.getElementById('name').textContent = user.full_name || '-';
+    document.getElementById('email').textContent = user.email || '-';
+    document.getElementById('residence').textContent = user.current_residence || '-';
+    document.getElementById('return-date').textContent = user.expected_return_date || '-';
+    document.getElementById('created-at').textContent = user.created_at ? new Date(user.created_at).toLocaleDateString('ja-JP') : '-';
+    document.getElementById('is-admin').textContent = user.is_admin ? 'はい' : 'いいえ';
+    if (user.is_admin) document.getElementById('badge').textContent = '管理者';
+  })();
+
+  document.getElementById('logout-btn')?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    await signOut();
+    window.location.href = 'login.html';
+  });
 </script>
 </body>
 </html>
