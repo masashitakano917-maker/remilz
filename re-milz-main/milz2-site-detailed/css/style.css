@@ -586,6 +586,7 @@ h1{margin:0;font-family:var(--serif);font-size:34px;line-height:1.6;letter-spaci
 
 /* Modals */
 .mypage-modal-overlay{position:fixed;inset:0;background:rgba(0,20,60,.4);display:grid;place-items:center;z-index:1000;padding:24px}
+.mypage-modal-overlay[hidden]{display:none}
 .mypage-modal{background:#fff;border-radius:14px;box-shadow:0 24px 64px rgba(0,20,60,.18);width:100%;max-width:560px;max-height:80vh;overflow:auto}
 .mypage-modal-lg{max-width:720px}
 .mypage-modal-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--line)}
