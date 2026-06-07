@@ -1,4 +1,4 @@
-import{r as n,a as i}from"../auth-C3nl4jWx.js";/* empty css               */import{j as o}from"../admin-data-swOxuN81.js";import"https://esm.sh/@supabase/supabase-js@2";const c=document.body.dataset.adminCurrent;document.querySelectorAll("[data-admin]").forEach(e=>{e.dataset.admin===c&&e.classList.add("active")});(async()=>{if(await n())try{const r=await o(),a=document.querySelector(".admin-table tbody");a.innerHTML=r.map(t=>`
+import"../supabase-CGTu0p87.js";/* empty css               */import{r as n,s as i}from"../auth-fCQxssmt.js";import{j as o}from"../admin-data-n9O3WkQU.js";import"https://esm.sh/@supabase/supabase-js@2";const c=document.body.dataset.adminCurrent;document.querySelectorAll("[data-admin]").forEach(e=>{e.dataset.admin===c&&e.classList.add("active")});(async()=>{if(await n())try{const r=await o(),a=document.querySelector(".admin-table tbody");a.innerHTML=r.map(t=>`
         <tr>
           <td>${t.full_name||"-"}</td>
           <td>${t.email||"-"}</td>

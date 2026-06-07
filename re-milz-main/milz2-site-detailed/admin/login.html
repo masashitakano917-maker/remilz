@@ -1,31 +1,37 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin Login｜Milz2</title><link rel="stylesheet" href="../css/style.css"></head><body class="admin-body"><section class="admin-login"><div class="admin-login-card"><div class="admin-logo">Milz2<small>Admin Console</small></div><div id="error-msg" style="display:none;color:var(--red);background:#fef2f2;padding:12px;border-radius:6px;margin-bottom:16px;font-size:14px"></div><form class="admin-form" id="admin-login-form"><label>メールアドレス<input type="email" id="email" placeholder="admin@example.com" required></label><label>パスワード<input type="password" id="password" placeholder="password" required></label><button class="btn btn-primary" type="submit" id="submit-btn">ログイン</button></form></div></section>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin Login｜Milz2</title><link rel="stylesheet" href="../css/style.css"></head><body class="admin-body"><section class="admin-login"><div class="admin-login-card"><div class="admin-logo">Milz2<small>Admin Console</small></div><div id="error-msg" style="display:none;color:var(--red);background:#fef2f2;padding:12px;border-radius:6px;margin-bottom:16px;font-size:14px"></div><div id="success-msg" style="display:none;color:var(--green);background:var(--green-bg);padding:12px;border-radius:6px;margin-bottom:16px;font-size:14px"></div><form class="admin-form" id="admin-login-form"><label>メールアドレス<input type="email" id="email" placeholder="admin@example.com" required></label><label>パスワード<input type="password" id="password" placeholder="password" required></label><button class="btn btn-primary" type="submit" id="submit-btn">ログイン</button><p style="text-align:center;margin-top:16px;font-size:13px;color:var(--muted)"><a href="#" id="setup-link">初回管理者セットアップ</a></p></form></div></section>
 <script type="module">
-  import { signIn } from '../js/auth.js';
   import { supabase } from '../js/supabase.js';
 
   const form = document.getElementById('admin-login-form');
   const errorMsg = document.getElementById('error-msg');
+  const successMsg = document.getElementById('success-msg');
   const submitBtn = document.getElementById('submit-btn');
+  const setupLink = document.getElementById('setup-link');
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     errorMsg.style.display = 'none';
+    successMsg.style.display = 'none';
     submitBtn.disabled = true;
     submitBtn.textContent = 'ログイン中...';
 
-    try {
-      const data = await signIn({
-        email: document.getElementById('email').value,
-        password: document.getElementById('password').value
-      });
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-      const { data: profile } = await supabase
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+
+      const { data: profile, error: profileErr } = await supabase
         .from('profiles')
         .select('is_admin')
         .eq('id', data.user.id)
         .maybeSingle();
 
+      if (profileErr) throw profileErr;
+
       if (!profile || !profile.is_admin) {
+        await supabase.auth.signOut();
         throw new Error('管理者権限がありません。');
       }
 
@@ -37,6 +43,60 @@
       errorMsg.style.display = 'block';
       submitBtn.disabled = false;
       submitBtn.textContent = 'ログイン';
+    }
+  });
+
+  setupLink.addEventListener('click', async (e) => {
+    e.preventDefault();
+    errorMsg.style.display = 'none';
+    successMsg.style.display = 'none';
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    if (!email || !password) {
+      errorMsg.textContent = 'メールアドレスとパスワードを入力してからセットアップを押してください。';
+      errorMsg.style.display = 'block';
+      return;
+    }
+
+    if (password.length < 6) {
+      errorMsg.textContent = 'パスワードは6文字以上にしてください。';
+      errorMsg.style.display = 'block';
+      return;
+    }
+
+    try {
+      const { data: existingAdmins } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('is_admin', true)
+        .limit(1);
+
+      if (existingAdmins && existingAdmins.length > 0) {
+        errorMsg.textContent = '管理者アカウントは既にセットアップ済みです。ログインしてください。';
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { full_name: 'Admin' } }
+      });
+      if (error) throw error;
+
+      if (data.user) {
+        const { data: promoted, error: rpcErr } = await supabase.rpc('promote_to_admin');
+        if (rpcErr) throw rpcErr;
+        if (!promoted) throw new Error('管理者の昇格に失敗しました。');
+      }
+
+      successMsg.textContent = '管理者アカウントを作成しました。上記の情報でログインしてください。';
+      successMsg.style.display = 'block';
+    } catch (err) {
+      errorMsg.textContent = `セットアップに失敗しました: ${err.message}`;
+      errorMsg.style.display = 'block';
     }
   });
 </script>
