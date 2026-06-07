@@ -27,21 +27,41 @@
     <div class="sep"></div>
     <a href="../index.html">公開サイトへ</a>
   </nav>
-  <div class="admin-side-note">管理画面は静的モックです。実運用時はSupabase等のDB、認証、メール配信APIと接続してください。</div>
+  <div class="admin-side-note">管理画面はSupabaseに接続されています。</div>
 </aside>
     <main class="admin-main">
       <header class="admin-topbar">
         <div class="admin-title"><h1>一括メール配信</h1><p>Milz2 管理画面</p></div>
-        <div class="admin-actions"><a class="btn btn-outline btn-mini" href="settings.html">設定</a><a class="btn btn-primary btn-mini" href="login.html">ログアウト</a><div class="admin-user"><span class="admin-avatar">A</span>Admin</div></div>
+        <div class="admin-actions"><a class="btn btn-outline btn-mini" href="settings.html">設定</a><a class="btn btn-primary btn-mini" href="login.html" id="logout-btn">ログアウト</a><div class="admin-user"><span class="admin-avatar">A</span>Admin</div></div>
       </header>
       <div class="admin-content">
-        <section class="admin-grid cols-2"><div class="admin-panel"><div class="admin-panel-head"><h2 class="admin-panel-title">一括メール作成</h2></div><form class="admin-form"><label>配信対象<select><option>全登録者</option><option>米国在住者</option><option>帰国予定3ヶ月以内</option><option>求人に興味がある人</option><option>法人担当者</option></select></label><label>件名<input value="今週の帰国準備ニュース"></label><label>本文<textarea>Milz2編集部です。今週よく読まれている帰国準備情報をお届けします...</textarea></label><div class="admin-actions"><button class="btn btn-primary" type="submit">配信予約</button><button class="btn btn-outline" type="button">テスト送信</button><button class="btn btn-outline" type="button">下書き保存</button></div></form></div><div class="admin-panel"><div class="admin-panel-head"><h2 class="admin-panel-title">プレビュー</h2></div><div class="admin-mail-preview"><strong>件名：今週の帰国準備ニュース</strong><br><br>Milz2編集部です。今週よく読まれている帰国準備情報をお届けします。<br><br>・帰国後の行政手続き<br>・国際引越しの見積もり目安<br>・帰国者歓迎求人</div></div></section><section class="admin-panel"><div class="admin-panel-head"><h2 class="admin-panel-title">配信履歴</h2></div><table class="admin-table"><tr><th>配信日</th><th>件名</th><th>対象</th><th>配信数</th><th>開封率</th></tr><tr><td>2024.05.10</td><td>帰国前チェックリスト</td><td>3ヶ月以内</td><td>2,180</td><td>42%</td></tr><tr><td>2024.05.03</td><td>新着求人まとめ</td><td>求人希望者</td><td>4,920</td><td>38%</td></tr></table></section>
+        <section class="admin-panel" style="max-width:720px">
+          <div class="admin-panel-head"><h2 class="admin-panel-title">一括メール配信</h2></div>
+          <div style="padding:24px;color:var(--muted);line-height:1.7">
+            <p>メール配信機能を利用するには、外部のメール配信サービス（Resend、SendGrid等）との連携設定が必要です。</p>
+            <p style="margin-top:12px">連携が完了すると、登録者へのセグメント配信が可能になります。</p>
+            <p style="margin-top:16px;font-size:13px;color:var(--muted)">設定方法: Edge Functionでメール送信APIを構築し、この画面から呼び出す形になります。</p>
+          </div>
+        </section>
       </div>
     </main>
   </div>
-<script>
+<script type="module">
+  import { requireAdmin, signOut } from '../js/auth.js';
+
   const current = document.body.dataset.adminCurrent;
   document.querySelectorAll('[data-admin]').forEach(a => { if(a.dataset.admin === current) a.classList.add('active'); });
+
+  (async () => {
+    const profile = await requireAdmin();
+    if (!profile) return;
+  })();
+
+  document.getElementById('logout-btn')?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    await signOut();
+    window.location.href = 'login.html';
+  });
 </script>
 </body>
 </html>
