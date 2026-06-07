@@ -56,9 +56,9 @@ button,input,select,textarea{font:inherit}
 .global-nav a{height:50px;display:flex;align-items:center;border-bottom:3px solid transparent;transition:.18s ease}
 .global-nav a:hover,.global-nav a.active{color:var(--navy);border-color:var(--navy)}
 
-.hero{position:relative;min-height:430px;background:#fff;overflow:hidden;border-bottom:1px solid var(--line2)}
+.hero{position:relative;min-height:540px;background:#fff;overflow:hidden;border-bottom:1px solid var(--line2)}
 .hero-bg{position:absolute;top:0;right:0;bottom:0;width:48%;height:auto;background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.98) 10%,rgba(255,255,255,.88) 26%,rgba(255,255,255,.56) 44%,rgba(255,255,255,.18) 66%,rgba(255,255,255,0) 100%),url('https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=1600&q=88') center/cover no-repeat}
-.hero-inner{position:relative;z-index:2;min-height:430px;display:grid;grid-template-columns:minmax(0,620px) 330px;justify-content:space-between;align-items:start;gap:28px;padding-top:36px;padding-bottom:34px}
+.hero-inner{position:relative;z-index:2;min-height:540px;display:grid;grid-template-columns:minmax(0,620px) 330px;justify-content:space-between;align-items:center;gap:28px;padding-top:48px;padding-bottom:48px}
 .hero-copy{width:100%;max-width:620px;padding:8px 0 0}
 h1{margin:0;font-family:var(--serif);font-size:36px;line-height:1.56;letter-spacing:.045em;font-weight:700;color:var(--navy)}
 .hero-lead{width:auto;max-width:540px;margin:24px 0 0;color:var(--text);font-size:13px;line-height:2;font-weight:800}
@@ -251,9 +251,9 @@ h1{margin:0;font-family:var(--serif);font-size:36px;line-height:1.56;letter-spac
 
 @media (max-width:1180px){
   .brand-tagline{display:none}
-  .hero{min-height:410px}
+  .hero{min-height:500px}
   .hero-bg{width:47%}
-  .hero-inner{min-height:410px;grid-template-columns:minmax(0,560px) 306px;gap:22px}
+  .hero-inner{min-height:500px;grid-template-columns:minmax(0,560px) 306px;gap:22px}
   h1{font-size:33px}
   .hero-lead{max-width:500px;font-size:12.5px}
   .live-board{width:306px}
