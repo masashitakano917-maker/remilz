@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>記事管理｜Milz2 Admin</title>
   <meta name="theme-color" content="#00327f" />
+  <script type="module" crossorigin src="/assets/admin/articles-B1n5v2RX.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/auth-C3nl4jWx.js">
+  <link rel="modulepreload" crossorigin href="/assets/admin-data-swOxuN81.js">
   <link rel="stylesheet" crossorigin href="/assets/style-On9mAbuf.css">
 </head>
 <body class="admin-body" data-admin-current="articles">
@@ -27,7 +30,7 @@
     <div class="sep"></div>
     <a href="../index.html">公開サイトへ</a>
   </nav>
-  <div class="admin-side-note">管理画面は静的モックです。実運用時はSupabase等のDB、認証、メール配信APIと接続してください。</div>
+  <div class="admin-side-note">管理画面はSupabaseに接続されています。</div>
 </aside>
     <main class="admin-main">
       <header class="admin-topbar">
@@ -43,9 +46,5 @@
       </div>
     </main>
   </div>
-<script>
-  const current = document.body.dataset.adminCurrent;
-  document.querySelectorAll('[data-admin]').forEach(a => { if(a.dataset.admin === current) a.classList.add('active'); });
-</script>
 </body>
 </html>

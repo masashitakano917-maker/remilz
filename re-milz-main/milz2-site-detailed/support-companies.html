@@ -104,11 +104,51 @@
     </div>
   </div>
 </footer>
-<script>
+<script type="module">
+  import { initAuth } from './js/auth.js';
+  import { getCompanies } from './js/data.js';
+
   const current = document.body.dataset.current;
   document.querySelectorAll('[data-nav]').forEach(a => {
     if (a.dataset.nav === current) a.classList.add('active');
   });
+
+  initAuth();
+
+  const listStack = document.querySelector('.list-stack');
+  const searchInput = document.querySelector('.search-bar input');
+  const searchBtn = document.querySelector('.search-bar button');
+
+  async function loadCompanies() {
+    listStack.innerHTML = '<p style="padding:24px;color:var(--muted)">読み込み中...</p>';
+    try {
+      const companies = await getCompanies();
+      if (companies.length === 0) {
+        listStack.innerHTML = '<p style="padding:24px;color:var(--muted)">企業が見つかりませんでした。</p>';
+        return;
+      }
+      listStack.innerHTML = companies.map(c => `
+        <article class="list-card">
+          <div class="list-top">
+            <h2 class="list-title">${c.name}</h2>
+            ${c.is_featured ? '<span class="badge new">新着</span>' : `<span class="badge">${c.category}</span>`}
+          </div>
+          <div class="meta-line">
+            <span>${c.category}</span>
+            ${c.has_online_support ? '<span>オンライン相談可</span>' : ''}
+            ${c.has_corporate_support ? '<span>法人対応</span>' : ''}
+            ${c.has_english_support ? '<span>英語対応</span>' : ''}
+          </div>
+          <p>${c.description || ''}</p>
+          <a class="more-link" href="company-detail.html?id=${c.id}">詳細を見る</a>
+        </article>
+      `).join('');
+    } catch (e) {
+      listStack.innerHTML = '<p style="padding:24px;color:var(--red)">企業の読み込みに失敗しました。</p>';
+    }
+  }
+
+  loadCompanies();
 </script>
 </body>
 </html>

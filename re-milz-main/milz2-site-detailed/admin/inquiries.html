@@ -27,7 +27,7 @@
     <div class="sep"></div>
     <a href="../index.html">公開サイトへ</a>
   </nav>
-  <div class="admin-side-note">管理画面は静的モックです。実運用時はSupabase等のDB、認証、メール配信APIと接続してください。</div>
+  <div class="admin-side-note">管理画面はSupabaseに接続されています。</div>
 </aside>
     <main class="admin-main">
       <header class="admin-topbar">
@@ -44,9 +44,76 @@
       </div>
     </main>
   </div>
-<script>
+<script type="module">
+  import { requireAdmin, signOut } from '../js/auth.js';
+  import { getAllInquiries, updateInquiryStatus } from '../js/admin-data.js';
+
   const current = document.body.dataset.adminCurrent;
   document.querySelectorAll('[data-admin]').forEach(a => { if(a.dataset.admin === current) a.classList.add('active'); });
+
+  let currentFilter = '';
+
+  (async () => {
+    const profile = await requireAdmin();
+    if (!profile) return;
+    loadInquiries();
+  })();
+
+  const tabs = document.querySelectorAll('.admin-tab');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault();
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const text = tab.textContent;
+      if (text.includes('未対応')) currentFilter = 'pending';
+      else if (text.includes('対応中')) currentFilter = 'reviewing';
+      else if (text.includes('完了')) currentFilter = 'resolved';
+      else currentFilter = '';
+      loadInquiries();
+    });
+  });
+
+  async function loadInquiries() {
+    const tbody = document.querySelector('.admin-table tbody');
+    try {
+      const inquiries = await getAllInquiries({ status: currentFilter });
+      const statusLabels = { pending: '未対応', reviewing: '対応中', resolved: '完了' };
+      const statusColors = { pending: 'red', reviewing: 'orange', resolved: 'green' };
+      tbody.innerHTML = inquiries.map(inq => `
+        <tr>
+          <td>${new Date(inq.created_at).toLocaleString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).replace(/\//g, '.')}</td>
+          <td>${inq.name}</td>
+          <td>${inq.category}</td>
+          <td>${inq.title}</td>
+          <td>
+            <select data-id="${inq.id}" class="status-select" style="font-size:12px;padding:4px 8px;border-radius:4px;border:1px solid var(--line)">
+              <option value="pending" ${inq.status === 'pending' ? 'selected' : ''}>未対応</option>
+              <option value="reviewing" ${inq.status === 'reviewing' ? 'selected' : ''}>対応中</option>
+              <option value="resolved" ${inq.status === 'resolved' ? 'selected' : ''}>完了</option>
+            </select>
+          </td>
+          <td class="right"><a href="inquiry-detail.html?id=${inq.id}">詳細</a></td>
+        </tr>
+      `).join('');
+      if (inquiries.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted)">該当するお問い合わせがありません</td></tr>';
+      }
+      tbody.querySelectorAll('.status-select').forEach(sel => {
+        sel.addEventListener('change', async () => {
+          await updateInquiryStatus(sel.dataset.id, sel.value);
+        });
+      });
+    } catch (e) {
+      tbody.innerHTML = '<tr><td colspan="6" style="color:var(--red)">読み込みエラー</td></tr>';
+    }
+  }
+
+  document.querySelector('.admin-actions .btn-primary')?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    await signOut();
+    window.location.href = 'login.html';
+  });
 </script>
 </body>
 </html>

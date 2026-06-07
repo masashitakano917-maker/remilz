@@ -162,11 +162,56 @@
     </div>
   </div>
 </footer>
-<script>
+<script type="module">
+  import { initAuth } from './js/auth.js';
+  import { getHomeStats, getJobs, getArticles } from './js/data.js';
+
   const current = document.body.dataset.current;
   document.querySelectorAll('[data-nav]').forEach(a => {
     if (a.dataset.nav === current) a.classList.add('active');
   });
+
+  initAuth();
+
+  (async () => {
+    try {
+      const stats = await getHomeStats();
+      const statEls = document.querySelectorAll('.live-stat strong');
+      if (statEls[0]) statEls[0].textContent = stats.jobs;
+      if (statEls[1]) statEls[1].textContent = stats.companies;
+      if (statEls[2]) statEls[2].textContent = stats.articles;
+    } catch (e) { console.error('Stats load error:', e); }
+
+    try {
+      const { jobs } = await getJobs({ limit: 3 });
+      const jobGrid = document.querySelector('.job-grid');
+      if (jobGrid && jobs.length > 0) {
+        jobGrid.innerHTML = jobs.map(job => `
+          <article class="job-card">
+            <div class="company-logo">${job.company_name} <span class="job-status">${job.employment_type}</span></div>
+            <h3><a href="job-detail.html?id=${job.id}">${job.title}</a></h3>
+            <p>${job.company_name}</p>
+            <div class="job-meta"><span>${job.location || ''}</span><span>${job.salary_min && job.salary_max ? job.salary_min + '〜' + job.salary_max + '万円' : ''}</span></div>
+            <div class="job-tags">${(job.tags || []).map(t => `<span class="job-tag">${t}</span>`).join('')}</div>
+          </article>
+        `).join('');
+      }
+    } catch (e) { console.error('Jobs load error:', e); }
+
+    try {
+      const { articles } = await getArticles({ limit: 5 });
+      const articleGrid = document.querySelector('.article-grid');
+      if (articleGrid && articles.length > 0) {
+        articleGrid.innerHTML = articles.map(a => `
+          <article class="article-card">
+            <div class="article-cat">${a.category}</div>
+            <h3><a href="article-detail.html?id=${a.id}">${a.title}</a></h3>
+            <div class="article-date">${new Date(a.published_at).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.')}</div>
+          </article>
+        `).join('');
+      }
+    } catch (e) { console.error('Articles load error:', e); }
+  })();
 </script>
 </body>
 </html>

@@ -27,7 +27,7 @@
     <div class="sep"></div>
     <a href="../index.html">公開サイトへ</a>
   </nav>
-  <div class="admin-side-note">管理画面は静的モックです。実運用時はSupabase等のDB、認証、メール配信APIと接続してください。</div>
+  <div class="admin-side-note">管理画面はSupabaseに接続されています。</div>
 </aside>
     <main class="admin-main">
       <header class="admin-topbar">
@@ -39,9 +39,63 @@
       </div>
     </main>
   </div>
-<script>
+<script type="module">
+  import { requireAdmin, signOut } from '../js/auth.js';
+  import { getAllJobs, deleteJob, updateJob } from '../js/admin-data.js';
+
   const current = document.body.dataset.adminCurrent;
   document.querySelectorAll('[data-admin]').forEach(a => { if(a.dataset.admin === current) a.classList.add('active'); });
+
+  let currentStatus = 'published';
+
+  (async () => {
+    const profile = await requireAdmin();
+    if (!profile) return;
+    loadJobs();
+  })();
+
+  const tabs = document.querySelectorAll('.admin-tab');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault();
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const text = tab.textContent;
+      if (text === '公開中') currentStatus = 'published';
+      else if (text === '下書き') currentStatus = 'draft';
+      else currentStatus = 'ended';
+      loadJobs();
+    });
+  });
+
+  async function loadJobs() {
+    const table = document.querySelector('.admin-table');
+    try {
+      const jobs = await getAllJobs({ status: currentStatus });
+      const statusLabel = { published: '公開', draft: '下書き', ended: '終了' };
+      const statusColor = { published: 'green', draft: '', ended: 'orange' };
+      table.innerHTML = `<tr><th>求人名</th><th>企業</th><th>勤務地</th><th>状態</th><th>応募</th><th></th></tr>` +
+        jobs.map(job => `<tr>
+          <td>${job.title}</td>
+          <td>${job.company_name}</td>
+          <td>${job.location || ''}</td>
+          <td><span class="admin-badge ${statusColor[job.status] || ''}">${statusLabel[job.status] || job.status}</span></td>
+          <td>${job.application_count}</td>
+          <td class="right"><a href="job-edit.html?id=${job.id}">編集</a></td>
+        </tr>`).join('');
+      if (jobs.length === 0) {
+        table.innerHTML += '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted)">該当する求人がありません</td></tr>';
+      }
+    } catch (e) {
+      table.innerHTML = '<tr><td colspan="6" style="color:var(--red)">読み込みエラー</td></tr>';
+    }
+  }
+
+  document.querySelector('.admin-actions .btn-primary')?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    await signOut();
+    window.location.href = 'login.html';
+  });
 </script>
 </body>
 </html>

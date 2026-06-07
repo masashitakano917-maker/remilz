@@ -6,6 +6,8 @@
   <title>ログイン｜Milz2</title>
   <meta name="description" content="Milz2は、米国から日本へ帰国する方に必要な仕事・引越し・保険・住まい・行政手続きをワンストップで支援するプラットフォームです。" />
   <meta name="theme-color" content="#00327f" />
+  <script type="module" crossorigin src="/assets/login-CDdUzZFl.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/auth-C3nl4jWx.js">
   <link rel="stylesheet" crossorigin href="/assets/style-On9mAbuf.css">
 </head>
 <body data-current="">
@@ -37,7 +39,7 @@
 </header>
 <main>
 
-<section class="auth-wrap"><div class="auth-card"><h1>ログイン</h1><form class="form"><label>メールアドレス<input type="email" placeholder="email@example.com"></label><label>パスワード<input type="password" placeholder="password"></label><button class="btn btn-primary" type="submit">ログイン</button><p class="form-note">アカウントをお持ちでない方は <a href="signup.html">無料会員登録</a> / <a href="admin/login.html">管理者ログイン</a></p></form></div></section>
+<section class="auth-wrap"><div class="auth-card"><h1>ログイン</h1><div id="error-msg" style="display:none;color:var(--red);background:#fef2f2;padding:12px;border-radius:6px;margin-bottom:16px;font-size:14px"></div><form class="form" id="login-form"><label>メールアドレス<input type="email" id="email" placeholder="email@example.com" required></label><label>パスワード<input type="password" id="password" placeholder="password" required></label><button class="btn btn-primary" type="submit" id="submit-btn">ログイン</button><p class="form-note">アカウントをお持ちでない方は <a href="signup.html">無料会員登録</a> / <a href="admin/login.html">管理者ログイン</a></p></form></div></section>
 
 </main>
 <footer class="footer">
@@ -84,11 +86,5 @@
     </div>
   </div>
 </footer>
-<script>
-  const current = document.body.dataset.current;
-  document.querySelectorAll('[data-nav]').forEach(a => {
-    if (a.dataset.nav === current) a.classList.add('active');
-  });
-</script>
 </body>
 </html>

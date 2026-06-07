@@ -112,11 +112,62 @@
     </div>
   </div>
 </footer>
-<script>
+<script type="module">
+  import { initAuth } from './js/auth.js';
+  import { getJobs } from './js/data.js';
+
   const current = document.body.dataset.current;
   document.querySelectorAll('[data-nav]').forEach(a => {
     if (a.dataset.nav === current) a.classList.add('active');
   });
+
+  initAuth();
+
+  const listStack = document.querySelector('.list-stack');
+  const searchInput = document.querySelector('.search-bar input');
+  const searchBtn = document.querySelector('.search-bar button');
+
+  async function loadJobs(search = '') {
+    const activeTags = [];
+    document.querySelectorAll('.filter-box input:checked').forEach(cb => {
+      activeTags.push(cb.parentElement.textContent.trim());
+    });
+
+    listStack.innerHTML = '<p style="padding:24px;color:var(--muted)">読み込み中...</p>';
+    try {
+      const { jobs, total } = await getJobs({ search, tags: activeTags });
+      if (jobs.length === 0) {
+        listStack.innerHTML = '<p style="padding:24px;color:var(--muted)">該当する求人が見つかりませんでした。</p>';
+        return;
+      }
+      listStack.innerHTML = jobs.map(job => `
+        <article class="list-card">
+          <div class="list-top">
+            <h2 class="list-title"><a href="job-detail.html?id=${job.id}">${job.title}</a></h2>
+            ${job.is_featured ? '<span class="badge new">NEW</span>' : ''}
+          </div>
+          <div class="meta-line">
+            <span>${job.company_name}</span>
+            <span>${job.location || ''}</span>
+            <span>${job.salary_min && job.salary_max ? job.salary_min + '〜' + job.salary_max + '万円' : ''}</span>
+          </div>
+          <p>${job.description || ''}</p>
+          <div class="job-tags">${(job.tags || []).map(t => `<span class="job-tag">${t}</span>`).join('')}</div>
+          <a class="more-link" href="job-detail.html?id=${job.id}">詳細を見る</a>
+        </article>
+      `).join('');
+    } catch (e) {
+      listStack.innerHTML = '<p style="padding:24px;color:var(--red)">求人の読み込みに失敗しました。</p>';
+    }
+  }
+
+  searchBtn.addEventListener('click', () => loadJobs(searchInput.value));
+  searchInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') loadJobs(searchInput.value); });
+  document.querySelectorAll('.filter-box input').forEach(cb => {
+    cb.addEventListener('change', () => loadJobs(searchInput.value));
+  });
+
+  loadJobs();
 </script>
 </body>
 </html>

@@ -27,7 +27,7 @@
     <div class="sep"></div>
     <a href="../index.html">公開サイトへ</a>
   </nav>
-  <div class="admin-side-note">管理画面は静的モックです。実運用時はSupabase等のDB、認証、メール配信APIと接続してください。</div>
+  <div class="admin-side-note">管理画面はSupabaseに接続されています。</div>
 </aside>
     <main class="admin-main">
       <header class="admin-topbar">
@@ -57,9 +57,50 @@
       </div>
     </main>
   </div>
-<script>
+<script type="module">
+  import { requireAdmin } from '../js/auth.js';
+  import { signOut } from '../js/auth.js';
+  import { getAdminStats, getAllInquiries } from '../js/admin-data.js';
+
   const current = document.body.dataset.adminCurrent;
   document.querySelectorAll('[data-admin]').forEach(a => { if(a.dataset.admin === current) a.classList.add('active'); });
+
+  (async () => {
+    const profile = await requireAdmin();
+    if (!profile) return;
+
+    try {
+      const stats = await getAdminStats();
+      const statEls = document.querySelectorAll('.admin-stat strong');
+      if (statEls[0]) statEls[0].textContent = stats.pendingInquiries;
+      if (statEls[1]) statEls[1].textContent = stats.totalUsers.toLocaleString();
+      if (statEls[2]) statEls[2].textContent = stats.activeJobs.toLocaleString();
+    } catch (e) { console.error('Admin stats error:', e); }
+
+    try {
+      const inquiries = await getAllInquiries({ status: 'pending', limit: 5 });
+      const listEl = document.querySelector('.admin-list');
+      if (listEl && inquiries.length > 0) {
+        listEl.innerHTML = inquiries.map(inq => `
+          <div class="admin-list-item">
+            <h3>${inq.title}</h3>
+            <div class="admin-list-meta">
+              <span>${new Date(inq.created_at).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })}</span>
+              <span>${inq.status === 'pending' ? '未対応' : inq.status === 'reviewing' ? '確認中' : '対応済み'}</span>
+              <span>カテゴリ: ${inq.category}</span>
+            </div>
+            <p>${inq.message.substring(0, 80)}${inq.message.length > 80 ? '...' : ''}</p>
+          </div>
+        `).join('');
+      }
+    } catch (e) { console.error('Inquiries error:', e); }
+  })();
+
+  document.querySelector('.admin-actions .btn-primary')?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    await signOut();
+    window.location.href = 'login.html';
+  });
 </script>
 </body>
 </html>

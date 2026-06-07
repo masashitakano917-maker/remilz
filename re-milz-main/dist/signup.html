@@ -6,6 +6,8 @@
   <title>無料会員登録｜Milz2</title>
   <meta name="description" content="Milz2は、米国から日本へ帰国する方に必要な仕事・引越し・保険・住まい・行政手続きをワンストップで支援するプラットフォームです。" />
   <meta name="theme-color" content="#00327f" />
+  <script type="module" crossorigin src="/assets/signup-CKZxlBuP.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/auth-C3nl4jWx.js">
   <link rel="stylesheet" crossorigin href="/assets/style-On9mAbuf.css">
 </head>
 <body data-current="">
@@ -37,7 +39,7 @@
 </header>
 <main>
 
-<section class="auth-wrap"><div class="auth-card"><h1>無料会員登録</h1><form class="form"><label>お名前<input type="text" placeholder="山田 太郎"></label><label>メールアドレス<input type="email" placeholder="email@example.com"></label><label>現在の居住地<select><option>米国</option><option>日本</option><option>その他</option></select></label><label>帰国予定時期<select><option>6ヶ月以上先</option><option>3〜6ヶ月前</option><option>1〜3ヶ月前</option><option>1ヶ月以内</option><option>帰国済み</option></select></label><label>パスワード<input type="password" placeholder="password"></label><button class="btn btn-primary" type="submit">無料で会員登録する</button><p class="form-note">登録済みの方は <a href="login.html">ログイン</a></p></form></div></section>
+<section class="auth-wrap"><div class="auth-card"><h1>無料会員登録</h1><div id="error-msg" style="display:none;color:var(--red);background:#fef2f2;padding:12px;border-radius:6px;margin-bottom:16px;font-size:14px"></div><div id="success-msg" style="display:none;color:var(--green);background:var(--green-bg);padding:12px;border-radius:6px;margin-bottom:16px;font-size:14px"></div><form class="form" id="signup-form"><label>お名前<input type="text" id="full-name" placeholder="山田 太郎" required></label><label>メールアドレス<input type="email" id="email" placeholder="email@example.com" required></label><label>現在の居住地<select id="residence"><option value="米国">米国</option><option value="日本">日本</option><option value="その他">その他</option></select></label><label>帰国予定時期<select id="return-date"><option value="6ヶ月以上先">6ヶ月以上先</option><option value="3〜6ヶ月前">3〜6ヶ月前</option><option value="1〜3ヶ月前">1〜3ヶ月前</option><option value="1ヶ月以内">1ヶ月以内</option><option value="帰国済み">帰国済み</option></select></label><label>パスワード<input type="password" id="password" placeholder="8文字以上" minlength="8" required></label><button class="btn btn-primary" type="submit" id="submit-btn">無料で会員登録する</button><p class="form-note">登録済みの方は <a href="login.html">ログイン</a></p></form></div></section>
 
 </main>
 <footer class="footer">
@@ -84,11 +86,5 @@
     </div>
   </div>
 </footer>
-<script>
-  const current = document.body.dataset.current;
-  document.querySelectorAll('[data-nav]').forEach(a => {
-    if (a.dataset.nav === current) a.classList.add('active');
-  });
-</script>
 </body>
 </html>

@@ -27,22 +27,114 @@
     <div class="sep"></div>
     <a href="../index.html">公開サイトへ</a>
   </nav>
-  <div class="admin-side-note">管理画面は静的モックです。実運用時はSupabase等のDB、認証、メール配信APIと接続してください。</div>
+  <div class="admin-side-note">管理画面はSupabaseに接続されています。</div>
 </aside>
     <main class="admin-main">
       <header class="admin-topbar">
-        <div class="admin-title"><h1>記事追加・編集</h1><p>Milz2 管理画面</p></div>
-        <div class="admin-actions"><a class="btn btn-outline btn-mini" href="settings.html">設定</a><a class="btn btn-primary btn-mini" href="login.html">ログアウト</a><div class="admin-user"><span class="admin-avatar">A</span>Admin</div></div>
+        <div class="admin-title"><h1 id="page-title">記事追加</h1><p>Milz2 管理画面</p></div>
+        <div class="admin-actions"><a class="btn btn-outline btn-mini" href="articles.html">戻る</a><a class="btn btn-primary btn-mini" id="logout-btn" href="#">ログアウト</a></div>
       </header>
       <div class="admin-content">
-        <section class="admin-grid cols-2"><div class="admin-panel"><div class="admin-panel-head"><h2 class="admin-panel-title">記事編集</h2></div><form class="admin-form"><label>タイトル<input value="帰国後に必要な行政手続きまとめ"></label><div class="admin-form-grid"><label>カテゴリ<select><option>手続き</option><option>保険</option><option>求人</option></select></label><label>公開状態<select><option>公開</option><option>下書き</option><option>予約投稿</option></select></label></div><label>概要<textarea>日本に到着したあと、最初に確認したい住民登録、健康保険、年金、各種住所変更について整理します。</textarea></label><label>本文<textarea style="min-height:300px">## 到着後にまず確認すること
-日本へ帰国したら...</textarea></label><div class="admin-actions"><button class="btn btn-primary" type="submit">保存する</button><button class="btn btn-outline" type="button">プレビュー</button><button class="btn btn-outline" type="button">削除</button></div></form></div><div class="admin-panel"><div class="admin-panel-head"><h2 class="admin-panel-title">SEO / 表示設定</h2></div><form class="admin-form"><label>SEOタイトル<input value="帰国後に必要な行政手続きまとめ｜Milz2"></label><label>ディスクリプション<textarea>帰国後に必要な住民登録、健康保険、年金などの行政手続きを整理。</textarea></label><label>サムネイルURL<input placeholder="https://..."></label><label>タグ<input value="帰国,行政手続き,住民登録"></label></form></div></section>
+        <section class="admin-panel">
+          <div id="msg" style="display:none;padding:12px;border-radius:6px;margin-bottom:16px;font-size:14px"></div>
+          <form class="admin-form" id="article-form">
+            <label>タイトル<input id="title" required></label>
+            <div class="admin-form-grid">
+              <label>カテゴリ<select id="category">
+                <option value="手続き">手続き</option>
+                <option value="税金・お金">税金・お金</option>
+                <option value="住まい">住まい</option>
+                <option value="教育">教育</option>
+                <option value="引越し">引越し</option>
+                <option value="求人">求人</option>
+                <option value="保険">保険</option>
+                <option value="生活">生活</option>
+                <option value="FAQ">FAQ</option>
+                <option value="法人">法人</option>
+              </select></label>
+              <label>公開状態<select id="status">
+                <option value="draft">下書き</option>
+                <option value="published">公開</option>
+              </select></label>
+            </div>
+            <label>概要<textarea id="excerpt" rows="3"></textarea></label>
+            <label>本文 (HTML)<textarea id="content" rows="12" style="min-height:300px"></textarea></label>
+            <button class="btn btn-primary" type="submit" id="submit-btn">保存する</button>
+          </form>
+        </section>
       </div>
     </main>
   </div>
-<script>
+<script type="module">
+  import { requireAdmin, signOut } from '../js/auth.js';
+  import { createArticle, updateArticle } from '../js/admin-data.js';
+  import { supabase } from '../js/supabase.js';
+
   const current = document.body.dataset.adminCurrent;
   document.querySelectorAll('[data-admin]').forEach(a => { if(a.dataset.admin === current) a.classList.add('active'); });
+
+  const params = new URLSearchParams(window.location.search);
+  const articleId = params.get('id');
+  const form = document.getElementById('article-form');
+  const msg = document.getElementById('msg');
+
+  (async () => {
+    const profile = await requireAdmin();
+    if (!profile) return;
+
+    if (articleId) {
+      document.getElementById('page-title').textContent = '記事編集';
+      const { data: article } = await supabase.from('articles').select('*').eq('id', articleId).maybeSingle();
+      if (article) {
+        document.getElementById('title').value = article.title;
+        document.getElementById('category').value = article.category;
+        document.getElementById('status').value = article.status;
+        document.getElementById('excerpt').value = article.excerpt || '';
+        document.getElementById('content').value = article.content || '';
+      }
+    }
+  })();
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.style.display = 'none';
+    const submitBtn = document.getElementById('submit-btn');
+    submitBtn.disabled = true;
+
+    const articleData = {
+      title: document.getElementById('title').value,
+      category: document.getElementById('category').value,
+      status: document.getElementById('status').value,
+      excerpt: document.getElementById('excerpt').value,
+      content: document.getElementById('content').value,
+      published_at: document.getElementById('status').value === 'published' ? new Date().toISOString() : null
+    };
+
+    try {
+      if (articleId) {
+        await updateArticle(articleId, articleData);
+      } else {
+        await createArticle(articleData);
+      }
+      msg.style.display = 'block';
+      msg.style.color = 'var(--green)';
+      msg.style.background = 'var(--green-bg)';
+      msg.textContent = '保存しました。';
+      setTimeout(() => { window.location.href = 'articles.html'; }, 1000);
+    } catch (err) {
+      msg.style.display = 'block';
+      msg.style.color = 'var(--red)';
+      msg.style.background = '#fef2f2';
+      msg.textContent = `保存に失敗しました: ${err.message}`;
+      submitBtn.disabled = false;
+    }
+  });
+
+  document.getElementById('logout-btn')?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    await signOut();
+    window.location.href = 'login.html';
+  });
 </script>
 </body>
 </html>

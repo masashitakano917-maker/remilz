@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>求人追加・編集｜Milz2 Admin</title>
   <meta name="theme-color" content="#00327f" />
+  <script type="module" crossorigin src="/assets/admin/job-edit-BchnYr6s.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/auth-C3nl4jWx.js">
+  <link rel="modulepreload" crossorigin href="/assets/admin-data-swOxuN81.js">
   <link rel="stylesheet" crossorigin href="/assets/style-On9mAbuf.css">
 </head>
 <body class="admin-body" data-admin-current="jobs">
@@ -27,21 +30,36 @@
     <div class="sep"></div>
     <a href="../index.html">公開サイトへ</a>
   </nav>
-  <div class="admin-side-note">管理画面は静的モックです。実運用時はSupabase等のDB、認証、メール配信APIと接続してください。</div>
+  <div class="admin-side-note">管理画面はSupabaseに接続されています。</div>
 </aside>
     <main class="admin-main">
       <header class="admin-topbar">
-        <div class="admin-title"><h1>求人追加・編集</h1><p>Milz2 管理画面</p></div>
-        <div class="admin-actions"><a class="btn btn-outline btn-mini" href="settings.html">設定</a><a class="btn btn-primary btn-mini" href="login.html">ログアウト</a><div class="admin-user"><span class="admin-avatar">A</span>Admin</div></div>
+        <div class="admin-title"><h1 id="page-title">求人追加</h1><p>Milz2 管理画面</p></div>
+        <div class="admin-actions"><a class="btn btn-outline btn-mini" href="jobs.html">戻る</a><a class="btn btn-primary btn-mini" id="logout-btn" href="#">ログアウト</a></div>
       </header>
       <div class="admin-content">
-        <section class="admin-panel"><div class="admin-panel-head"><h2 class="admin-panel-title">求人編集</h2></div><form class="admin-form"><label>求人タイトル<input value="グローバル営業（北米担当）"></label><div class="admin-form-grid"><label>企業名<input value="Panasonic"></label><label>雇用形態<select><option>正社員</option><option>契約社員</option></select></label><label>勤務地<input value="東京都 港区"></label><label>年収<input value="700〜1,100万円"></label></div><label>仕事内容<textarea>北米市場向けの既存顧客対応、新規開拓、現地パートナーとの調整を担当します。</textarea></label><label>応募条件<textarea>法人営業経験3年以上、英語でのビジネスコミュニケーション経験。</textarea></label><button class="btn btn-primary" type="submit">保存する</button></form></section>
+        <section class="admin-panel"><div class="admin-panel-head"><h2 class="admin-panel-title">求人編集</h2></div>
+        <div id="msg" style="display:none;padding:12px;border-radius:6px;margin-bottom:16px;font-size:14px"></div>
+        <form class="admin-form" id="job-form">
+          <label>求人タイトル<input id="title" required></label>
+          <div class="admin-form-grid">
+            <label>企業名<input id="company_name" required></label>
+            <label>雇用形態<select id="employment_type"><option value="正社員">正社員</option><option value="契約社員">契約社員</option><option value="業務委託">業務委託</option></select></label>
+            <label>勤務地<input id="location"></label>
+            <label>最低年収 (万円)<input type="number" id="salary_min"></label>
+            <label>最高年収 (万円)<input type="number" id="salary_max"></label>
+            <label>ステータス<select id="status"><option value="draft">下書き</option><option value="published">公開</option><option value="ended">掲載終了</option></select></label>
+          </div>
+          <label>タグ (カンマ区切り)<input id="tags" placeholder="英語使用, 帰国者歓迎, 海外経験歓迎"></label>
+          <label>仕事内容 (1行1項目)<textarea id="duties" rows="4"></textarea></label>
+          <label>応募条件 (1行1項目)<textarea id="requirements" rows="4"></textarea></label>
+          <label>募集概要<textarea id="description" rows="3"></textarea></label>
+          <label>選考フロー<input id="selection_flow"></label>
+          <label class="check"><input type="checkbox" id="online_interview"> オンライン面談可</label>
+          <button class="btn btn-primary" type="submit" id="submit-btn">保存する</button>
+        </form></section>
       </div>
     </main>
   </div>
-<script>
-  const current = document.body.dataset.adminCurrent;
-  document.querySelectorAll('[data-admin]').forEach(a => { if(a.dataset.admin === current) a.classList.add('active'); });
-</script>
 </body>
 </html>

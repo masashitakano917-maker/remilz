@@ -127,11 +127,52 @@
     </div>
   </div>
 </footer>
-<script>
+<script type="module">
+  import { initAuth } from './js/auth.js';
+  import { getJob } from './js/data.js';
+
   const current = document.body.dataset.current;
   document.querySelectorAll('[data-nav]').forEach(a => {
     if (a.dataset.nav === current) a.classList.add('active');
   });
+
+  initAuth();
+
+  const params = new URLSearchParams(window.location.search);
+  const jobId = params.get('id');
+
+  if (jobId) {
+    (async () => {
+      try {
+        const job = await getJob(jobId);
+        if (!job) return;
+
+        document.querySelector('.page-title').textContent = job.title;
+        document.querySelector('.page-lead').textContent = job.description || '';
+        document.querySelector('.hero-side-card p').textContent =
+          (job.tags || []).join(' / ');
+
+        const main = document.querySelector('.detail-main');
+        main.innerHTML = `
+          <h2>募集概要</h2>
+          <p>${job.description || ''}</p>
+          <div class="company-summary">
+            <div class="summary-item"><span>雇用形態</span><strong>${job.employment_type}</strong></div>
+            <div class="summary-item"><span>勤務地</span><strong>${job.location || '未定'}</strong></div>
+            <div class="summary-item"><span>想定年収</span><strong>${job.salary_min && job.salary_max ? job.salary_min + '〜' + job.salary_max + '万円' : '応相談'}</strong></div>
+            <div class="summary-item"><span>面談</span><strong>${job.online_interview ? 'オンライン可' : '対面'}</strong></div>
+          </div>
+          ${job.duties && job.duties.length > 0 ? `<h2>仕事内容</h2><ul>${job.duties.map(d => `<li>${d}</li>`).join('')}</ul>` : ''}
+          ${job.requirements && job.requirements.length > 0 ? `<h2>応募条件</h2><ul>${job.requirements.map(r => `<li>${r}</li>`).join('')}</ul>` : ''}
+          ${job.selection_flow ? `<h2>選考フロー</h2><p>${job.selection_flow}</p>` : ''}
+        `;
+
+        document.title = `${job.title}｜Milz2`;
+      } catch (e) {
+        console.error('Job load error:', e);
+      }
+    })();
+  }
 </script>
 </body>
 </html>

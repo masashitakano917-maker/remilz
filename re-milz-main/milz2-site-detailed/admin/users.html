@@ -27,7 +27,7 @@
     <div class="sep"></div>
     <a href="../index.html">公開サイトへ</a>
   </nav>
-  <div class="admin-side-note">管理画面は静的モックです。実運用時はSupabase等のDB、認証、メール配信APIと接続してください。</div>
+  <div class="admin-side-note">管理画面はSupabaseに接続されています。</div>
 </aside>
     <main class="admin-main">
       <header class="admin-topbar">
@@ -43,9 +43,43 @@
       </div>
     </main>
   </div>
-<script>
+<script type="module">
+  import { requireAdmin, signOut } from '../js/auth.js';
+  import { getAllUsers } from '../js/admin-data.js';
+
   const current = document.body.dataset.adminCurrent;
   document.querySelectorAll('[data-admin]').forEach(a => { if(a.dataset.admin === current) a.classList.add('active'); });
+
+  (async () => {
+    const profile = await requireAdmin();
+    if (!profile) return;
+
+    try {
+      const users = await getAllUsers();
+      const tbody = document.querySelector('.admin-table tbody');
+      tbody.innerHTML = users.map(u => `
+        <tr>
+          <td>${u.full_name || '-'}</td>
+          <td>${u.email || '-'}</td>
+          <td>${u.current_residence || '-'}</td>
+          <td>${u.expected_return_date || '-'}</td>
+          <td>${new Date(u.created_at).toLocaleDateString('ja-JP').replace(/\//g, '.')}</td>
+          <td class="right"><a href="user-detail.html?id=${u.id}">詳細</a></td>
+        </tr>
+      `).join('');
+      if (users.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted)">登録者がいません</td></tr>';
+      }
+    } catch (e) {
+      console.error('Users load error:', e);
+    }
+  })();
+
+  document.querySelector('.admin-actions .btn-primary')?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    await signOut();
+    window.location.href = 'login.html';
+  });
 </script>
 </body>
 </html>

@@ -95,11 +95,35 @@
     </div>
   </div>
 </footer>
-<script>
+<script type="module">
+  import { initAuth } from './js/auth.js';
+  import { getArticle } from './js/data.js';
+
   const current = document.body.dataset.current;
   document.querySelectorAll('[data-nav]').forEach(a => {
     if (a.dataset.nav === current) a.classList.add('active');
   });
+
+  initAuth();
+
+  const params = new URLSearchParams(window.location.search);
+  const articleId = params.get('id');
+
+  if (articleId) {
+    (async () => {
+      try {
+        const article = await getArticle(articleId);
+        if (!article) return;
+        document.querySelector('.page-title').textContent = article.title;
+        document.querySelector('.page-lead').textContent = article.excerpt || '';
+        const main = document.querySelector('.detail-main');
+        if (main) main.innerHTML = article.content || '';
+        document.title = `${article.title}｜Milz2`;
+      } catch (e) {
+        console.error('Article load error:', e);
+      }
+    })();
+  }
 </script>
 </body>
 </html>

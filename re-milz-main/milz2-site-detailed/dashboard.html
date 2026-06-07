@@ -95,11 +95,31 @@
     </div>
   </div>
 </footer>
-<script>
+<script type="module">
+  import { requireAuth, initAuth, getProfile, signOut } from './js/auth.js';
+  import { getChecklistPhases, getUserProgress } from './js/data.js';
+
   const current = document.body.dataset.current;
   document.querySelectorAll('[data-nav]').forEach(a => {
     if (a.dataset.nav === current) a.classList.add('active');
   });
+
+  (async () => {
+    const session = await requireAuth();
+    if (!session) return;
+
+    initAuth();
+
+    const profile = await getProfile();
+    if (profile) {
+      document.querySelector('.page-title').textContent = `${profile.full_name || 'ユーザー'}さんのマイページ`;
+      document.querySelector('.page-lead').textContent = `メール: ${profile.email}`;
+      const sideCard = document.querySelector('.hero-side-card p');
+      if (sideCard && profile.expected_return_date) {
+        sideCard.textContent = profile.expected_return_date;
+      }
+    }
+  })();
 </script>
 </body>
 </html>
