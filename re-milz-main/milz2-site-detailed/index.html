@@ -88,7 +88,6 @@
         <div class="job-grid">
           <article class="job-card"><div class="company-logo">Panasonic <span class="job-status">正社員</span></div><h3>グローバル営業（北米担当）</h3><p>パナソニック株式会社</p><div class="job-meta"><span>東京都 港区</span><span>700〜1,100万円</span></div><div class="job-tags"><span class="job-tag">英語を活かす</span><span class="job-tag">海外経験歓迎</span></div></article>
           <article class="job-card"><div class="company-logo red">TOYOTA <span class="job-status">正社員</span></div><h3>製品企画（コネクティッド領域）</h3><p>トヨタ自動車株式会社</p><div class="job-meta"><span>愛知県 豊田市</span><span>600〜900万円</span></div><div class="job-tags"><span class="job-tag">英語を活かす</span><span class="job-tag">海外駐在経験</span></div></article>
-          <article class="job-card"><div class="company-logo">MUFG <span class="job-status">正社員</span></div><h3>法人営業（グローバル顧客担当）</h3><p>株式会社三菱UFJ銀行</p><div class="job-meta"><span>東京都 千代田区</span><span>600〜1,000万円</span></div><div class="job-tags"><span class="job-tag">英語を活かす</span><span class="job-tag">金融経験歓迎</span></div></article>
         </div>
       </div>
       <div class="panel">
@@ -183,7 +182,7 @@
     } catch (e) { console.error('Stats load error:', e); }
 
     try {
-      const { jobs } = await getJobs({ limit: 3 });
+      const { jobs } = await getJobs({ limit: 2 });
       const jobGrid = document.querySelector('.job-grid');
       if (jobGrid && jobs.length > 0) {
         jobGrid.innerHTML = jobs.map(job => `
