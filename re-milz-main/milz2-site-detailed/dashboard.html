@@ -142,7 +142,7 @@
         <div class="mypage-tasks-panel">
           <div class="panel-head">
             <h2 class="panel-title">次にやること（今日・今週）</h2>
-            <a class="more-link" href="moving-checklist.html">すべて見る</a>
+            <button class="more-link" id="open-all-tasks-btn">すべて見る</button>
           </div>
           <div class="mypage-task-list" id="task-list">
             <p class="empty-msg" id="tasks-empty">タスクはまだありません。下のボタンから追加しましょう。</p>
@@ -174,7 +174,7 @@
             </div>
           </div>
           <div class="summary-card-bar"><div class="summary-card-bar-fill" id="checklist-bar" style="width:0%;background:var(--green)"></div></div>
-          <a class="btn btn-outline btn-sm summary-card-btn" href="moving-checklist.html">チェックリストを管理する</a>
+          <button class="btn btn-outline btn-sm summary-card-btn" id="open-checklist-btn">チェックリストを管理する</button>
         </div>
 
         <div class="mypage-summary-card">
@@ -188,7 +188,7 @@
             </div>
           </div>
           <div class="summary-card-bar"><div class="summary-card-bar-fill" style="width:0%;background:var(--blue)"></div></div>
-          <a class="btn btn-outline btn-sm summary-card-btn" href="jobs.html">求人を探す</a>
+          <button class="btn btn-outline btn-sm summary-card-btn" id="open-jobs-btn">求人応募を管理する</button>
         </div>
 
         <div class="mypage-summary-card">
@@ -202,7 +202,7 @@
             </div>
           </div>
           <div class="summary-card-bar"><div class="summary-card-bar-fill" style="width:0%;background:var(--orange)"></div></div>
-          <a class="btn btn-outline btn-sm summary-card-btn" href="support-companies.html">サポート企業を見る</a>
+          <button class="btn btn-outline btn-sm summary-card-btn" id="open-companies-btn">企業相談を管理する</button>
         </div>
 
         <div class="mypage-summary-card">
@@ -216,7 +216,7 @@
             </div>
           </div>
           <div class="summary-card-bar"><div class="summary-card-bar-fill" style="width:0%;background:var(--navy)"></div></div>
-          <a class="btn btn-outline btn-sm summary-card-btn" href="articles.html">記事を見る</a>
+          <button class="btn btn-outline btn-sm summary-card-btn" id="open-saved-btn">保存した情報を見る</button>
         </div>
       </div>
 
@@ -357,6 +357,75 @@
             <button type="button" class="btn btn-outline" id="profile-cancel">キャンセル</button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checklist Modal -->
+  <div class="mypage-modal-overlay" id="checklist-modal" hidden>
+    <div class="mypage-modal mypage-modal-lg">
+      <div class="mypage-modal-head">
+        <h2>チェックリスト管理</h2>
+        <button class="mypage-modal-close" aria-label="閉じる">&times;</button>
+      </div>
+      <div class="mypage-modal-body" id="checklist-modal-body">
+        <p class="empty-msg">読み込み中...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- All Tasks Modal -->
+  <div class="mypage-modal-overlay" id="all-tasks-modal" hidden>
+    <div class="mypage-modal mypage-modal-lg">
+      <div class="mypage-modal-head">
+        <h2>すべてのタスク</h2>
+        <button class="mypage-modal-close" aria-label="閉じる">&times;</button>
+      </div>
+      <div class="mypage-modal-body" id="all-tasks-modal-body">
+        <p class="empty-msg">タスクはありません。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Jobs Modal -->
+  <div class="mypage-modal-overlay" id="jobs-modal" hidden>
+    <div class="mypage-modal">
+      <div class="mypage-modal-head">
+        <h2>求人応募管理</h2>
+        <button class="mypage-modal-close" aria-label="閉じる">&times;</button>
+      </div>
+      <div class="mypage-modal-body">
+        <p style="color:var(--text);font-size:13px;line-height:1.8;margin:0 0 16px">求人ページで気になる求人を見つけたら「保存」ボタンで管理できます。</p>
+        <a href="jobs.html" class="btn btn-primary" style="width:100%;justify-content:center">求人を探しに行く</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Companies Modal -->
+  <div class="mypage-modal-overlay" id="companies-modal" hidden>
+    <div class="mypage-modal">
+      <div class="mypage-modal-head">
+        <h2>企業相談管理</h2>
+        <button class="mypage-modal-close" aria-label="閉じる">&times;</button>
+      </div>
+      <div class="mypage-modal-body">
+        <p style="color:var(--text);font-size:13px;line-height:1.8;margin:0 0 16px">サポート企業ページから相談したい企業を見つけて問い合わせましょう。</p>
+        <a href="support-companies.html" class="btn btn-primary" style="width:100%;justify-content:center">サポート企業を探す</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Saved Info Modal -->
+  <div class="mypage-modal-overlay" id="saved-modal" hidden>
+    <div class="mypage-modal">
+      <div class="mypage-modal-head">
+        <h2>保存した情報</h2>
+        <button class="mypage-modal-close" aria-label="閉じる">&times;</button>
+      </div>
+      <div class="mypage-modal-body">
+        <p style="color:var(--text);font-size:13px;line-height:1.8;margin:0 0 16px">記事ページや求人ページで「保存」ボタンを押すとここに表示されます。</p>
+        <a href="articles.html" class="btn btn-outline" style="width:100%;justify-content:center;margin-bottom:8px">記事を見る</a>
+        <a href="jobs.html" class="btn btn-outline" style="width:100%;justify-content:center">求人を見る</a>
       </div>
     </div>
   </div>
@@ -714,6 +783,102 @@
     updateReturnDate();
     closeModal('profile-modal');
   });
+
+  // Checklist modal
+  let checklistPhases = [];
+  let checklistProgress = [];
+
+  document.getElementById('open-checklist-btn').addEventListener('click', async () => {
+    openModal('checklist-modal');
+    await renderChecklistModal();
+  });
+
+  async function renderChecklistModal() {
+    const body = document.getElementById('checklist-modal-body');
+    body.innerHTML = '<p class="empty-msg">読み込み中...</p>';
+    try {
+      const [phases, progress] = await Promise.all([getChecklistPhases(), getUserProgress()]);
+      checklistPhases = phases || [];
+      checklistProgress = progress || [];
+      const completedIds = new Set(checklistProgress.map(p => p.item_id));
+
+      if (checklistPhases.length === 0) {
+        body.innerHTML = '<p class="empty-msg">チェックリスト項目がありません。</p>';
+        return;
+      }
+
+      let html = '';
+      checklistPhases.forEach(phase => {
+        const items = phase.checklist_items || [];
+        const doneCount = items.filter(i => completedIds.has(i.id)).length;
+        html += `<div class="checklist-phase">
+          <h3 class="checklist-phase-title">${esc(phase.phase_name)} <span class="checklist-phase-count">${doneCount}/${items.length}</span></h3>
+          <div class="checklist-items">`;
+        items.forEach(item => {
+          const done = completedIds.has(item.id);
+          html += `<label class="checklist-item ${done ? 'checklist-item-done' : ''}">
+            <input type="checkbox" ${done ? 'checked' : ''} data-item-id="${item.id}" />
+            <span>${esc(item.title)}</span>
+          </label>`;
+        });
+        html += '</div></div>';
+      });
+      body.innerHTML = html;
+
+      body.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', async () => {
+          const itemId = cb.dataset.itemId;
+          if (cb.checked) {
+            await supabase.from('user_checklist_progress').insert({ item_id: itemId });
+          } else {
+            await supabase.from('user_checklist_progress').delete().eq('item_id', itemId);
+          }
+          cb.parentElement.classList.toggle('checklist-item-done', cb.checked);
+          await loadChecklist();
+        });
+      });
+    } catch (e) {
+      body.innerHTML = '<p class="empty-msg">読み込みに失敗しました。</p>';
+    }
+  }
+
+  // All tasks modal
+  document.getElementById('open-all-tasks-btn').addEventListener('click', () => {
+    openModal('all-tasks-modal');
+    renderAllTasksModal();
+  });
+
+  function renderAllTasksModal() {
+    const body = document.getElementById('all-tasks-modal-body');
+    if (allTasks.length === 0) {
+      body.innerHTML = '<p class="empty-msg">タスクはありません。「+ タスクを追加する」から作成しましょう。</p>';
+      return;
+    }
+    let html = '<table class="detail-table"><thead><tr><th>タスク</th><th>カテゴリ</th><th>ステータス</th><th>期限</th><th></th></tr></thead><tbody>';
+    allTasks.forEach(t => {
+      html += `<tr>
+        <td>${esc(t.title)}</td>
+        <td>${esc(t.category || '--')}</td>
+        <td><span class="badge-status ${t.status === '完了' ? 'badge-done' : t.status === '対応中' ? 'badge-active' : 'badge-pending'}">${esc(t.status)}</span></td>
+        <td>${t.due_date ? formatDate(t.due_date) : '--'}</td>
+        <td><button class="task-edit-btn" data-id="${t.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button></td>
+      </tr>`;
+    });
+    html += '</tbody></table>';
+    body.innerHTML = html;
+
+    body.querySelectorAll('.task-edit-btn').forEach(el => {
+      el.addEventListener('click', () => {
+        closeModal('all-tasks-modal');
+        openTaskModal(el.dataset.id);
+      });
+    });
+  }
+
+  // Jobs, companies, saved modals
+  document.getElementById('open-jobs-btn').addEventListener('click', () => openModal('jobs-modal'));
+  document.getElementById('open-companies-btn').addEventListener('click', () => openModal('companies-modal'));
+  document.getElementById('open-saved-btn').addEventListener('click', () => openModal('saved-modal'));
 
   // Calendar
   document.getElementById('open-calendar-btn').addEventListener('click', () => {
