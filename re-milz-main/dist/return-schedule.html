@@ -3,16 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>サポート企業一覧｜Milz2</title>
-  <meta name="description" content="Milz2は、米国から日本へ帰国する方に必要な仕事・引越し・保険・住まい・行政手続きをワンストップで支援するプラットフォームです。" />
+  <title>帰国スケジュール自動作成｜Milz2</title>
+  <meta name="description" content="帰国予定日を入力するだけで、何をいつまでに済ませればよいか逆算スケジュールを自動生成します。" />
   <meta name="theme-color" content="#00327f" />
-  <script type="module" crossorigin src="/assets/support-companies-DUfSrGBK.js"></script>
+  <script type="module" crossorigin src="/assets/return-schedule-nwZv7Les.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/supabase-CGTu0p87.js">
   <link rel="modulepreload" crossorigin href="/assets/auth-Dtda0RQ8.js">
-  <link rel="modulepreload" crossorigin href="/assets/data-CMEYWzjb.js">
   <link rel="stylesheet" crossorigin href="/assets/style-ymoM-3Ds.css">
 </head>
-<body data-current="company">
+<body data-current="moving">
 <header class="top-header">
   <div class="container">
     <div class="header-main">
@@ -44,22 +43,59 @@
 <section class="page-hero">
   <div class="container page-hero-grid">
     <div>
-      <div class="breadcrumb">トップ / サポート企業</div>
-      <h1 class="page-title">サポート企業を探す</h1>
-      <p class="page-lead">引越し、保険、不動産、行政手続き、教育など、帰国時に相談できる企業をカテゴリ別に掲載します。</p>
+      <div class="breadcrumb">トップ / 引越し・手続き / 帰国スケジュール</div>
+      <h1 class="page-title">帰国スケジュール自動作成</h1>
+      <p class="page-lead">帰国予定日を入力するだけで、何をいつまでに済ませるべきか逆算スケジュールを自動で作成します。</p>
     </div>
-    <div class="hero-side-card"><h3>今月よく相談されるカテゴリ</h3><p>国際引越し、住まい探し、保険、子どもの学校、行政手続きの相談が増えています。</p></div>
   </div>
 </section>
 
 <section class="section">
-  <div class="container filter-layout">
-    <aside class="filter-box"><h3>企業を絞り込む</h3><div class="filter-group"><strong>カテゴリ</strong><label class="check"><input type="checkbox"> 引越し</label><label class="check"><input type="checkbox"> 保険</label><label class="check"><input type="checkbox"> 不動産</label><label class="check"><input type="checkbox"> 行政手続き</label></div><div class="filter-group"><strong>対応</strong><label class="check"><input type="checkbox"> オンライン相談</label><label class="check"><input type="checkbox"> 法人対応</label><label class="check"><input type="checkbox"> 英語対応</label></div></aside>
-    <div><div class="search-bar"><input type="search" placeholder="会社名・カテゴリで検索"><button class="btn btn-primary">検索</button></div><div class="list-stack">
-      <article class="list-card"><div class="list-top"><h2 class="list-title">Milz International Moving</h2><span class="badge new">新着</span></div><div class="meta-line"><span>国際引越し</span><span>オンライン相談可</span><span>法人対応</span></div><p>米国から日本への国際引越し、別送品、帰国日程に合わせた輸送相談に対応。</p><a class="more-link" href="company-detail.html">詳細を見る</a></article>
-      <article class="list-card"><div class="list-top"><h2 class="list-title">Return Insurance Desk</h2><span class="badge">保険</span></div><div class="meta-line"><span>保険</span><span>帰国者対応</span><span>オンライン可</span></div><p>米国側の保険整理と日本帰国後の保険見直しを相談できます。</p><a class="more-link" href="company-detail.html">詳細を見る</a></article>
-      <article class="list-card"><div class="list-top"><h2 class="list-title">Tokyo Return Housing</h2><span class="badge orange">住まい</span></div><div class="meta-line"><span>不動産</span><span>賃貸</span><span>家具付き物件</span></div><p>海外在住中から相談できる帰国者向け住まいサポート。</p><a class="more-link" href="company-detail.html">詳細を見る</a></article>
-    </div></div>
+  <div class="container">
+    <div class="schedule-input-card" id="dateInputCard">
+      <div class="schedule-input-inner">
+        <div class="schedule-input-icon">
+          <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>
+        </div>
+        <h2 class="schedule-input-title">帰国予定日を入力してください</h2>
+        <p class="schedule-input-desc">日本に到着する予定の日付を選択すると、その日から逆算して各準備の期限を自動で計算します。</p>
+        <div class="schedule-date-form">
+          <input type="date" id="returnDate" class="schedule-date-input" />
+          <button type="button" id="generateBtn" class="btn btn-primary schedule-generate-btn">スケジュールを作成</button>
+        </div>
+        <p class="schedule-input-note" id="dateError" style="display:none;color:var(--red)"></p>
+      </div>
+    </div>
+
+    <div class="schedule-login-gate" id="loginGate" style="display:none">
+      <div class="schedule-gate-inner">
+        <div class="schedule-gate-preview">
+          <h2>スケジュールが作成されました</h2>
+          <p>あなたの帰国予定日 <strong id="gateDate"></strong> に基づくスケジュールが完成しました。</p>
+          <div class="schedule-preview-blur">
+            <div class="schedule-preview-item"></div>
+            <div class="schedule-preview-item"></div>
+            <div class="schedule-preview-item"></div>
+          </div>
+        </div>
+        <div class="schedule-gate-cta">
+          <h3>詳細を確認するにはログインしてください</h3>
+          <p>無料会員登録で、あなただけの帰国スケジュールを保存・管理できます。</p>
+          <div class="schedule-gate-buttons">
+            <a class="btn btn-primary" href="login.html" id="loginLink">ログインして確認する</a>
+            <a class="btn btn-outline" href="signup.html" id="signupLink">無料会員登録して確認する</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="schedule-result" id="scheduleResult" style="display:none">
+      <div class="schedule-result-header">
+        <h2>あなたの帰国スケジュール</h2>
+        <p>帰国予定日: <strong id="resultDate"></strong></p>
+      </div>
+      <div class="schedule-timeline" id="timeline"></div>
+    </div>
   </div>
 </section>
 
@@ -104,7 +140,7 @@
         <a href="#">プライバシーポリシー</a>
         <a href="#">特定商取引法に基づく表記</a>
       </div>
-      <div>© 2024 Milz2. All Rights Reserved.</div>
+      <div>&copy; 2024 Milz2. All Rights Reserved.</div>
     </div>
   </div>
 </footer>

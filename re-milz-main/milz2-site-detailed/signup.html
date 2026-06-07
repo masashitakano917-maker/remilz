@@ -112,7 +112,9 @@
       });
       successMsg.textContent = '会員登録が完了しました。ダッシュボードに移動します...';
       successMsg.style.display = 'block';
-      setTimeout(() => { window.location.href = 'dashboard.html'; }, 1500);
+      const params = new URLSearchParams(window.location.search);
+      const redirect = params.get('redirect');
+      setTimeout(() => { window.location.href = redirect ? decodeURIComponent(redirect) : 'dashboard.html'; }, 1500);
     } catch (err) {
       errorMsg.textContent = err.message === 'User already registered'
         ? 'このメールアドレスは既に登録されています。'

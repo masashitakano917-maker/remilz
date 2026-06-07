@@ -4,4 +4,7 @@ import{s as e}from"./supabase-CGTu0p87.js";async function s(){const{data:{sessio
     `;const a=document.getElementById("logout-btn");a&&a.addEventListener("click",async()=>{await d(),window.location.href="index.html"})}else n.innerHTML=`
       <a class="btn btn-outline" href="login.html">ログイン</a>
       <a class="btn btn-primary" href="signup.html">無料会員登録</a>
-    `}async function b(){const t=await s();return u(t),h((n,a)=>{u(a)}),t}async function y(){const t=await s();return t||(window.location.href="login.html",null)}async function p(){const t=await f();return!t||!t.is_admin?(window.location.href="login.html",null):t}export{y as a,m as b,w as c,f as g,b as i,p as r,d as s};
+    `}async function b(){const t=await s();return u(t),h((n,a)=>{u(a)}),t}async function y(){const t=await s();return t||(window.location.href="login.html",null)}async function p(){const t=await f();return!t||!t.is_admin?(window.location.href="login.html",null):t}export{y as a,m as b,l as c,w as d,f as g,b as i,p as r,d as s};
+
+
+export { s }

@@ -239,6 +239,56 @@ h1{margin:0;font-family:var(--serif);font-size:36px;line-height:1.56;letter-spac
 .form textarea{min-height:130px;padding:12px}
 .form-note{text-align:center;color:var(--muted);font-size:12px;font-weight:700}
 
+/* Schedule page */
+.schedule-input-card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:48px 32px;text-align:center;max-width:640px;margin:0 auto}
+.schedule-input-inner{display:grid;gap:20px;justify-items:center}
+.schedule-input-icon{color:var(--navy);opacity:.8}
+.schedule-input-title{margin:0;color:var(--navy);font-size:22px;font-weight:900}
+.schedule-input-desc{margin:0;color:var(--text);font-size:13px;line-height:1.9;font-weight:700;max-width:480px}
+.schedule-date-form{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:8px}
+.schedule-date-input{min-height:48px;padding:0 16px;border:2px solid var(--line);border-radius:8px;font-size:15px;font-weight:800;color:var(--navy);min-width:200px;transition:.2s ease}
+.schedule-date-input:focus{outline:none;border-color:var(--blue)}
+.schedule-generate-btn{min-height:48px;font-size:14px}
+.schedule-input-note{margin:0;font-size:12px;font-weight:800}
+
+.schedule-login-gate{max-width:640px;margin:0 auto}
+.schedule-gate-inner{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.schedule-gate-preview{padding:32px;background:linear-gradient(180deg,#f7fbff,#eaf4ff);text-align:center}
+.schedule-gate-preview h2{margin:0 0 8px;color:var(--navy);font-size:20px;font-weight:900}
+.schedule-gate-preview p{margin:0 0 20px;color:var(--text);font-size:13px;font-weight:700}
+.schedule-preview-blur{display:grid;gap:10px;filter:blur(4px);opacity:.5;pointer-events:none}
+.schedule-preview-item{height:48px;background:var(--line);border-radius:8px}
+.schedule-gate-cta{padding:32px;text-align:center}
+.schedule-gate-cta h3{margin:0 0 8px;color:var(--navy);font-size:18px;font-weight:900}
+.schedule-gate-cta p{margin:0 0 20px;color:var(--text);font-size:13px;font-weight:700}
+.schedule-gate-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.schedule-gate-buttons .btn{min-width:220px}
+
+.schedule-result{max-width:780px;margin:0 auto}
+.schedule-result-header{text-align:center;margin-bottom:32px}
+.schedule-result-header h2{margin:0 0 6px;color:var(--navy);font-size:22px;font-weight:900}
+.schedule-result-header p{margin:0;color:var(--text);font-size:14px;font-weight:700}
+
+.schedule-timeline{display:grid;gap:0;position:relative}
+.schedule-phase{display:grid;grid-template-columns:40px 1fr;gap:16px;position:relative}
+.phase-marker{display:flex;flex-direction:column;align-items:center}
+.phase-dot{width:16px;height:16px;border-radius:50%;background:var(--line);border:3px solid #fff;box-shadow:0 0 0 2px var(--line);flex-shrink:0;margin-top:4px}
+.phase-line{width:2px;flex:1;background:var(--line);margin-top:4px}
+.phase-content{padding-bottom:28px}
+.phase-header{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.phase-date{color:var(--muted);font-size:12px;font-weight:800}
+.phase-status-badge{display:inline-flex;align-items:center;min-height:22px;padding:0 8px;border-radius:999px;font-size:10px;font-weight:900}
+.phase-status-badge.phase-past{background:#fff0f0;color:var(--red)}
+.phase-status-badge.phase-current{background:var(--green-bg);color:var(--green)}
+.phase-status-badge.phase-future{background:#f0f6ff;color:var(--blue)}
+.phase-title{margin:0 0 10px;color:var(--navy);font-size:16px;font-weight:900}
+.phase-tasks{margin:0;padding:0 0 0 18px;display:grid;gap:6px}
+.phase-tasks li{color:var(--text);font-size:13px;font-weight:700;line-height:1.8}
+
+.phase-current .phase-dot{background:var(--green);box-shadow:0 0 0 2px var(--green)}
+.phase-past .phase-dot{background:var(--muted);box-shadow:0 0 0 2px var(--muted)}
+.phase-future .phase-dot{background:var(--blue);box-shadow:0 0 0 2px var(--line)}
+
 .dashboard-grid{display:grid;grid-template-columns:260px 1fr;gap:22px}
 .dashboard-menu{background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-soft);padding:18px;height:max-content}
 .dashboard-menu a{display:block;padding:12px;border-radius:6px;color:var(--text);font-size:13px;font-weight:800}

@@ -1,0 +1,1 @@
+ALTER TABLE profiles ADD COLUMN return_date date;

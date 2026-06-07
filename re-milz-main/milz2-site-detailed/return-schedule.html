@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>帰国スケジュール自動作成｜Milz2</title>
+  <meta name="description" content="帰国予定日を入力するだけで、何をいつまでに済ませればよいか逆算スケジュールを自動生成します。" />
+  <meta name="theme-color" content="#00327f" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-current="moving">
+<header class="top-header">
+  <div class="container">
+    <div class="header-main">
+      <a href="index.html" class="brand" aria-label="Milz2">
+        <div class="brand-logo">Milz2</div>
+        <div class="brand-tagline">米国から日本への帰国を、安心と確かな情報でサポートする</div>
+      </a>
+      <div></div>
+      <div class="header-actions">
+        <a class="btn btn-outline" href="login.html">ログイン</a>
+        <a class="btn btn-primary" href="signup.html">無料会員登録</a>
+      </div>
+    </div>
+    <div class="nav-row">
+      <nav class="global-nav" aria-label="メインナビゲーション">
+        <a href="index.html" data-nav="home">トップ</a>
+        <a href="jobs.html" data-nav="jobs">求人を探す</a>
+        <a href="moving.html" data-nav="moving">引越し・手続き</a>
+        <a href="insurance.html" data-nav="insurance">保険</a>
+        <a href="housing.html" data-nav="housing">住まい</a>
+        <a href="articles.html" data-nav="articles">お役立ち記事</a>
+        <a href="company.html" data-nav="company">法人の方へ</a>
+      </nav>
+    </div>
+  </div>
+</header>
+<main>
+
+<section class="page-hero">
+  <div class="container page-hero-grid">
+    <div>
+      <div class="breadcrumb">トップ / 引越し・手続き / 帰国スケジュール</div>
+      <h1 class="page-title">帰国スケジュール自動作成</h1>
+      <p class="page-lead">帰国予定日を入力するだけで、何をいつまでに済ませるべきか逆算スケジュールを自動で作成します。</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="schedule-input-card" id="dateInputCard">
+      <div class="schedule-input-inner">
+        <div class="schedule-input-icon">
+          <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>
+        </div>
+        <h2 class="schedule-input-title">帰国予定日を入力してください</h2>
+        <p class="schedule-input-desc">日本に到着する予定の日付を選択すると、その日から逆算して各準備の期限を自動で計算します。</p>
+        <div class="schedule-date-form">
+          <input type="date" id="returnDate" class="schedule-date-input" />
+          <button type="button" id="generateBtn" class="btn btn-primary schedule-generate-btn">スケジュールを作成</button>
+        </div>
+        <p class="schedule-input-note" id="dateError" style="display:none;color:var(--red)"></p>
+      </div>
+    </div>
+
+    <div class="schedule-login-gate" id="loginGate" style="display:none">
+      <div class="schedule-gate-inner">
+        <div class="schedule-gate-preview">
+          <h2>スケジュールが作成されました</h2>
+          <p>あなたの帰国予定日 <strong id="gateDate"></strong> に基づくスケジュールが完成しました。</p>
+          <div class="schedule-preview-blur">
+            <div class="schedule-preview-item"></div>
+            <div class="schedule-preview-item"></div>
+            <div class="schedule-preview-item"></div>
+          </div>
+        </div>
+        <div class="schedule-gate-cta">
+          <h3>詳細を確認するにはログインしてください</h3>
+          <p>無料会員登録で、あなただけの帰国スケジュールを保存・管理できます。</p>
+          <div class="schedule-gate-buttons">
+            <a class="btn btn-primary" href="login.html" id="loginLink">ログインして確認する</a>
+            <a class="btn btn-outline" href="signup.html" id="signupLink">無料会員登録して確認する</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="schedule-result" id="scheduleResult" style="display:none">
+      <div class="schedule-result-header">
+        <h2>あなたの帰国スケジュール</h2>
+        <p>帰国予定日: <strong id="resultDate"></strong></p>
+      </div>
+      <div class="schedule-timeline" id="timeline"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-main">
+      <div>
+        <div class="footer-logo">Milz2</div>
+        <p class="footer-desc">米国から日本への帰国を、安心と確かな情報でサポートするプラットフォーム。</p>
+      </div>
+      <div class="footer-col">
+        <h3>サービス</h3>
+        <a href="jobs.html">求人を探す</a>
+        <a href="moving.html">引越し・手続き</a>
+        <a href="insurance.html">保険</a>
+        <a href="housing.html">住まい</a>
+        <a href="articles.html">お役立ち記事</a>
+      </div>
+      <div class="footer-col">
+        <h3>サポート</h3>
+        <a href="signup.html">はじめての方へ</a>
+        <a href="faq.html">よくある質問</a>
+        <a href="company.html">お問い合わせ</a>
+        <a href="company.html">運営会社</a>
+      </div>
+      <div class="footer-col">
+        <h3>法人の方へ</h3>
+        <a href="company.html">法人向けサービス</a>
+        <a href="company.html">帰国サポートプラン</a>
+        <a href="company.html">資料ダウンロード</a>
+        <a href="company.html">お問い合わせ</a>
+      </div>
+      <div class="footer-actions">
+        <a class="btn" href="login.html">ログイン</a>
+        <a class="btn footer-white" href="signup.html">無料会員登録</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-links">
+        <a href="#">利用規約</a>
+        <a href="#">プライバシーポリシー</a>
+        <a href="#">特定商取引法に基づく表記</a>
+      </div>
+      <div>&copy; 2024 Milz2. All Rights Reserved.</div>
+    </div>
+  </div>
+</footer>
+<script type="module">
+  import { initAuth, getUser } from './js/auth.js';
+  import { supabase } from './js/supabase.js';
+
+  const current = document.body.dataset.current;
+  document.querySelectorAll('[data-nav]').forEach(a => {
+    if (a.dataset.nav === current) a.classList.add('active');
+  });
+
+  initAuth();
+
+  const phases = [
+    { months: 9, label: '帰国の検討', tasks: [
+      '帰国時期と帰国先の都市を家族で決定する',
+      '帰国後の仕事探し（転職活動）を開始する',
+      '子どもの学校・保育園を調べ始める',
+      '帰国後の住まいのエリア・条件を整理する'
+    ]},
+    { months: 6, label: '準備開始', tasks: [
+      '国際引越し会社に見積もりを依頼する',
+      '不要品の整理・処分を始める',
+      '帰国後の健康保険を比較検討する',
+      '賃貸住宅の情報収集・内覧予約を始める'
+    ]},
+    { months: 3, label: '各種手続き', tasks: [
+      '米国の銀行口座・クレジットカードの整理',
+      '在留届の帰国届を提出する',
+      '引越し荷物のパッキング・船便手配',
+      '日本の携帯電話・インターネットを契約する',
+      '転入届に必要な書類を準備する'
+    ]},
+    { months: 1, label: '帰国直前', tasks: [
+      '住居の退去手続き・鍵の返却',
+      '米国の各種サービスの解約（電気・ガス・水道）',
+      '航空券の最終確認・手荷物の準備',
+      '転送届の設定（郵便物）',
+      '最終の銀行残高確認・送金手続き'
+    ]},
+    { months: 0, label: '帰国・到着', tasks: [
+      '転入届を市区町村役場に提出する',
+      'マイナンバーの申請手続き',
+      '国民健康保険または社会保険に加入する',
+      '銀行口座の開設（必要な場合）',
+      '子どもの転入学手続き'
+    ]},
+    { months: -2, label: '帰国後1〜3ヶ月', tasks: [
+      '確定申告の準備（海外所得の申告）',
+      '運転免許の切替手続き',
+      '船便荷物の受け取り・開梱',
+      '各種届出の確認（年金・税金）',
+      '生活の安定化・地域サービスの活用開始'
+    ]}
+  ];
+
+  function calcDeadline(returnDate, monthsBefore) {
+    const d = new Date(returnDate);
+    if (monthsBefore > 0) {
+      d.setMonth(d.getMonth() - monthsBefore);
+    } else if (monthsBefore < 0) {
+      d.setMonth(d.getMonth() + Math.abs(monthsBefore));
+    }
+    return d;
+  }
+
+  function formatDate(date) {
+    return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+  }
+
+  function formatDateShort(date) {
+    return `${date.getMonth() + 1}/${date.getDate()}`;
+  }
+
+  function renderTimeline(returnDateStr) {
+    const timeline = document.getElementById('timeline');
+    const returnDate = new Date(returnDateStr);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    timeline.innerHTML = phases.map((phase, i) => {
+      const deadline = calcDeadline(returnDate, phase.months);
+      const isPast = deadline < today;
+      const isCurrent = !isPast && (i === 0 || calcDeadline(returnDate, phases[i - 1].months) < today);
+      const statusClass = isPast ? 'phase-past' : isCurrent ? 'phase-current' : 'phase-future';
+      const statusLabel = isPast ? '期限超過' : isCurrent ? '今ここ' : '予定';
+
+      return `
+        <div class="schedule-phase ${statusClass}">
+          <div class="phase-marker">
+            <div class="phase-dot"></div>
+            ${i < phases.length - 1 ? '<div class="phase-line"></div>' : ''}
+          </div>
+          <div class="phase-content">
+            <div class="phase-header">
+              <div class="phase-date">${phase.months > 0 ? formatDate(deadline) + 'まで' : phase.months === 0 ? formatDate(returnDate) : formatDate(deadline) + 'まで'}</div>
+              <span class="phase-status-badge ${statusClass}">${statusLabel}</span>
+            </div>
+            <h3 class="phase-title">${phase.label}</h3>
+            <ul class="phase-tasks">
+              ${phase.tasks.map(t => `<li>${t}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  const dateInput = document.getElementById('returnDate');
+  const generateBtn = document.getElementById('generateBtn');
+  const dateError = document.getElementById('dateError');
+  const dateInputCard = document.getElementById('dateInputCard');
+  const loginGate = document.getElementById('loginGate');
+  const scheduleResult = document.getElementById('scheduleResult');
+
+  const params = new URLSearchParams(window.location.search);
+  const savedDate = params.get('date');
+  if (savedDate) {
+    dateInput.value = savedDate;
+  }
+
+  generateBtn.addEventListener('click', async () => {
+    const val = dateInput.value;
+    if (!val) {
+      dateError.textContent = '帰国予定日を入力してください。';
+      dateError.style.display = 'block';
+      return;
+    }
+    const selected = new Date(val);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (selected <= today) {
+      dateError.textContent = '帰国予定日は明日以降の日付を選択してください。';
+      dateError.style.display = 'block';
+      return;
+    }
+    dateError.style.display = 'none';
+
+    const user = await getUser();
+    if (!user) {
+      dateInputCard.style.display = 'none';
+      loginGate.style.display = 'block';
+      document.getElementById('gateDate').textContent = formatDate(selected);
+      const returnUrl = encodeURIComponent(`return-schedule.html?date=${val}`);
+      document.getElementById('loginLink').href = `login.html?redirect=${returnUrl}`;
+      document.getElementById('signupLink').href = `signup.html?redirect=${returnUrl}`;
+    } else {
+      showSchedule(val, user);
+    }
+  });
+
+  async function showSchedule(dateVal, user) {
+    dateInputCard.style.display = 'none';
+    loginGate.style.display = 'none';
+    scheduleResult.style.display = 'block';
+    document.getElementById('resultDate').textContent = formatDate(new Date(dateVal));
+    renderTimeline(dateVal);
+
+    try {
+      await supabase.from('profiles').update({ return_date: dateVal }).eq('id', user.id);
+    } catch (e) { console.error('Failed to save return date:', e); }
+  }
+
+  (async () => {
+    if (savedDate) {
+      const user = await getUser();
+      if (user) {
+        showSchedule(savedDate, user);
+      }
+    }
+  })();
+</script>
+</body>
+</html>
