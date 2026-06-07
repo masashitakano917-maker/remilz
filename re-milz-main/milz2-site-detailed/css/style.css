@@ -625,6 +625,25 @@ h1{margin:0;font-family:var(--serif);font-size:34px;line-height:1.6;letter-spaci
 .cal-event-orange{background:#fff4e3;color:#b36a00}
 .cal-event-green{background:var(--green-bg);color:var(--green)}
 
+/* Mypage forms and interactive elements */
+.mypage-form{display:grid;gap:14px}
+.mypage-form label{display:grid;gap:6px}
+.mypage-form label span{font-size:12px;font-weight:800;color:var(--navy)}
+.mypage-form input,.mypage-form select{border:1px solid var(--line);border-radius:6px;min-height:40px;padding:0 12px;font-size:13px;color:var(--text);font-weight:700;background:#fff}
+.mypage-form input:focus,.mypage-form select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(10,91,211,.1)}
+.form-actions{display:flex;gap:10px;margin-top:8px}
+.form-actions .btn{flex:1;justify-content:center}
+.empty-msg{color:var(--muted);font-size:13px;font-weight:700;padding:16px 0;text-align:center}
+.task-edit-btn,.task-del-btn{background:none;border:none;color:var(--muted);cursor:pointer;padding:4px;border-radius:4px;display:grid;place-items:center}
+.task-edit-btn:hover{color:var(--blue)}
+.task-del-btn:hover{color:var(--red)}
+.task-check-done{background:var(--green);border-color:var(--green)}
+.task-check-done::after{content:'';display:block;width:10px;height:6px;border-bottom:2px solid #fff;border-left:2px solid #fff;transform:rotate(-45deg);margin:3px auto 0}
+.task-status-hold{background:#f3f0ff;color:#6b21a8}
+.schedule-item{position:relative}
+.schedule-item .task-del-btn{position:absolute;right:0;top:50%;transform:translateY(-50%);opacity:0;transition:.15s}
+.schedule-item:hover .task-del-btn{opacity:1}
+
 @media(max-width:1100px){
   .mypage-layout{grid-template-columns:1fr}
   .mypage-sidebar{position:static;display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}

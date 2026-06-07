@@ -40,7 +40,7 @@
 
     <aside class="mypage-sidebar">
       <nav class="mypage-nav">
-        <a class="mypage-nav-item active" href="#" data-section="dashboard">
+        <a class="mypage-nav-item active" href="#">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
           マイページ
         </a>
@@ -65,16 +65,12 @@
           保存した情報
         </a>
         <a class="mypage-nav-item" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-          書類管理
-        </a>
-        <a class="mypage-nav-item" href="#">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
           設定・プロフィール
         </a>
       </nav>
       <div class="mypage-sidebar-help">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r=".5"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r=".5"/></svg>
         <div>
           <strong>お困りですか?</strong>
           <a href="company.html">サポートに問い合わせる</a>
@@ -89,7 +85,7 @@
           <h1 class="mypage-title" id="mypage-title">マイページ</h1>
           <p class="mypage-subtitle">帰国準備の進捗を一目で確認できます</p>
         </div>
-        <a class="btn btn-outline btn-sm" href="#">プロフィールを編集</a>
+        <a class="btn btn-outline btn-sm" href="#" id="edit-profile-btn">プロフィールを編集</a>
       </div>
 
       <div class="mypage-stats">
@@ -108,15 +104,15 @@
           <div class="stat-icon stat-icon-progress">
             <svg viewBox="0 0 36 36" class="progress-ring">
               <path class="progress-ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#edf3fa" stroke-width="3"/>
-              <path class="progress-ring-fill" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#0a5bd3" stroke-width="3" stroke-dasharray="42, 100" id="progress-ring"/>
+              <path class="progress-ring-fill" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#0a5bd3" stroke-width="3" stroke-dasharray="0, 100" id="progress-ring"/>
             </svg>
           </div>
           <div class="stat-body">
             <span class="stat-label">全体の進捗</span>
-            <span class="stat-value" id="progress-pct">42</span>
+            <span class="stat-value" id="progress-pct">0</span>
             <span class="stat-unit">%</span>
           </div>
-          <span class="stat-sub" id="progress-detail">18 / 45 完了</span>
+          <span class="stat-sub" id="progress-detail">0 / 0 完了</span>
         </div>
         <div class="stat-card">
           <div class="stat-icon stat-icon-tasks">
@@ -124,21 +120,21 @@
           </div>
           <div class="stat-body">
             <span class="stat-label">今週やること</span>
-            <span class="stat-value">3</span>
+            <span class="stat-value" id="week-tasks-count">0</span>
             <span class="stat-unit">件</span>
           </div>
-          <span class="stat-sub">期限が近いタスクあり</span>
+          <span class="stat-sub" id="week-tasks-sub">タスクなし</span>
         </div>
         <div class="stat-card">
           <div class="stat-icon stat-icon-notify">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           </div>
           <div class="stat-body">
-            <span class="stat-label">お知らせ</span>
-            <span class="stat-value">3</span>
+            <span class="stat-label">未対応タスク</span>
+            <span class="stat-value" id="pending-count">0</span>
             <span class="stat-unit">件</span>
           </div>
-          <span class="stat-sub">未読のお知らせがあります</span>
+          <span class="stat-sub" id="pending-sub">--</span>
         </div>
       </div>
 
@@ -148,36 +144,10 @@
             <h2 class="panel-title">次にやること（今日・今週）</h2>
             <a class="more-link" href="moving-checklist.html">すべて見る</a>
           </div>
-          <div class="mypage-task-list">
-            <div class="mypage-task">
-              <div class="task-check"></div>
-              <div class="task-body">
-                <strong>引越し会社へ見積もり相談</strong>
-                <span class="task-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> 6/20まで</span>
-              </div>
-              <span class="task-status task-status-active">対応中</span>
-              <a class="task-arrow" href="support-companies.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M9 18l6-6-6-6"/></svg></a>
-            </div>
-            <div class="mypage-task">
-              <div class="task-check"></div>
-              <div class="task-body">
-                <strong>保険相談先を1社保存</strong>
-                <span class="task-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> 7/01まで</span>
-              </div>
-              <span class="task-status task-status-pending">未対応</span>
-              <a class="task-arrow" href="insurance.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M9 18l6-6-6-6"/></svg></a>
-            </div>
-            <div class="mypage-task">
-              <div class="task-check"></div>
-              <div class="task-body">
-                <strong>履歴書を更新する</strong>
-                <span class="task-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> 6/15まで</span>
-              </div>
-              <span class="task-status task-status-pending">未対応</span>
-              <a class="task-arrow" href="jobs.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M9 18l6-6-6-6"/></svg></a>
-            </div>
+          <div class="mypage-task-list" id="task-list">
+            <p class="empty-msg" id="tasks-empty">タスクはまだありません。下のボタンから追加しましょう。</p>
           </div>
-          <button class="btn-add-task">+ タスクを追加する</button>
+          <button class="btn-add-task" id="add-task-btn">+ タスクを追加する</button>
         </div>
 
         <div class="mypage-schedule-panel">
@@ -185,91 +155,153 @@
             <h2 class="panel-title">今週の予定</h2>
             <button class="more-link" id="open-calendar-btn">カレンダーを開く</button>
           </div>
-          <div class="mypage-schedule-list">
-            <div class="schedule-item">
-              <span class="schedule-date">6/10 (火)</span>
-              <span class="schedule-dot schedule-dot-blue"></span>
-              <span class="schedule-text">求人応募：ABC商事（営業職）</span>
-            </div>
-            <div class="schedule-item">
-              <span class="schedule-date">6/14 (土)</span>
-              <span class="schedule-dot schedule-dot-blue"></span>
-              <span class="schedule-text">一次面接（オンライン）</span>
-            </div>
-            <div class="schedule-item">
-              <span class="schedule-date">6/20 (金)</span>
-              <span class="schedule-dot schedule-dot-orange"></span>
-              <span class="schedule-text">引越し会社 見積もり期限</span>
-            </div>
+          <div class="mypage-schedule-list" id="event-list">
+            <p class="empty-msg" id="events-empty">今週の予定はありません。</p>
           </div>
-          <button class="btn-add-task">+ 予定を追加する</button>
+          <button class="btn-add-task" id="add-event-btn">+ 予定を追加する</button>
         </div>
       </div>
 
       <div class="mypage-cards-grid">
-        <div class="mypage-summary-card" id="card-checklist">
+        <div class="mypage-summary-card">
           <div class="summary-card-head">
             <div class="summary-card-icon summary-card-icon-green">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
             </div>
             <div>
               <h3>チェックリスト</h3>
-              <span class="summary-card-stat">18 / 45 完了</span>
+              <span class="summary-card-stat" id="checklist-stat">読み込み中...</span>
             </div>
           </div>
-          <div class="summary-card-bar"><div class="summary-card-bar-fill" style="width:40%;background:var(--green)"></div></div>
-          <button class="btn btn-outline btn-sm summary-card-btn" data-modal="checklist-modal">チェックリストを管理する</button>
+          <div class="summary-card-bar"><div class="summary-card-bar-fill" id="checklist-bar" style="width:0%;background:var(--green)"></div></div>
+          <a class="btn btn-outline btn-sm summary-card-btn" href="moving-checklist.html">チェックリストを管理する</a>
         </div>
 
-        <div class="mypage-summary-card" id="card-jobs">
+        <div class="mypage-summary-card">
           <div class="summary-card-head">
             <div class="summary-card-icon summary-card-icon-blue">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
             </div>
             <div>
               <h3>求人応募管理</h3>
-              <span class="summary-card-stat">応募中 3件 / 保存 8件</span>
+              <span class="summary-card-stat" id="jobs-stat">--</span>
             </div>
           </div>
-          <div class="summary-card-bar"><div class="summary-card-bar-fill" style="width:30%;background:var(--blue)"></div></div>
-          <button class="btn btn-outline btn-sm summary-card-btn" data-modal="jobs-modal">求人応募を管理する</button>
+          <div class="summary-card-bar"><div class="summary-card-bar-fill" style="width:0%;background:var(--blue)"></div></div>
+          <a class="btn btn-outline btn-sm summary-card-btn" href="jobs.html">求人を探す</a>
         </div>
 
-        <div class="mypage-summary-card" id="card-companies">
+        <div class="mypage-summary-card">
           <div class="summary-card-head">
             <div class="summary-card-icon summary-card-icon-orange">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16"/><path d="M3 21h18"/><path d="M9 7h1M9 11h1M9 15h1M14 7h1M14 11h1M14 15h1"/></svg>
             </div>
             <div>
               <h3>企業相談管理</h3>
-              <span class="summary-card-stat">返信待ち 2件 / 相談中 1件</span>
+              <span class="summary-card-stat" id="companies-stat">--</span>
             </div>
           </div>
-          <div class="summary-card-bar"><div class="summary-card-bar-fill" style="width:50%;background:var(--orange)"></div></div>
-          <button class="btn btn-outline btn-sm summary-card-btn" data-modal="companies-modal">企業相談を管理する</button>
+          <div class="summary-card-bar"><div class="summary-card-bar-fill" style="width:0%;background:var(--orange)"></div></div>
+          <a class="btn btn-outline btn-sm summary-card-btn" href="support-companies.html">サポート企業を見る</a>
         </div>
 
-        <div class="mypage-summary-card" id="card-saved">
+        <div class="mypage-summary-card">
           <div class="summary-card-head">
             <div class="summary-card-icon summary-card-icon-navy">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
             </div>
             <div>
               <h3>保存した情報</h3>
-              <span class="summary-card-stat">記事 5件 / 企業 3件</span>
+              <span class="summary-card-stat" id="saved-stat">--</span>
             </div>
           </div>
-          <div class="summary-card-bar"><div class="summary-card-bar-fill" style="width:65%;background:var(--navy)"></div></div>
-          <button class="btn btn-outline btn-sm summary-card-btn" data-modal="saved-modal">保存した情報を見る</button>
+          <div class="summary-card-bar"><div class="summary-card-bar-fill" style="width:0%;background:var(--navy)"></div></div>
+          <a class="btn btn-outline btn-sm summary-card-btn" href="articles.html">記事を見る</a>
         </div>
       </div>
 
-      <div class="mypage-recommend">
-        <span class="recommend-badge">おすすめ情報</span>
-        <span>帰国時期に合わせた「住まい探しのポイント」記事が更新されました！</span>
-        <a class="btn btn-outline btn-sm" href="articles.html">記事を読む</a>
-      </div>
+    </div>
+  </div>
 
+  <!-- Add Task Modal -->
+  <div class="mypage-modal-overlay" id="task-modal" hidden>
+    <div class="mypage-modal">
+      <div class="mypage-modal-head">
+        <h2 id="task-modal-title">タスクを追加</h2>
+        <button class="mypage-modal-close" aria-label="閉じる">&times;</button>
+      </div>
+      <div class="mypage-modal-body">
+        <form id="task-form" class="mypage-form">
+          <input type="hidden" id="task-edit-id" />
+          <label>
+            <span>タスク名</span>
+            <input type="text" id="task-title" required placeholder="例：引越し会社へ見積もり相談" />
+          </label>
+          <label>
+            <span>カテゴリ</span>
+            <select id="task-category">
+              <option value="引越し">引越し</option>
+              <option value="仕事">仕事</option>
+              <option value="保険">保険</option>
+              <option value="住まい">住まい</option>
+              <option value="手続き">手続き</option>
+              <option value="その他">その他</option>
+            </select>
+          </label>
+          <label>
+            <span>ステータス</span>
+            <select id="task-status">
+              <option value="未対応">未対応</option>
+              <option value="対応中">対応中</option>
+              <option value="完了">完了</option>
+              <option value="保留">保留</option>
+            </select>
+          </label>
+          <label>
+            <span>期限</span>
+            <input type="date" id="task-due" />
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">保存する</button>
+            <button type="button" class="btn btn-outline" id="task-cancel">キャンセル</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Event Modal -->
+  <div class="mypage-modal-overlay" id="event-modal" hidden>
+    <div class="mypage-modal">
+      <div class="mypage-modal-head">
+        <h2 id="event-modal-title">予定を追加</h2>
+        <button class="mypage-modal-close" aria-label="閉じる">&times;</button>
+      </div>
+      <div class="mypage-modal-body">
+        <form id="event-form" class="mypage-form">
+          <input type="hidden" id="event-edit-id" />
+          <label>
+            <span>予定名</span>
+            <input type="text" id="event-title" required placeholder="例：一次面接（オンライン）" />
+          </label>
+          <label>
+            <span>日付</span>
+            <input type="date" id="event-date" required />
+          </label>
+          <label>
+            <span>色</span>
+            <select id="event-color">
+              <option value="blue">青（求人・面接）</option>
+              <option value="orange">オレンジ（期限・引越し）</option>
+              <option value="green">緑（完了・生活）</option>
+            </select>
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">保存する</button>
+            <button type="button" class="btn btn-outline" id="event-cancel">キャンセル</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -282,10 +314,10 @@
       </div>
       <div class="mypage-modal-body">
         <div class="calendar-nav">
-          <button class="cal-prev">&lt;</button>
-          <span class="cal-month" id="cal-month-label">2026年6月</span>
-          <button class="cal-next">&gt;</button>
-          <button class="btn btn-outline btn-sm cal-today-btn">今日</button>
+          <button type="button" class="cal-prev">&lt;</button>
+          <span class="cal-month" id="cal-month-label"></span>
+          <button type="button" class="cal-next">&gt;</button>
+          <button type="button" class="btn btn-outline btn-sm cal-today-btn">今日</button>
         </div>
         <table class="cal-table">
           <thead><tr><th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th></tr></thead>
@@ -295,93 +327,36 @@
     </div>
   </div>
 
-  <!-- Checklist Modal -->
-  <div class="mypage-modal-overlay" id="checklist-modal" hidden>
+  <!-- Edit Profile Modal -->
+  <div class="mypage-modal-overlay" id="profile-modal" hidden>
     <div class="mypage-modal">
       <div class="mypage-modal-head">
-        <h2>チェックリスト詳細</h2>
+        <h2>プロフィール編集</h2>
         <button class="mypage-modal-close" aria-label="閉じる">&times;</button>
       </div>
       <div class="mypage-modal-body">
-        <table class="detail-table">
-          <thead><tr><th>項目</th><th>ステータス</th><th>期限</th></tr></thead>
-          <tbody>
-            <tr><td>引越し会社へ見積もり相談</td><td><span class="badge-status badge-active">対応中</span></td><td>6/20</td></tr>
-            <tr><td>保険の見直し相談</td><td><span class="badge-status badge-pending">未対応</span></td><td>7/01</td></tr>
-            <tr><td>住民届の手続き確認</td><td><span class="badge-status badge-done">完了</span></td><td>5/30</td></tr>
-            <tr><td>航空券の予約</td><td><span class="badge-status badge-done">完了</span></td><td>5/15</td></tr>
-            <tr><td>荷物の仕分け</td><td><span class="badge-status badge-active">対応中</span></td><td>6/25</td></tr>
-          </tbody>
-        </table>
-        <button class="btn-add-task" style="margin-top:12px">+ 項目を追加</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Jobs Modal -->
-  <div class="mypage-modal-overlay" id="jobs-modal" hidden>
-    <div class="mypage-modal">
-      <div class="mypage-modal-head">
-        <h2>求人応募管理詳細</h2>
-        <button class="mypage-modal-close" aria-label="閉じる">&times;</button>
-      </div>
-      <div class="mypage-modal-body">
-        <table class="detail-table">
-          <thead><tr><th>求人</th><th>ステータス</th><th>応募日</th></tr></thead>
-          <tbody>
-            <tr><td>ABC商事（営業職）</td><td><span class="badge-status badge-pending">面接予定</span></td><td>6/10</td></tr>
-            <tr><td>グローバル物流（事務）</td><td><span class="badge-status badge-active">書類選考中</span></td><td>6/05</td></tr>
-            <tr><td>XYZ株式会社（経理）</td><td><span class="badge-status badge-done">応募済み</span></td><td>5/28</td></tr>
-          </tbody>
-        </table>
-        <button class="btn-add-task" style="margin-top:12px">+ 求人を追加</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Companies Modal -->
-  <div class="mypage-modal-overlay" id="companies-modal" hidden>
-    <div class="mypage-modal">
-      <div class="mypage-modal-head">
-        <h2>企業相談管理詳細</h2>
-        <button class="mypage-modal-close" aria-label="閉じる">&times;</button>
-      </div>
-      <div class="mypage-modal-body">
-        <table class="detail-table">
-          <thead><tr><th>企業名</th><th>ステータス</th><th>最終連絡日</th></tr></thead>
-          <tbody>
-            <tr><td>ABC引越しサービス</td><td><span class="badge-status badge-pending">返信待ち</span></td><td>6/05</td></tr>
-            <tr><td>日本保険サポート</td><td><span class="badge-status badge-active">相談中</span></td><td>6/03</td></tr>
-            <tr><td>ハウジングジャパン</td><td><span class="badge-status badge-done">見積もり受領</span></td><td>5/30</td></tr>
-          </tbody>
-        </table>
-        <button class="btn-add-task" style="margin-top:12px">+ 企業を追加</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Saved Modal -->
-  <div class="mypage-modal-overlay" id="saved-modal" hidden>
-    <div class="mypage-modal">
-      <div class="mypage-modal-head">
-        <h2>保存した情報</h2>
-        <button class="mypage-modal-close" aria-label="閉じる">&times;</button>
-      </div>
-      <div class="mypage-modal-body">
-        <h3 style="font-size:14px;margin:0 0 8px;color:var(--navy)">保存した記事</h3>
-        <ul class="saved-list">
-          <li><a href="articles.html">帰国後の住民登録手続きガイド</a></li>
-          <li><a href="articles.html">米国からの引越し荷物の注意点</a></li>
-          <li><a href="articles.html">帰国後の医療保険選び</a></li>
-          <li><a href="articles.html">子どもの転入学手続き</a></li>
-          <li><a href="articles.html">日本での銀行口座開設</a></li>
-        </ul>
-        <h3 style="font-size:14px;margin:16px 0 8px;color:var(--navy)">保存した企業</h3>
-        <ul class="saved-list">
-          <li><a href="support-companies.html">ABC引越しサービス</a></li>
-          <li><a href="support-companies.html">日本保険サポート</a></li>
-          <li><a href="support-companies.html">ハウジングジャパン</a></li>
-        </ul>
+        <form id="profile-form" class="mypage-form">
+          <label>
+            <span>お名前</span>
+            <input type="text" id="profile-name" placeholder="例：鷹野 昌司" />
+          </label>
+          <label>
+            <span>帰国予定日</span>
+            <input type="date" id="profile-return-date" />
+          </label>
+          <label>
+            <span>現在の居住地</span>
+            <select id="profile-residence">
+              <option value="米国">米国</option>
+              <option value="日本">日本</option>
+              <option value="その他">その他</option>
+            </select>
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">保存する</button>
+            <button type="button" class="btn btn-outline" id="profile-cancel">キャンセル</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -433,70 +408,328 @@
 </footer>
 <script type="module">
   import { requireAuth, initAuth, getProfile, signOut } from './js/auth.js';
+  import { supabase } from './js/supabase.js';
+  import { getChecklistPhases, getUserProgress } from './js/data.js';
 
   const current = document.body.dataset.current;
   document.querySelectorAll('[data-nav]').forEach(a => {
     if (a.dataset.nav === current) a.classList.add('active');
   });
 
+  let currentProfile = null;
+  let allTasks = [];
+  let allEvents = [];
+
   (async () => {
     const session = await requireAuth();
     if (!session) return;
     initAuth();
 
-    const profile = await getProfile();
-    if (profile) {
-      const title = document.getElementById('mypage-title');
-      title.textContent = `${profile.full_name || 'ユーザー'}さんのマイページ`;
-
-      if (profile.expected_return_date) {
-        const returnDate = new Date(profile.expected_return_date);
-        const today = new Date();
-        const diffTime = returnDate.getTime() - today.getTime();
-        const diffDays = Math.max(0, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
-        document.getElementById('days-left').textContent = diffDays;
-        document.getElementById('return-date-label').textContent = `帰国予定日：${profile.expected_return_date}`;
-      }
+    currentProfile = await getProfile();
+    if (currentProfile) {
+      document.getElementById('mypage-title').textContent = `${currentProfile.full_name || 'ユーザー'}さんのマイページ`;
+      updateReturnDate();
     }
+
+    await Promise.all([loadTasks(), loadEvents(), loadChecklist()]);
   })();
 
-  // Modals
-  document.querySelectorAll('[data-modal]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const modal = document.getElementById(btn.dataset.modal);
-      if (modal) modal.hidden = false;
-    });
-  });
+  function updateReturnDate() {
+    const rd = currentProfile.return_date || currentProfile.expected_return_date;
+    if (rd) {
+      const returnDate = new Date(rd);
+      const today = new Date();
+      today.setHours(0,0,0,0);
+      const diffTime = returnDate.getTime() - today.getTime();
+      const diffDays = Math.max(0, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+      document.getElementById('days-left').textContent = diffDays;
+      document.getElementById('return-date-label').textContent = `帰国予定日：${rd}`;
+    } else {
+      document.getElementById('days-left').textContent = '--';
+      document.getElementById('return-date-label').textContent = '帰国予定日：未設定';
+    }
+  }
 
-  document.getElementById('open-calendar-btn').addEventListener('click', () => {
-    document.getElementById('calendar-modal').hidden = false;
-    renderCalendar(currentYear, currentMonth);
-  });
+  // === Tasks ===
+  async function loadTasks() {
+    const { data, error } = await supabase
+      .from('user_tasks')
+      .select('*')
+      .order('due_date', { ascending: true, nullsFirst: false });
+    if (error) { console.error(error); return; }
+    allTasks = data || [];
+    renderTasks();
+    updateStats();
+  }
+
+  function renderTasks() {
+    const list = document.getElementById('task-list');
+    const empty = document.getElementById('tasks-empty');
+    const activeTasks = allTasks.filter(t => t.status !== '完了');
+    const displayTasks = activeTasks.slice(0, 5);
+
+    if (displayTasks.length === 0) {
+      empty.style.display = '';
+      list.innerHTML = '';
+      list.appendChild(empty);
+      return;
+    }
+    empty.style.display = 'none';
+
+    list.innerHTML = displayTasks.map(t => `
+      <div class="mypage-task" data-id="${t.id}">
+        <div class="task-check ${t.status === '完了' ? 'task-check-done' : ''}" data-id="${t.id}" title="完了にする"></div>
+        <div class="task-body">
+          <strong>${esc(t.title)}</strong>
+          <span class="task-meta">${t.due_date ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> ${formatDate(t.due_date)}まで` : '期限なし'}</span>
+        </div>
+        <span class="task-status ${statusClass(t.status)}">${esc(t.status)}</span>
+        <button class="task-edit-btn" data-id="${t.id}" title="編集"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+        <button class="task-del-btn" data-id="${t.id}" title="削除"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+      </div>
+    `).join('');
+
+    list.querySelectorAll('.task-check').forEach(el => {
+      el.addEventListener('click', async () => {
+        const id = el.dataset.id;
+        await supabase.from('user_tasks').update({ status: '完了', updated_at: new Date().toISOString() }).eq('id', id);
+        await loadTasks();
+      });
+    });
+    list.querySelectorAll('.task-edit-btn').forEach(el => {
+      el.addEventListener('click', () => openTaskModal(el.dataset.id));
+    });
+    list.querySelectorAll('.task-del-btn').forEach(el => {
+      el.addEventListener('click', async () => {
+        if (confirm('このタスクを削除しますか?')) {
+          await supabase.from('user_tasks').delete().eq('id', el.dataset.id);
+          await loadTasks();
+        }
+      });
+    });
+  }
+
+  function updateStats() {
+    const pending = allTasks.filter(t => t.status === '未対応');
+    const active = allTasks.filter(t => t.status !== '完了');
+    const now = new Date();
+    const endOfWeek = new Date(now);
+    endOfWeek.setDate(now.getDate() + (7 - now.getDay()));
+    const weekTasks = active.filter(t => t.due_date && new Date(t.due_date) <= endOfWeek);
+
+    document.getElementById('week-tasks-count').textContent = weekTasks.length;
+    document.getElementById('week-tasks-sub').textContent = weekTasks.length > 0 ? '期限が近いタスクあり' : 'タスクなし';
+    document.getElementById('pending-count').textContent = pending.length;
+    document.getElementById('pending-sub').textContent = pending.length > 0 ? '対応が必要です' : 'すべて対応済み';
+  }
+
+  // === Events ===
+  async function loadEvents() {
+    const now = new Date();
+    const startOfWeek = new Date(now);
+    startOfWeek.setDate(now.getDate() - now.getDay());
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+    const { data, error } = await supabase
+      .from('user_events')
+      .select('*')
+      .order('event_date', { ascending: true });
+    if (error) { console.error(error); return; }
+    allEvents = data || [];
+    renderEvents();
+  }
+
+  function renderEvents() {
+    const list = document.getElementById('event-list');
+    const empty = document.getElementById('events-empty');
+
+    const now = new Date();
+    const startOfWeek = new Date(now);
+    startOfWeek.setDate(now.getDate() - now.getDay());
+    startOfWeek.setHours(0,0,0,0);
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+    endOfWeek.setHours(23,59,59,999);
+
+    const weekEvents = allEvents.filter(e => {
+      const d = new Date(e.event_date);
+      return d >= startOfWeek && d <= endOfWeek;
+    });
+
+    if (weekEvents.length === 0) {
+      empty.style.display = '';
+      list.innerHTML = '';
+      list.appendChild(empty);
+      return;
+    }
+    empty.style.display = 'none';
+
+    const days = ['日','月','火','水','木','金','土'];
+    list.innerHTML = weekEvents.map(e => {
+      const d = new Date(e.event_date);
+      const dayStr = `${d.getMonth()+1}/${d.getDate()} (${days[d.getDay()]})`;
+      return `
+        <div class="schedule-item" data-id="${e.id}">
+          <span class="schedule-date">${dayStr}</span>
+          <span class="schedule-dot schedule-dot-${e.color || 'blue'}"></span>
+          <span class="schedule-text">${esc(e.title)}</span>
+          <button class="task-del-btn" data-id="${e.id}" title="削除"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+        </div>
+      `;
+    }).join('');
+
+    list.querySelectorAll('.task-del-btn').forEach(el => {
+      el.addEventListener('click', async () => {
+        if (confirm('この予定を削除しますか?')) {
+          await supabase.from('user_events').delete().eq('id', el.dataset.id);
+          await loadEvents();
+        }
+      });
+    });
+  }
+
+  // === Checklist stats ===
+  async function loadChecklist() {
+    try {
+      const [phases, progress] = await Promise.all([getChecklistPhases(), getUserProgress()]);
+      let totalItems = 0;
+      (phases || []).forEach(p => { totalItems += (p.checklist_items || []).length; });
+      const completed = (progress || []).length;
+      const pct = totalItems > 0 ? Math.round((completed / totalItems) * 100) : 0;
+      document.getElementById('checklist-stat').textContent = `${completed} / ${totalItems} 完了`;
+      document.getElementById('checklist-bar').style.width = `${pct}%`;
+      document.getElementById('progress-pct').textContent = pct;
+      document.getElementById('progress-detail').textContent = `${completed} / ${totalItems} 完了`;
+      document.getElementById('progress-ring').setAttribute('stroke-dasharray', `${pct}, 100`);
+    } catch (e) {
+      document.getElementById('checklist-stat').textContent = '0 / 0 完了';
+    }
+  }
+
+  // === Modals ===
+  function openModal(id) { document.getElementById(id).hidden = false; }
+  function closeModal(id) { document.getElementById(id).hidden = true; }
 
   document.querySelectorAll('.mypage-modal-overlay').forEach(overlay => {
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) overlay.hidden = true;
-    });
-    overlay.querySelector('.mypage-modal-close')?.addEventListener('click', () => {
-      overlay.hidden = true;
-    });
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.hidden = true; });
+    overlay.querySelector('.mypage-modal-close')?.addEventListener('click', () => { overlay.hidden = true; });
+  });
+
+  // Task modal
+  document.getElementById('add-task-btn').addEventListener('click', () => openTaskModal());
+  document.getElementById('task-cancel').addEventListener('click', () => closeModal('task-modal'));
+
+  function openTaskModal(editId) {
+    const form = document.getElementById('task-form');
+    form.reset();
+    document.getElementById('task-edit-id').value = '';
+    document.getElementById('task-modal-title').textContent = 'タスクを追加';
+
+    if (editId) {
+      const task = allTasks.find(t => t.id === editId);
+      if (task) {
+        document.getElementById('task-edit-id').value = task.id;
+        document.getElementById('task-title').value = task.title;
+        document.getElementById('task-category').value = task.category || 'その他';
+        document.getElementById('task-status').value = task.status;
+        document.getElementById('task-due').value = task.due_date || '';
+        document.getElementById('task-modal-title').textContent = 'タスクを編集';
+      }
+    }
+    openModal('task-modal');
+  }
+
+  document.getElementById('task-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const editId = document.getElementById('task-edit-id').value;
+    const payload = {
+      title: document.getElementById('task-title').value,
+      category: document.getElementById('task-category').value,
+      status: document.getElementById('task-status').value,
+      due_date: document.getElementById('task-due').value || null,
+      updated_at: new Date().toISOString()
+    };
+
+    if (editId) {
+      await supabase.from('user_tasks').update(payload).eq('id', editId);
+    } else {
+      await supabase.from('user_tasks').insert(payload);
+    }
+    closeModal('task-modal');
+    await loadTasks();
+  });
+
+  // Event modal
+  document.getElementById('add-event-btn').addEventListener('click', () => {
+    document.getElementById('event-form').reset();
+    document.getElementById('event-edit-id').value = '';
+    document.getElementById('event-modal-title').textContent = '予定を追加';
+    openModal('event-modal');
+  });
+  document.getElementById('event-cancel').addEventListener('click', () => closeModal('event-modal'));
+
+  document.getElementById('event-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const editId = document.getElementById('event-edit-id').value;
+    const payload = {
+      title: document.getElementById('event-title').value,
+      event_date: document.getElementById('event-date').value,
+      color: document.getElementById('event-color').value
+    };
+
+    if (editId) {
+      await supabase.from('user_events').update(payload).eq('id', editId);
+    } else {
+      await supabase.from('user_events').insert(payload);
+    }
+    closeModal('event-modal');
+    await loadEvents();
+  });
+
+  // Profile modal
+  document.getElementById('edit-profile-btn').addEventListener('click', (e) => {
+    e.preventDefault();
+    if (currentProfile) {
+      document.getElementById('profile-name').value = currentProfile.full_name || '';
+      document.getElementById('profile-return-date').value = currentProfile.return_date || currentProfile.expected_return_date || '';
+      document.getElementById('profile-residence').value = currentProfile.current_residence || '米国';
+    }
+    openModal('profile-modal');
+  });
+  document.getElementById('profile-cancel').addEventListener('click', () => closeModal('profile-modal'));
+
+  document.getElementById('profile-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const updates = {
+      full_name: document.getElementById('profile-name').value,
+      return_date: document.getElementById('profile-return-date').value || null,
+      expected_return_date: document.getElementById('profile-return-date').value || null,
+      current_residence: document.getElementById('profile-residence').value,
+      updated_at: new Date().toISOString()
+    };
+    await supabase.from('profiles').update(updates).eq('id', currentProfile.id);
+    currentProfile = { ...currentProfile, ...updates };
+    document.getElementById('mypage-title').textContent = `${currentProfile.full_name || 'ユーザー'}さんのマイページ`;
+    updateReturnDate();
+    closeModal('profile-modal');
   });
 
   // Calendar
-  let currentYear = 2026;
-  let currentMonth = 5; // June (0-indexed)
+  document.getElementById('open-calendar-btn').addEventListener('click', () => {
+    openModal('calendar-modal');
+    renderCalendar(currentYear, currentMonth);
+  });
 
-  const calEvents = [
-    { day: 10, text: '求人応募', color: 'blue' },
-    { day: 14, text: '一次面接', color: 'blue' },
-    { day: 20, text: '引越し見積もり期限', color: 'orange' },
-    { day: 25, text: '荷物仕分け', color: 'green' },
-  ];
+  let currentYear = new Date().getFullYear();
+  let currentMonth = new Date().getMonth();
 
   function renderCalendar(year, month) {
     document.getElementById('cal-month-label').textContent = `${year}年${month + 1}月`;
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const days = ['日','月','火','水','木','金','土'];
+
     let html = '';
     let day = 1;
     for (let row = 0; row < 6; row++) {
@@ -507,10 +740,15 @@
         } else if (day > daysInMonth) {
           html += '<td></td>';
         } else {
-          const ev = calEvents.find(e => e.day === day);
+          const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+          const eventsOnDay = allEvents.filter(e => e.event_date === dateStr);
           const today = new Date();
           const isToday = year === today.getFullYear() && month === today.getMonth() && day === today.getDate();
-          html += `<td class="${isToday ? 'cal-today' : ''}"><span class="cal-day">${day}</span>${ev ? `<span class="cal-event cal-event-${ev.color}">${ev.text}</span>` : ''}</td>`;
+          html += `<td class="${isToday ? 'cal-today' : ''}"><span class="cal-day">${day}</span>`;
+          eventsOnDay.forEach(ev => {
+            html += `<span class="cal-event cal-event-${ev.color}">${esc(ev.title)}</span>`;
+          });
+          html += '</td>';
           day++;
         }
       }
@@ -536,6 +774,16 @@
     currentMonth = today.getMonth();
     renderCalendar(currentYear, currentMonth);
   });
+
+  // Helpers
+  function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+  function formatDate(d) { const dt = new Date(d); return `${dt.getMonth()+1}/${dt.getDate()}`; }
+  function statusClass(s) {
+    if (s === '対応中') return 'task-status-active';
+    if (s === '完了') return 'task-status-done';
+    if (s === '保留') return 'task-status-hold';
+    return 'task-status-pending';
+  }
 </script>
 </body>
 </html>
