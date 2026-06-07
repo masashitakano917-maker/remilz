@@ -1,0 +1,1 @@
+import"./supabase-CGTu0p87.js";/* empty css              */import{i as a}from"./auth-Dtda0RQ8.js";import"https://esm.sh/@supabase/supabase-js@2";const r=document.body.dataset.current;document.querySelectorAll("[data-nav]").forEach(t=>{t.dataset.nav===r&&t.classList.add("active")});a();
