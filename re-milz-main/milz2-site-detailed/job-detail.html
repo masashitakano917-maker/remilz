@@ -76,7 +76,7 @@
       <p>書類選考 → 一次面接 → 最終面接 → 内定。帰国前の方はオンライン面談を中心に進められます。</p>
     </article>
     <aside class="detail-side">
-      <div class="side-panel"><h3>この求人に応募する</h3><p>会員登録後、履歴書・職務経歴書を登録して応募できます。</p><a class="btn btn-primary" href="signup.html">無料会員登録</a></div>
+      <div class="side-panel" id="apply-panel"><h3>この求人に応募する</h3><p>会員登録後、履歴書・職務経歴書を登録して応募できます。</p><a class="btn btn-primary" href="signup.html">無料会員登録</a></div>
       <div class="side-panel"><h3>関連求人</h3><ul><li>海外営業 / 東京</li><li>Customer Success / SaaS</li><li>留学・教育アドバイザー</li></ul></div>
     </aside>
   </div>
@@ -128,7 +128,7 @@
   </div>
 </footer>
 <script type="module">
-  import { initAuth } from './js/auth.js';
+  import { initAuth, getSession } from './js/auth.js';
   import { getJob } from './js/data.js';
 
   const current = document.body.dataset.current;
@@ -136,7 +136,17 @@
     if (a.dataset.nav === current) a.classList.add('active');
   });
 
-  initAuth();
+  initAuth().then(session => {
+    const panel = document.getElementById('apply-panel');
+    if (session && panel) {
+      panel.innerHTML = '<h3>この求人に応募する</h3><p>応募ボタンを押すと企業にプロフィールが送信されます。</p><button class="btn btn-primary" id="apply-btn">この求人に応募する</button><p id="apply-msg" style="display:none;margin-top:8px;color:var(--green);font-weight:700;font-size:13px">応募しました！企業からの連絡をお待ちください。</p>';
+      document.getElementById('apply-btn').addEventListener('click', () => {
+        document.getElementById('apply-btn').disabled = true;
+        document.getElementById('apply-btn').textContent = '応募済み';
+        document.getElementById('apply-msg').style.display = '';
+      });
+    }
+  });
 
   const params = new URLSearchParams(window.location.search);
   const jobId = params.get('id');
