@@ -129,6 +129,8 @@ h1{margin:0;font-family:var(--serif);font-size:34px;line-height:1.6;letter-spaci
 .step-icon svg{width:36px;height:36px}
 .step-item h3{margin:0;color:var(--navy);font-size:12px;line-height:1.5;font-weight:900}
 .step-link{color:var(--blue);font-size:11px;font-weight:800;margin-top:auto}
+.steps-checklist-cta{margin-top:32px;text-align:center;padding:24px 32px;background:var(--sky);border-radius:10px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.steps-checklist-cta p{margin:0;color:var(--text);font-size:14px;line-height:1.6}
 
 /* Jobs Section */
 .jobs-section{background:var(--bg);padding:48px 0}
