@@ -57,7 +57,7 @@ export async function getArticle(id) {
   return data;
 }
 
-export async function getCompanies({ category = '', limit = 50 } = {}) {
+export async function getCompanies({ category = '', categories = [], search = '', online = false, corporate = false, english = false, limit = 50 } = {}) {
   let query = supabase
     .from('support_companies')
     .select('*')
@@ -67,6 +67,21 @@ export async function getCompanies({ category = '', limit = 50 } = {}) {
 
   if (category) {
     query = query.eq('category', category);
+  }
+  if (categories.length > 0) {
+    query = query.in('category', categories);
+  }
+  if (search) {
+    query = query.or(`name.ilike.%${search}%,description.ilike.%${search}%,category.ilike.%${search}%`);
+  }
+  if (online) {
+    query = query.eq('has_online_support', true);
+  }
+  if (corporate) {
+    query = query.eq('has_corporate_support', true);
+  }
+  if (english) {
+    query = query.eq('has_english_support', true);
   }
 
   const { data, error } = await query;
