@@ -1,6 +1,6 @@
 import { supabase } from './supabase.js';
 
-export async function getJobs({ limit = 20, offset = 0, tags = [], search = '' } = {}) {
+export async function getJobs({ limit = 20, offset = 0, tags = [], search = '', locations = [], employmentTypes = [] } = {}) {
   let query = supabase
     .from('jobs')
     .select('*', { count: 'exact' })
@@ -14,10 +14,21 @@ export async function getJobs({ limit = 20, offset = 0, tags = [], search = '' }
   if (tags.length > 0) {
     query = query.overlaps('tags', tags);
   }
+  if (employmentTypes.length > 0) {
+    query = query.in('employment_type', employmentTypes);
+  }
 
   const { data, error, count } = await query;
   if (error) throw error;
-  return { jobs: data || [], total: count || 0 };
+
+  let filtered = data || [];
+  if (locations.length > 0) {
+    filtered = filtered.filter(job =>
+      locations.some(loc => job.location && job.location.includes(loc))
+    );
+  }
+
+  return { jobs: filtered, total: locations.length > 0 ? filtered.length : (count || 0) };
 }
 
 export async function getJob(id) {

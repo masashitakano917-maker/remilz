@@ -53,10 +53,10 @@
   <div class="container filter-layout">
     <aside class="filter-box">
       <h3>求人を絞り込む</h3>
-      <div class="filter-group"><strong>職種</strong><label class="check"><input type="checkbox"> 営業・事業開発</label><label class="check"><input type="checkbox"> カスタマーサクセス</label><label class="check"><input type="checkbox"> 教育・留学</label><label class="check"><input type="checkbox"> 金融・保険</label><label class="check"><input type="checkbox"> IT・エンジニア</label><label class="check"><input type="checkbox"> マーケティング</label></div>
-      <div class="filter-group"><strong>条件</strong><label class="check"><input type="checkbox"> 英語を活かす</label><label class="check"><input type="checkbox"> リモート可</label><label class="check"><input type="checkbox"> 帰国前応募可</label><label class="check"><input type="checkbox"> オンライン面接</label></div>
-      <div class="filter-group"><strong>勤務地</strong><label class="check"><input type="checkbox"> 東京</label><label class="check"><input type="checkbox"> 大阪</label><label class="check"><input type="checkbox"> 愛知</label><label class="check"><input type="checkbox"> 福岡</label><label class="check"><input type="checkbox"> リモート</label></div>
-      <div class="filter-group"><strong>雇用形態</strong><label class="check"><input type="checkbox"> 正社員</label><label class="check"><input type="checkbox"> 契約社員</label><label class="check"><input type="checkbox"> 業務委託</label></div>
+      <div class="filter-group" data-group="tags"><strong>職種</strong><label class="check"><input type="checkbox" value="事業開発"> 営業・事業開発</label><label class="check"><input type="checkbox" value="SaaS"> カスタマーサクセス</label><label class="check"><input type="checkbox" value="教育"> 教育・留学</label><label class="check"><input type="checkbox" value="金融経験歓迎"> 金融・保険</label><label class="check"><input type="checkbox" value="テクノロジー"> IT・エンジニア</label></div>
+      <div class="filter-group" data-group="tags"><strong>条件</strong><label class="check"><input type="checkbox" value="英語使用"> 英語を活かす</label><label class="check"><input type="checkbox" value="リモート可"> リモート可</label><label class="check"><input type="checkbox" value="帰国前応募可"> 帰国前応募可</label><label class="check"><input type="checkbox" value="海外経験歓迎"> 海外経験歓迎</label></div>
+      <div class="filter-group" data-group="location"><strong>勤務地</strong><label class="check"><input type="checkbox" value="東京"> 東京</label><label class="check"><input type="checkbox" value="大阪"> 大阪</label><label class="check"><input type="checkbox" value="愛知"> 愛知</label><label class="check"><input type="checkbox" value="福岡"> 福岡</label><label class="check"><input type="checkbox" value="リモート"> リモート</label></div>
+      <div class="filter-group" data-group="employment"><strong>雇用形態</strong><label class="check"><input type="checkbox" value="正社員"> 正社員</label><label class="check"><input type="checkbox" value="契約社員"> 契約社員</label><label class="check"><input type="checkbox" value="業務委託"> 業務委託</label></div>
     </aside>
     <div>
       <div class="search-bar"><input type="search" placeholder="キーワード、企業名、職種で検索"><button class="btn btn-primary">検索</button></div>
@@ -222,16 +222,33 @@
   const listStack = document.querySelector('.list-stack');
   const searchInput = document.querySelector('.search-bar input');
   const searchBtn = document.querySelector('.search-bar button');
+  const filterBox = document.querySelector('.filter-box');
 
-  async function loadJobs(search = '') {
-    const activeTags = [];
-    document.querySelectorAll('.filter-box input:checked').forEach(cb => {
-      activeTags.push(cb.parentElement.textContent.trim());
+  function getFilters() {
+    const tags = [];
+    const locations = [];
+    const employmentTypes = [];
+
+    filterBox.querySelectorAll('.filter-group').forEach(group => {
+      const groupType = group.dataset.group;
+      group.querySelectorAll('input:checked').forEach(cb => {
+        const val = cb.value;
+        if (groupType === 'tags') tags.push(val);
+        else if (groupType === 'location') locations.push(val);
+        else if (groupType === 'employment') employmentTypes.push(val);
+      });
     });
+
+    return { tags, locations, employmentTypes };
+  }
+
+  async function loadJobs() {
+    const search = searchInput.value.trim();
+    const { tags, locations, employmentTypes } = getFilters();
 
     listStack.innerHTML = '<p style="padding:24px;color:var(--muted)">読み込み中...</p>';
     try {
-      const { jobs, total } = await getJobs({ search, tags: activeTags });
+      const { jobs, total } = await getJobs({ search, tags, locations, employmentTypes });
       if (jobs.length === 0) {
         listStack.innerHTML = '<p style="padding:24px;color:var(--muted)">該当する求人が見つかりませんでした。</p>';
         return;
@@ -257,10 +274,10 @@
     }
   }
 
-  searchBtn.addEventListener('click', () => loadJobs(searchInput.value));
-  searchInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') loadJobs(searchInput.value); });
-  document.querySelectorAll('.filter-box input').forEach(cb => {
-    cb.addEventListener('change', () => loadJobs(searchInput.value));
+  searchBtn.addEventListener('click', () => loadJobs());
+  searchInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') loadJobs(); });
+  filterBox.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => loadJobs());
   });
 
   loadJobs();
