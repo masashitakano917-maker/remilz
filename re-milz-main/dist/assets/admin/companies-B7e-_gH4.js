@@ -1,0 +1,7 @@
+import"../supabase-CGTu0p87.js";/* empty css               */import{r as d,s as i}from"../auth-Dtda0RQ8.js";import{a as s,b as l}from"../admin-data-CDaB9G4H.js";import"https://esm.sh/@supabase/supabase-js@2";const c=document.body.dataset.adminCurrent;document.querySelectorAll("[data-admin]").forEach(e=>{e.dataset.admin===c&&e.classList.add("active")});(async()=>await d()&&o())();async function o(){const e=document.querySelector(".admin-table tbody");try{const a=await s();e.innerHTML=a.map(t=>{const r=[t.has_online_support&&"オンライン",t.has_english_support&&"英語対応",t.has_corporate_support&&"法人"].filter(Boolean).join(" / ")||"-";return`
+        <tr>
+          <td>${t.name}${t.is_featured?' <span style="color:#f59e0b">&#9733;</span>':""}</td>
+          <td>${t.category||"-"}</td>
+          <td>${r}</td>
+          <td class="right"><a href="company-edit.html?id=${t.id}">編集</a> / <a href="#" data-delete="${t.id}">削除</a></td>
+        </tr>`}).join(""),a.length===0&&(e.innerHTML='<tr><td colspan="4" style="text-align:center;padding:24px;color:var(--muted)">企業が登録されていません</td></tr>'),e.querySelectorAll("[data-delete]").forEach(t=>{t.addEventListener("click",async r=>{r.preventDefault(),confirm("この企業を削除しますか？")&&(await l(t.dataset.delete),o())})})}catch{e.innerHTML='<tr><td colspan="4" style="color:var(--red)">読み込みエラー</td></tr>'}}var n;(n=document.getElementById("logout-btn"))==null||n.addEventListener("click",async e=>{e.preventDefault(),await i(),window.location.href="login.html"});

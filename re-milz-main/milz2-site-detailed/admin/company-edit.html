@@ -31,17 +31,130 @@
 </aside>
     <main class="admin-main">
       <header class="admin-topbar">
-        <div class="admin-title"><h1>企業追加・編集</h1><p>Milz2 管理画面</p></div>
-        <div class="admin-actions"><a class="btn btn-outline btn-mini" href="settings.html">設定</a><a class="btn btn-primary btn-mini" href="login.html">ログアウト</a><div class="admin-user"><span class="admin-avatar">A</span>Admin</div></div>
+        <div class="admin-title"><h1 id="page-title">サポート企業を追加</h1><p>Milz2 管理画面</p></div>
+        <div class="admin-actions"><a class="btn btn-outline btn-mini" href="companies.html">戻る</a><a class="btn btn-primary btn-mini" id="logout-btn" href="#">ログアウト</a></div>
       </header>
       <div class="admin-content">
-        <section class="admin-panel"><div class="admin-panel-head"><h2 class="admin-panel-title">企業情報編集</h2></div><form class="admin-form"><label>企業名<input value="Milz International Moving"></label><div class="admin-form-grid"><label>カテゴリ<select><option>引越し</option><option>保険</option><option>不動産</option></select></label><label>掲載状態<select><option>掲載中</option><option>審査中</option><option>非公開</option></select></label><label>対応地域<input value="米国全域 / 日本全国"></label><label>相談方法<input value="オンライン"></label></div><label>サービス説明<textarea>米国から日本への帰国引越しに対応。荷物量の確認、見積もり、梱包、通関、到着後の配送までサポートします。</textarea></label><button class="btn btn-primary" type="submit">保存する</button></form></section>
+        <section class="admin-panel">
+          <div id="msg" style="display:none;padding:12px;border-radius:6px;margin-bottom:16px;font-size:14px"></div>
+          <form class="admin-form" id="company-form">
+            <label>企業名<input id="name" required></label>
+            <div class="admin-form-grid">
+              <label>カテゴリ<select id="category">
+                <option value="国際引越し">国際引越し</option>
+                <option value="不動産">不動産</option>
+                <option value="保険">保険</option>
+                <option value="行政手続き">行政手続き</option>
+                <option value="教育">教育</option>
+                <option value="法律・税務">法律・税務</option>
+                <option value="就職支援">就職支援</option>
+                <option value="その他">その他</option>
+              </select></label>
+              <label>ウェブサイトURL<input id="website-url" type="url" placeholder="https://"></label>
+            </div>
+            <div class="admin-form-grid">
+              <label>電話番号<input id="phone" type="tel" placeholder="03-1234-5678"></label>
+              <label>メールアドレス<input id="email" type="email" placeholder="info@example.com"></label>
+            </div>
+            <label>サービス説明<textarea id="description" rows="3" placeholder="企業のサービス内容を入力"></textarea></label>
+            <label>提供サービス (カンマ区切り)<input id="services" placeholder="引越し見積もり, 梱包, 通関手続き, 配送"></label>
+            <div style="display:flex;gap:20px;flex-wrap:wrap;margin:8px 0 16px">
+              <label style="display:flex;align-items:center;gap:6px;font-size:14px"><input type="checkbox" id="has-online-support"> オンライン対応</label>
+              <label style="display:flex;align-items:center;gap:6px;font-size:14px"><input type="checkbox" id="has-english-support"> 英語対応</label>
+              <label style="display:flex;align-items:center;gap:6px;font-size:14px"><input type="checkbox" id="has-corporate-support"> 法人対応</label>
+              <label style="display:flex;align-items:center;gap:6px;font-size:14px"><input type="checkbox" id="is-featured"> 注目企業に設定</label>
+            </div>
+            <button class="btn btn-primary" type="submit" id="submit-btn">保存する</button>
+          </form>
+        </section>
       </div>
     </main>
   </div>
-<script>
+<script type="module">
+  import { requireAdmin, signOut } from '../js/auth.js';
+  import { createCompany, updateCompany } from '../js/admin-data.js';
+  import { supabase } from '../js/supabase.js';
+
   const current = document.body.dataset.adminCurrent;
   document.querySelectorAll('[data-admin]').forEach(a => { if(a.dataset.admin === current) a.classList.add('active'); });
+
+  const params = new URLSearchParams(window.location.search);
+  const companyId = params.get('id');
+  const form = document.getElementById('company-form');
+  const msg = document.getElementById('msg');
+
+  (async () => {
+    const profile = await requireAdmin();
+    if (!profile) return;
+
+    if (companyId) {
+      document.getElementById('page-title').textContent = 'サポート企業を編集';
+      document.getElementById('submit-btn').textContent = '更新する';
+      const { data: company } = await supabase.from('support_companies').select('*').eq('id', companyId).maybeSingle();
+      if (company) {
+        document.getElementById('name').value = company.name;
+        document.getElementById('category').value = company.category || '';
+        document.getElementById('website-url').value = company.website_url || '';
+        document.getElementById('phone').value = company.phone || '';
+        document.getElementById('email').value = company.email || '';
+        document.getElementById('description').value = company.description || '';
+        document.getElementById('services').value = (company.services || []).join(', ');
+        document.getElementById('has-online-support').checked = company.has_online_support || false;
+        document.getElementById('has-english-support').checked = company.has_english_support || false;
+        document.getElementById('has-corporate-support').checked = company.has_corporate_support || false;
+        document.getElementById('is-featured').checked = company.is_featured || false;
+      }
+    }
+  })();
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.style.display = 'none';
+    const submitBtn = document.getElementById('submit-btn');
+    submitBtn.disabled = true;
+
+    const servicesRaw = document.getElementById('services').value;
+    const services = servicesRaw ? servicesRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
+
+    const companyData = {
+      name: document.getElementById('name').value,
+      category: document.getElementById('category').value,
+      website_url: document.getElementById('website-url').value || null,
+      phone: document.getElementById('phone').value || null,
+      email: document.getElementById('email').value || null,
+      description: document.getElementById('description').value || null,
+      services: services,
+      has_online_support: document.getElementById('has-online-support').checked,
+      has_english_support: document.getElementById('has-english-support').checked,
+      has_corporate_support: document.getElementById('has-corporate-support').checked,
+      is_featured: document.getElementById('is-featured').checked
+    };
+
+    try {
+      if (companyId) {
+        await updateCompany(companyId, companyData);
+      } else {
+        await createCompany(companyData);
+      }
+      msg.style.display = 'block';
+      msg.style.color = 'var(--green)';
+      msg.style.background = 'var(--green-bg)';
+      msg.textContent = '保存しました。';
+      setTimeout(() => { window.location.href = 'companies.html'; }, 1000);
+    } catch (err) {
+      msg.style.display = 'block';
+      msg.style.color = 'var(--red)';
+      msg.style.background = '#fef2f2';
+      msg.textContent = `保存に失敗しました: ${err.message}`;
+      submitBtn.disabled = false;
+    }
+  });
+
+  document.getElementById('logout-btn')?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    await signOut();
+    window.location.href = 'login.html';
+  });
 </script>
 </body>
 </html>

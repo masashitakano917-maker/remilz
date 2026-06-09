@@ -57,14 +57,20 @@
     const tbody = document.querySelector('.admin-table tbody');
     try {
       const companies = await getAllCompanies();
-      tbody.innerHTML = companies.map(c => `
+      tbody.innerHTML = companies.map(c => {
+        const tags = [
+          c.has_online_support && 'オンライン',
+          c.has_english_support && '英語対応',
+          c.has_corporate_support && '法人'
+        ].filter(Boolean).join(' / ') || '-';
+        return `
         <tr>
-          <td>${c.name}</td>
+          <td>${c.name}${c.is_featured ? ' <span style="color:#f59e0b">&#9733;</span>' : ''}</td>
           <td>${c.category || '-'}</td>
-          <td>${[c.online && 'オンライン', c.corporate && '法人'].filter(Boolean).join(' / ') || '-'}</td>
+          <td>${tags}</td>
           <td class="right"><a href="company-edit.html?id=${c.id}">編集</a> / <a href="#" data-delete="${c.id}">削除</a></td>
-        </tr>
-      `).join('');
+        </tr>`;
+      }).join('');
       if (companies.length === 0) {
         tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:24px;color:var(--muted)">企業が登録されていません</td></tr>';
       }
