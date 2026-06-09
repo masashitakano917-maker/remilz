@@ -171,6 +171,17 @@ h1{margin:0;font-family:var(--serif);font-size:34px;line-height:1.6;letter-spaci
 .faq-item:hover{background:#f7fbff;color:var(--navy)}
 .faq-item::before{content:'Q.';color:var(--navy);font-weight:900;margin-right:12px}
 
+.faq-accordion{border-bottom:1px solid var(--line)}
+.faq-accordion:first-child{border-top:1px solid var(--line)}
+.faq-question{display:flex;align-items:center;width:100%;min-height:56px;padding:16px;background:none;border:none;cursor:pointer;font-size:14px;font-weight:700;color:var(--text);text-align:left;transition:background .18s ease;gap:8px}
+.faq-question:hover{background:#f7fbff;color:var(--navy)}
+.faq-question span{color:var(--navy);font-weight:900;flex-shrink:0}
+.faq-chevron{margin-left:auto;flex-shrink:0;transition:transform .25s ease;color:var(--muted)}
+.faq-accordion.open .faq-chevron{transform:rotate(180deg);color:var(--navy)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .3s ease, padding .3s ease;padding:0 16px 0 40px}
+.faq-accordion.open .faq-answer{max-height:200px;padding:0 16px 16px 40px}
+.faq-answer p{font-size:13px;line-height:1.7;color:var(--muted)}
+
 /* Footer social */
 .footer-social{display:flex;gap:14px;margin-top:14px}
 .footer-social a{color:rgba(255,255,255,.7);transition:.18s}
