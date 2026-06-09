@@ -502,6 +502,10 @@
 
     currentProfile = await getProfile();
     if (currentProfile) {
+      if (currentProfile.is_admin) {
+        window.location.href = 'admin/index.html';
+        return;
+      }
       document.getElementById('mypage-title').textContent = `${currentProfile.full_name || 'ユーザー'}さんのマイページ`;
       updateReturnDate();
     }
