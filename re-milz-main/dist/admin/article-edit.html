@@ -5,7 +5,216 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>記事追加・編集｜Milz2 Admin</title>
   <meta name="theme-color" content="#00327f" />
-  <script type="module" crossorigin src="/assets/admin/article-edit-C4PMYkpl.js"></script>
+  <style>
+    .article-editor-layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .article-editor-layout { grid-template-columns: 1fr; }
+    }
+    .editor-main { display: flex; flex-direction: column; gap: 20px; }
+    .editor-sidebar { display: flex; flex-direction: column; gap: 20px; }
+    .editor-sidebar .sidebar-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .sidebar-card h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 14px;
+      letter-spacing: 0.5px;
+    }
+    .sidebar-card label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+    .sidebar-card input,
+    .sidebar-card select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+    .sidebar-card .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .sidebar-card .checkbox-row input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+    }
+    .image-drop-zone {
+      border: 2px dashed #d1d5db;
+      border-radius: 8px;
+      padding: 24px 16px;
+      text-align: center;
+      color: #9ca3af;
+      font-size: 13px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .image-drop-zone:hover,
+    .image-drop-zone.dragover {
+      border-color: var(--blue);
+      background: #f0f7ff;
+    }
+    .image-drop-zone img {
+      max-width: 100%;
+      max-height: 160px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+    .image-drop-zone .drop-icon {
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+    .image-url-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    .btn-pexels {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 10px;
+      background: #05a081;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-pexels:hover { background: #048a6e; }
+
+    .rich-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
+      padding: 8px 10px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+    }
+    .rich-toolbar button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      color: #374151;
+      transition: background 0.1s;
+    }
+    .rich-toolbar button:hover { background: #e5e7eb; }
+    .rich-toolbar button.active { background: #dbeafe; color: var(--blue); }
+    .rich-toolbar .sep {
+      width: 1px;
+      height: 24px;
+      background: #d1d5db;
+      margin: 4px 4px;
+    }
+    .rich-editor {
+      min-height: 400px;
+      padding: 20px;
+      border: 1px solid #e5e7eb;
+      border-radius: 0 0 8px 8px;
+      font-size: 15px;
+      line-height: 1.7;
+      outline: none;
+      background: #fff;
+    }
+    .rich-editor:focus { border-color: var(--blue); }
+    .rich-editor h1 { font-size: 24px; font-weight: 900; margin: 16px 0 8px; }
+    .rich-editor h2 { font-size: 20px; font-weight: 800; margin: 14px 0 6px; }
+    .rich-editor h3 { font-size: 17px; font-weight: 700; margin: 12px 0 4px; }
+    .rich-editor p { margin: 0 0 12px; }
+    .rich-editor ul, .rich-editor ol { margin: 0 0 12px 20px; }
+    .rich-editor blockquote {
+      border-left: 3px solid var(--blue);
+      padding-left: 14px;
+      margin: 12px 0;
+      color: #6b7280;
+    }
+    .rich-editor a { color: var(--blue); text-decoration: underline; }
+    .rich-editor img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+
+    .editor-field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+    .editor-field input,
+    .editor-field textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+    .editor-field textarea { resize: vertical; min-height: 80px; }
+    .slug-hint {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 4px;
+    }
+    .editor-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .editor-actions .btn { padding: 12px 28px; font-size: 14px; }
+    .btn-preview {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 10px;
+      background: #fff;
+      color: #374151;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-top: 8px;
+    }
+    .btn-preview:hover { background: #f3f4f6; }
+  </style>
+  <script type="module" crossorigin src="/assets/admin/article-edit-DtnIPvgs.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/supabase-CGTu0p87.js">
   <link rel="modulepreload" crossorigin href="/assets/auth-Dtda0RQ8.js">
   <link rel="modulepreload" crossorigin href="/assets/admin-data-Bahd-xFg.js">
@@ -35,16 +244,99 @@
 </aside>
     <main class="admin-main">
       <header class="admin-topbar">
-        <div class="admin-title"><h1 id="page-title">記事追加</h1><p>Milz2 管理画面</p></div>
+        <div class="admin-title"><h1 id="page-title">新規記事を作成</h1><p>Milz2 管理画面</p></div>
         <div class="admin-actions"><a class="btn btn-outline btn-mini" href="articles.html">戻る</a><a class="btn btn-primary btn-mini" id="logout-btn" href="#">ログアウト</a></div>
       </header>
       <div class="admin-content">
-        <section class="admin-panel">
-          <div id="msg" style="display:none;padding:12px;border-radius:6px;margin-bottom:16px;font-size:14px"></div>
-          <form class="admin-form" id="article-form">
-            <label>タイトル<input id="title" required></label>
-            <div class="admin-form-grid">
-              <label>カテゴリ<select id="category">
+        <div id="msg" style="display:none;padding:12px;border-radius:6px;margin-bottom:16px;font-size:14px"></div>
+
+        <div class="article-editor-layout">
+          <!-- Left: Content -->
+          <div class="editor-main">
+            <div class="editor-field">
+              <label for="title">タイトル</label>
+              <input id="title" type="text" placeholder="記事タイトルを入力" required>
+            </div>
+
+            <div class="editor-field">
+              <label for="slug">スラッグ (URL)</label>
+              <input id="slug" type="text" placeholder="how-to-move-back-to-japan">
+              <p class="slug-hint">URLに使用されます。空欄の場合はタイトルから自動生成されます。</p>
+            </div>
+
+            <div class="editor-field">
+              <label for="excerpt">概要</label>
+              <textarea id="excerpt" rows="3" placeholder="記事の概要を入力（一覧ページに表示されます）"></textarea>
+            </div>
+
+            <div class="editor-field">
+              <label>本文</label>
+              <div class="rich-toolbar" id="toolbar">
+                <button type="button" data-cmd="bold" title="太字"><b>B</b></button>
+                <button type="button" data-cmd="italic" title="斜体"><i>I</i></button>
+                <button type="button" data-cmd="underline" title="下線"><u>U</u></button>
+                <button type="button" data-cmd="strikeThrough" title="取り消し線"><s>S</s></button>
+                <div class="sep"></div>
+                <button type="button" data-cmd="formatBlock" data-val="h1" title="見出し1">H1</button>
+                <button type="button" data-cmd="formatBlock" data-val="h2" title="見出し2">H2</button>
+                <button type="button" data-cmd="formatBlock" data-val="h3" title="見出し3">H3</button>
+                <button type="button" data-cmd="formatBlock" data-val="p" title="本文">P</button>
+                <div class="sep"></div>
+                <button type="button" data-cmd="insertUnorderedList" title="箇条書き">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3" cy="6" r="1" fill="currentColor"/><circle cx="3" cy="12" r="1" fill="currentColor"/><circle cx="3" cy="18" r="1" fill="currentColor"/></svg>
+                </button>
+                <button type="button" data-cmd="insertOrderedList" title="番号付きリスト">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><text x="2" y="8" font-size="8" fill="currentColor" stroke="none">1</text><text x="2" y="14" font-size="8" fill="currentColor" stroke="none">2</text><text x="2" y="20" font-size="8" fill="currentColor" stroke="none">3</text></svg>
+                </button>
+                <button type="button" data-cmd="formatBlock" data-val="blockquote" title="引用">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 17h3l2-4V7H5v6h3M15 17h3l2-4V7h-6v6h3"/></svg>
+                </button>
+                <div class="sep"></div>
+                <button type="button" data-cmd="insertHorizontalRule" title="水平線">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12"/></svg>
+                </button>
+                <button type="button" id="btn-link" title="リンク挿入">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                </button>
+                <button type="button" id="btn-image" title="画像挿入">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </button>
+                <div class="sep"></div>
+                <button type="button" data-cmd="undo" title="元に戻す">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                </button>
+                <button type="button" data-cmd="redo" title="やり直し">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.13-9.36L23 10"/></svg>
+                </button>
+              </div>
+              <div class="rich-editor" id="editor" contenteditable="true"></div>
+            </div>
+
+            <div class="editor-actions">
+              <button class="btn btn-primary" type="button" id="submit-btn">作成する</button>
+              <button class="btn btn-outline" type="button" id="draft-btn">下書き保存</button>
+            </div>
+          </div>
+
+          <!-- Right: Metadata -->
+          <div class="editor-sidebar">
+            <div class="sidebar-card">
+              <h3>アイキャッチ画像</h3>
+              <input class="image-url-input" id="featured-image-url" type="text" placeholder="URLを入力 または 画像をドロップ">
+              <button class="btn-pexels" type="button" id="btn-pexels">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                Pexels から画像を選択
+              </button>
+              <div class="image-drop-zone" id="image-drop">
+                <div class="drop-icon">&#8679;</div>
+                <span>ドラッグ&ドロップ or クリック</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h3>記事設定</h3>
+              <label for="category">カテゴリ</label>
+              <select id="category">
                 <option value="手続き">手続き</option>
                 <option value="税金・お金">税金・お金</option>
                 <option value="住まい">住まい</option>
@@ -55,17 +347,31 @@
                 <option value="生活">生活</option>
                 <option value="FAQ">FAQ</option>
                 <option value="法人">法人</option>
-              </select></label>
-              <label>公開状態<select id="status">
-                <option value="draft">下書き</option>
-                <option value="published">公開</option>
-              </select></label>
+              </select>
+
+              <label for="author">著者</label>
+              <input id="author" type="text" placeholder="著者名">
+
+              <label for="published-at">公開日</label>
+              <input id="published-at" type="date">
+
+              <div class="checkbox-row">
+                <input type="checkbox" id="is-published">
+                <label for="is-published" style="margin:0">公開する</label>
+              </div>
+              <div class="checkbox-row">
+                <input type="checkbox" id="is-featured">
+                <label for="is-featured" style="margin:0">注目記事に設定</label>
+              </div>
             </div>
-            <label>概要<textarea id="excerpt" rows="3"></textarea></label>
-            <label>本文 (HTML)<textarea id="content" rows="12" style="min-height:300px"></textarea></label>
-            <button class="btn btn-primary" type="submit" id="submit-btn">保存する</button>
-          </form>
-        </section>
+
+            <button class="btn-preview" type="button" id="btn-preview">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              プレビュー
+            </button>
+          </div>
+        </div>
+
       </div>
     </main>
   </div>

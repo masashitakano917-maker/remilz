@@ -35,7 +35,7 @@
         <div class="admin-actions"><a class="btn btn-outline btn-mini" href="settings.html">設定</a><a class="btn btn-primary btn-mini" href="login.html">ログアウト</a><div class="admin-user"><span class="admin-avatar">A</span>Admin</div></div>
       </header>
       <div class="admin-content">
-        <section class="admin-panel"><div class="admin-toolbar"><div class="admin-tabs"><a class="admin-tab active" href="#">公開中</a><a class="admin-tab" href="#">下書き</a></div><a class="btn btn-primary btn-mini" href="article-edit.html">新規記事を追加</a></div><table class="admin-table"><thead><tr><th>タイトル</th><th>カテゴリ</th><th>更新日</th><th>状態</th><th>PV</th><th></th></tr></thead><tbody>
+        <section class="admin-panel"><div class="admin-toolbar"><div class="admin-tabs"><a class="admin-tab active" href="#">公開中</a><a class="admin-tab" href="#">下書き</a><a class="admin-tab" href="#">すべて</a></div><a class="btn btn-primary btn-mini" href="article-edit.html">新規記事を追加</a></div><table class="admin-table"><thead><tr><th style="width:40px"></th><th>タイトル</th><th>カテゴリ</th><th>著者</th><th>公開日</th><th>状態</th><th></th></tr></thead><tbody>
 </tbody></table></section>
       </div>
     </main>
@@ -63,7 +63,8 @@
       tab.classList.add('active');
       const text = tab.textContent;
       if (text === '公開中') currentStatus = 'published';
-      else currentStatus = 'draft';
+      else if (text === '下書き') currentStatus = 'draft';
+      else currentStatus = '';
       loadArticles();
     });
   });
@@ -72,18 +73,24 @@
     const tbody = document.querySelector('.admin-table tbody');
     try {
       const articles = await getAllArticles({ status: currentStatus });
-      tbody.innerHTML = articles.map(a => `
+      tbody.innerHTML = articles.map(a => {
+        const thumb = a.featured_image
+          ? `<img src="${a.featured_image}" style="width:36px;height:36px;border-radius:4px;object-fit:cover">`
+          : `<span style="display:inline-block;width:36px;height:36px;border-radius:4px;background:#f3f4f6"></span>`;
+        const featured = a.is_featured ? ' <span style="color:#f59e0b;font-size:11px">&#9733;</span>' : '';
+        return `
         <tr>
-          <td><a href="article-edit.html?id=${a.id}">${a.title}</a></td>
+          <td>${thumb}</td>
+          <td><a href="article-edit.html?id=${a.id}">${a.title}</a>${featured}</td>
           <td>${a.category}</td>
+          <td>${a.author || '-'}</td>
           <td>${a.published_at ? new Date(a.published_at).toLocaleDateString('ja-JP').replace(/\//g, '.') : '未公開'}</td>
           <td><span class="admin-badge ${a.status === 'published' ? 'green' : 'gray'}">${a.status === 'published' ? '公開' : '下書き'}</span></td>
-          <td>-</td>
           <td class="right"><a href="article-edit.html?id=${a.id}">編集</a> / <a href="#" data-delete="${a.id}">削除</a></td>
-        </tr>
-      `).join('');
+        </tr>`;
+      }).join('');
       if (articles.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted)">該当する記事がありません</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">該当する記事がありません</td></tr>';
       }
       tbody.querySelectorAll('[data-delete]').forEach(btn => {
         btn.addEventListener('click', async (e) => {
@@ -94,7 +101,7 @@
         });
       });
     } catch (e) {
-      tbody.innerHTML = '<tr><td colspan="6" style="color:var(--red)">読み込みエラー</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" style="color:var(--red)">読み込みエラー</td></tr>';
     }
   }
 
