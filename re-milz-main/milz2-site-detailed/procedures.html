@@ -212,6 +212,30 @@
     }
     .keep-item strong { display: block; color: #166534; margin-bottom: 4px; }
     .keep-item span { color: #4b5563; }
+
+    .proc-card.dimmed {
+      opacity: 0.35;
+      transform: scale(0.98);
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .proc-card.highlighted {
+      border-color: #93c5fd;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 2px 8px rgba(0,0,0,0.04);
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .proc-card.highlighted::after {
+      content: "あなたに該当";
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #1d4ed8;
+      background: #dbeafe;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .proc-card { position: relative; }
   </style>
 </head>
 <body data-current="procedures">
@@ -284,13 +308,14 @@
   <div class="container">
     <div class="filter-bar" id="filter-bar">
       <span class="filter-bar-title">あなたに必要な手続き：</span>
-      <label><input type="checkbox" value="single" checked> 単身で帰国</label>
+      <label><input type="checkbox" value="single"> 単身で帰国</label>
       <label><input type="checkbox" value="family"> 家族で帰国</label>
       <label><input type="checkbox" value="children"> 子どもあり</label>
       <label><input type="checkbox" value="spouse-foreign"> 外国籍の配偶者</label>
       <label><input type="checkbox" value="employed"> 帰国後すぐ就職</label>
       <label><input type="checkbox" value="freelance"> しばらく無職・フリーランス</label>
       <label><input type="checkbox" value="us-license"> 米国免許あり</label>
+      <span id="filter-result" style="display:none;font-size:12px;color:#1d4ed8;font-weight:600;margin-left:8px;align-self:center"></span>
     </div>
   </div>
 </section>
@@ -782,15 +807,38 @@
   // Filter logic
   const filterBar = document.getElementById('filter-bar');
   const allCards = document.querySelectorAll('.proc-card[data-tags]');
+  const filterResult = document.getElementById('filter-result');
 
-  filterBar.addEventListener('change', () => {
+  function applyFilters() {
     const checked = [...filterBar.querySelectorAll('input:checked')].map(i => i.value);
+
+    if (checked.length === 0) {
+      allCards.forEach(card => {
+        card.classList.remove('dimmed', 'highlighted');
+      });
+      filterResult.style.display = 'none';
+      return;
+    }
+
+    let matchCount = 0;
     allCards.forEach(card => {
       const tags = card.dataset.tags.split(' ');
-      const visible = checked.length === 0 || checked.some(c => tags.includes(c));
-      card.style.display = visible ? '' : 'none';
+      const matches = checked.some(c => tags.includes(c));
+      if (matches) {
+        card.classList.remove('dimmed');
+        card.classList.add('highlighted');
+        matchCount++;
+      } else {
+        card.classList.add('dimmed');
+        card.classList.remove('highlighted');
+      }
     });
-  });
+
+    filterResult.style.display = 'inline';
+    filterResult.textContent = `${matchCount}件の手続きが該当`;
+  }
+
+  filterBar.addEventListener('change', applyFilters);
 </script>
 </body>
 </html>
