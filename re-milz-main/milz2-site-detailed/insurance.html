@@ -38,37 +38,85 @@
 </header>
 <main>
 
+<!-- ===== Hero ===== -->
 <section class="page-hero">
   <div class="container page-hero-grid">
     <div>
       <div class="breadcrumb">トップ / 保険</div>
       <h1 class="page-title">帰国前後の保険を確認する</h1>
-      <p class="page-lead">米国側の保険整理、日本帰国後の公的保険・民間保険の確認など、帰国時に見直したいポイントをまとめています。</p>
+      <p class="page-lead">米国側の保険整理から、日本帰国後の公的保険・年金まで。<br>保険の空白期間を作らないためのポイントをまとめています。</p>
+      <div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap">
+        <a class="btn btn-primary" href="#us-cancel">米国側の整理を確認</a>
+        <a class="btn btn-outline" href="#gap">空白期間の対策を見る</a>
+      </div>
     </div>
-    <div class="hero-side-card"><h3>最近よくある質問</h3><p>帰国後すぐに医療機関を受診できるか、米国の医療保険はいつ解約するか、空白期間をどうするかが多く読まれています。</p></div>
+    <div class="hero-side-card">
+      <h3>よくある相談</h3>
+      <ul class="compact-list" style="margin:0;padding-left:18px">
+        <li>帰国後すぐに医療機関を受診できる？</li>
+        <li>米国の保険はいつ解約する？</li>
+        <li>空白期間はどうカバーする？</li>
+      </ul>
+    </div>
   </div>
 </section>
 
-<!-- 帰国直後の保険 -->
+<!-- ===== 要点 ===== -->
 <section class="section">
   <div class="container">
     <div class="section-head">
-      <h2 class="section-title">帰国直後の医療保険はどうなる？</h2>
-      <p class="section-desc">本帰国か一時帰国かで対応が変わります。</p>
+      <h2 class="section-title">まず押さえる3つのポイント</h2>
     </div>
-    <div class="comparison-table">
-      <table>
-        <thead>
-          <tr><th></th><th>本帰国</th><th>一時帰国</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>住民登録</td><td>転入届を提出（14日以内）</td><td>原則できない（短期滞在の場合）</td></tr>
-          <tr><td>国民健康保険</td><td>住民登録後に加入可能</td><td>加入できない場合が多い</td></tr>
-          <tr><td>資格確認</td><td>マイナ保険証または資格確認書</td><td>対象外</td></tr>
-          <tr><td>医療費</td><td>3割負担（保険適用）</td><td>全額自費 or 海外旅行保険</td></tr>
-          <tr><td>推奨対応</td><td>転入届 → 国保加入</td><td>海外旅行保険 or 一時帰国保険</td></tr>
-        </tbody>
-      </table>
+    <div class="top3-grid">
+      <div class="top3-card">
+        <div class="top3-num">1</div>
+        <h3>住民登録が起点</h3>
+        <p>日本で国民健康保険に加入するには、まず市区町村に転入届を出して住民登録する必要があります。</p>
+      </div>
+      <div class="top3-card">
+        <div class="top3-num">2</div>
+        <h3>空白期間を作らない</h3>
+        <p>米国の保険終了日と日本の保険開始日の間が空くと無保険状態に。スケジュールを合わせましょう。</p>
+      </div>
+      <div class="top3-card">
+        <div class="top3-num">3</div>
+        <h3>米国側の保険も計画的に解約</h3>
+        <p>医療保険、自動車保険、レンター保険など。解約のタイミングと手順を事前に確認。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 本帰国 vs 一時帰国 ===== -->
+<section class="section soft">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">帰国直後の医療保険はどうなる？</h2>
+      <p class="section-desc">本帰国か一時帰国かで対応が大きく変わります。</p>
+    </div>
+    <div class="category-grid">
+      <article class="category-card">
+        <div>
+          <h3 style="color:var(--navy)">本帰国の場合</h3>
+          <ul class="compact-list">
+            <li>転入届を提出（14日以内）</li>
+            <li>住民登録後に国保に加入可能</li>
+            <li>マイナ保険証または資格確認書</li>
+            <li>医療費は3割負担（保険適用）</li>
+          </ul>
+        </div>
+      </article>
+      <article class="category-card">
+        <div>
+          <h3 style="color:var(--navy)">一時帰国の場合</h3>
+          <ul class="compact-list">
+            <li>住民登録は原則できない（短期滞在）</li>
+            <li>国民健康保険に加入できない場合が多い</li>
+            <li>医療費は全額自費</li>
+            <li>海外旅行保険 or 一時帰国保険で対応</li>
+          </ul>
+        </div>
+      </article>
     </div>
     <div class="alert-box alert-box-info" style="margin-top:24px">
       <div class="alert-icon">
@@ -82,32 +130,47 @@
   </div>
 </section>
 
-<!-- 国民健康保険と会社の保険 -->
-<section class="section soft">
+<!-- ===== 国保 vs 社保 ===== -->
+<section class="section">
   <div class="container">
     <div class="section-head">
-      <h2 class="section-title">国民健康保険と会社の健康保険の違い</h2>
+      <h2 class="section-title">国民健康保険と会社の健康保険</h2>
+      <p class="section-desc">帰国後の働き方によって加入する保険が変わります。</p>
     </div>
-    <div class="comparison-table">
-      <table>
-        <thead>
-          <tr><th></th><th>国民健康保険</th><th>会社の健康保険（社保）</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>加入条件</td><td>住民登録があり、他の保険に未加入</td><td>就職して加入要件を満たす</td></tr>
-          <tr><td>手続き先</td><td>住所地の市区町村役場</td><td>勤務先の会社が手続き</td></tr>
-          <tr><td>保険料</td><td>前年所得に基づく（自治体で異なる）</td><td>給与から天引き（会社と折半）</td></tr>
-          <tr><td>扶養制度</td><td>なし（家族それぞれ加入）</td><td>あり（配偶者・子供を扶養に入れられる）</td></tr>
-          <tr><td>切替のタイミング</td><td>就職時に脱退</td><td>退職時に国保へ切替</td></tr>
-        </tbody>
-      </table>
+    <div class="category-grid">
+      <article class="category-card">
+        <div>
+          <h3>国民健康保険（国保）</h3>
+          <ul class="compact-list">
+            <li>住民登録があり、他の保険に未加入の方が対象</li>
+            <li>市区町村役場で手続き</li>
+            <li>保険料は前年所得に基づく（自治体で異なる）</li>
+            <li>扶養制度なし（家族それぞれ加入）</li>
+            <li>就職時に社保に切り替え</li>
+          </ul>
+        </div>
+      </article>
+      <article class="category-card">
+        <div>
+          <h3>会社の健康保険（社保）</h3>
+          <ul class="compact-list">
+            <li>勤務先で加入要件を満たすと加入</li>
+            <li>勤務先の会社が手続き</li>
+            <li>保険料は給与から天引き（会社と折半）</li>
+            <li>扶養あり（配偶者・子供を入れられる）</li>
+            <li>退職時に国保へ切替</li>
+          </ul>
+        </div>
+      </article>
     </div>
-    <p class="note-text" style="margin-top:16px">帰国後すぐに就職する場合は、会社の健康保険に直接加入できるため国保に入る必要はありません。入社日まで空白がある場合は国保で繋ぐのが一般的です。</p>
+    <div class="info-panel" style="margin-top:20px;border-left:4px solid var(--blue)">
+      <p style="margin:0;font-size:13px;line-height:1.8;color:var(--text)">帰国後すぐに勤務先の健康保険へ加入する場合は、国民健康保険への加入が不要となる場合があります。ただし、入社日まで空白期間がある場合や、加入日が未確定の場合は、自治体窓口で確認しましょう。</p>
+    </div>
   </div>
 </section>
 
-<!-- 米国の保険解約 -->
-<section class="section">
+<!-- ===== 米国の保険解約 ===== -->
+<section class="section soft" id="us-cancel">
   <div class="container">
     <div class="section-head">
       <h2 class="section-title">米国の医療保険はいつ解約する？</h2>
@@ -146,71 +209,121 @@
   </div>
 </section>
 
-<!-- 帰国前後の空白期間 -->
-<section class="section soft">
+<!-- ===== 空白期間 ===== -->
+<section class="section" id="gap">
   <div class="container">
     <div class="section-head">
-      <h2 class="section-title">帰国前後の保険空白期間をどうする？</h2>
+      <h2 class="section-title">保険の空白期間をどうする？</h2>
+      <p class="section-desc">米国の保険終了〜日本の保険開始の間をカバーする方法は3つあります。</p>
     </div>
-    <div class="info-grid-3">
-      <div class="info-box">
+    <div class="top3-grid">
+      <div class="top3-card">
+        <div class="top3-num" style="background:var(--blue)">A</div>
         <h3>COBRA（米国側）</h3>
         <p>退職後も最大18ヶ月、元の保険を継続できる制度。ただし保険料は全額自己負担になるため高額。短期間のカバーに向いています。</p>
       </div>
-      <div class="info-box">
+      <div class="top3-card">
+        <div class="top3-num" style="background:var(--blue)">B</div>
         <h3>海外旅行保険</h3>
-        <p>帰国移動中のカバーとして利用。日本到着後は対象外になるプランが多いため、期間を確認。</p>
+        <p>帰国移動中のカバーとして利用。日本到着後は対象外になるプランが多いため、適用期間を必ず確認してください。</p>
       </div>
-      <div class="info-box">
+      <div class="top3-card">
+        <div class="top3-num" style="background:var(--blue)">C</div>
         <h3>国民健康保険（遡り加入）</h3>
-        <p>住民登録日に遡って加入できます。ただし登録前に受診した医療費は一旦全額自費で支払い、後日「療養費」として請求する必要があります。還付には時間がかかるため、空白期間中は可能な限り受診を避けるか、別の保険でカバーしてください。</p>
+        <p>住民登録日に遡って加入できます。ただし登録前に受診した医療費は一旦全額自費。後日「療養費」として請求可能ですが、還付に時間がかかります。</p>
+      </div>
+    </div>
+    <div class="alert-box alert-box-warning" style="margin-top:20px">
+      <div class="alert-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div>
+        <strong>空白期間中の受診に注意</strong>
+        <p>住民登録前に受診した場合、一旦全額を自費で支払う必要があります。後日「療養費」として還付請求できますが、全額が戻らない場合もあります。空白期間中は可能な限り受診を避けるか、別の保険でカバーしてください。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- その他の保険整理 -->
-<section class="section">
+<!-- ===== 米国側の保険整理 ===== -->
+<section class="section soft">
   <div class="container">
     <div class="section-head">
       <h2 class="section-title">帰国前に整理すべき米国側の保険</h2>
+      <p class="section-desc">医療保険以外にも、帰国前に解約・変更が必要な保険があります。</p>
     </div>
     <div class="checklist-grid">
       <div class="check-item"><span class="check-bullet"></span><div><strong>自動車保険（Auto Insurance）</strong><p>車を売却する場合は売却後に解約。途中解約で返金がある場合も。</p></div></div>
       <div class="check-item"><span class="check-bullet"></span><div><strong>レンター保険（Renter's Insurance）</strong><p>アパート退去時に解約。退去日に合わせて終了日を設定。</p></div></div>
       <div class="check-item"><span class="check-bullet"></span><div><strong>生命保険（Life Insurance）</strong><p>日本帰国後も維持可能な場合がある。住所変更の通知が必要。</p></div></div>
-      <div class="check-item"><span class="check-bullet"></span><div><strong>歯科保険（Dental Insurance）</strong><p>日本では一般的な歯科治療（虫歯、抜歯、クリーニング等）は健康保険適用（3割負担）です。ただしインプラント、矯正、セラミック、ホワイトニング等の自由診療は全額自費のため、これらの治療中の方は米国で完了させるのが得策です。</p></div></div>
+      <div class="check-item"><span class="check-bullet"></span><div><strong>歯科保険（Dental Insurance）</strong><p>日本では一般的な歯科治療は健康保険適用（3割負担）。インプラント・矯正・セラミック等の自由診療は全額自費のため、治療中の方は米国で完了させるのが得策。</p></div></div>
       <div class="check-item"><span class="check-bullet"></span><div><strong>視力保険（Vision Insurance）</strong><p>帰国前にメガネ・コンタクトの処方を済ませておくと良い。</p></div></div>
+      <div class="check-item"><span class="check-bullet"></span><div><strong>ペット保険（Pet Insurance）</strong><p>日本の保険に切り替えが必要。既往歴の引継ぎができない場合が多い。</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- 国民年金 -->
-<section class="section soft">
+<!-- ===== 国民年金 ===== -->
+<section class="section">
   <div class="container">
     <div class="section-head">
       <h2 class="section-title">国民年金について</h2>
+      <p class="section-desc">帰国後に住民登録すると、国民年金への加入義務が発生します（20歳以上60歳未満）。</p>
     </div>
-    <div class="info-panel">
-      <p>帰国後に住民登録すると、国民年金への加入義務が発生します（20歳以上60歳未満）。就職する場合は厚生年金に加入するため、別途手続きは不要です。保険料は月額約17,000円前後（年度によって変動）です。</p>
-      <ul class="detail-list">
-        <li>住民登録と同時に市区町村で手続き可能</li>
-        <li>海外在住期間は「合算対象期間（カラ期間）」として受給資格期間に算入される（ただし年金額には反映されない）</li>
-        <li>帰国後に任意で過去分を追納できる場合がある（免除期間分は10年以内）</li>
-        <li>就職予定がある場合は入社まで国民年金、入社後は厚生年金</li>
-        <li>経済的に厳しい場合は免除・猶予制度あり（市区町村窓口で申請）</li>
-      </ul>
+    <div class="category-grid">
+      <article class="category-card">
+        <div>
+          <h3>基本情報</h3>
+          <ul class="compact-list">
+            <li>住民登録と同時に市区町村で手続き可能</li>
+            <li>保険料は月額約17,000円前後（年度で変動）</li>
+            <li>就職予定がある場合は入社後に厚生年金へ</li>
+          </ul>
+        </div>
+      </article>
+      <article class="category-card">
+        <div>
+          <h3>海外在住期間の扱い</h3>
+          <ul class="compact-list">
+            <li>「合算対象期間（カラ期間）」として受給資格期間に算入</li>
+            <li>ただし年金額には反映されない</li>
+            <li>帰国後に過去分を追納できる場合あり（10年以内）</li>
+          </ul>
+        </div>
+      </article>
+      <article class="category-card">
+        <div>
+          <h3>経済的に厳しい場合</h3>
+          <ul class="compact-list">
+            <li>免除・猶予制度あり</li>
+            <li>市区町村窓口で申請</li>
+            <li>所得に応じて全額〜1/4免除</li>
+          </ul>
+        </div>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- サポート企業 -->
-<section class="section">
+<!-- ===== CTA ===== -->
+<section class="section soft">
   <div class="container">
-    <div class="panel-head"><h2 class="panel-title">保険サポート企業</h2><a class="more-link" href="support-companies.html">一覧を見る</a></div>
-    <div class="list-stack">
-      <article class="list-card"><div class="list-top"><h2 class="list-title">帰国者向け保険相談窓口</h2><span class="badge new">新着</span></div><p>米国から帰国する方の医療・生命・損害保険の見直しに対応。</p></article>
-      <article class="list-card"><div class="list-top"><h2 class="list-title">法人帰任者向け保険サポート</h2><span class="badge">法人対応</span></div><p>駐在員・帯同家族の帰任時に必要な保険整理をまとめて支援。</p></article>
+    <div class="section-head">
+      <h2 class="section-title">次のステップ</h2>
+    </div>
+    <div class="category-grid">
+      <article class="category-card">
+        <div><h3>保険サポート企業</h3><p>帰国者向けの保険相談・見直しに対応する企業一覧。</p></div>
+        <a href="support-companies.html">サポート企業を見る</a>
+      </article>
+      <article class="category-card">
+        <div><h3>行政手続きガイド</h3><p>転入届・マイナンバー・国保・年金の手続き方法。</p></div>
+        <a href="procedures.html">行政手続きを見る</a>
+      </article>
+      <article class="category-card">
+        <div><h3>帰国チェックリスト</h3><p>保険の解約・加入を含む帰国全体のタスク管理。</p></div>
+        <a href="moving-checklist.html">チェックリストを開く</a>
+      </article>
     </div>
   </div>
 </section>
