@@ -793,3 +793,35 @@ h1{margin:0;font-family:var(--serif);font-size:34px;line-height:1.6;letter-spaci
   .comparison-table th,.comparison-table td{padding:8px 10px}
 }
 
+/* Top3 grid */
+.top3-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.top3-card{background:#fff;border:1px solid var(--line2);border-radius:12px;padding:28px 24px;position:relative;transition:all .2s ease}
+.top3-card:hover{border-color:var(--blue);box-shadow:var(--shadow-soft);transform:translateY(-2px)}
+.top3-num{width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;margin-bottom:14px}
+.top3-card h3{font-size:15px;font-weight:900;color:var(--navy);margin:0 0 10px}
+.top3-card p{font-size:13px;line-height:1.8;color:var(--text);margin:0}
+@media(max-width:768px){.top3-grid{grid-template-columns:1fr}}
+
+/* Moving accordion */
+.mv-accordion{border:1px solid var(--line2);border-radius:10px;overflow:hidden;margin-top:16px;background:#fff}
+.mv-accordion-btn{display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px 20px;background:none;border:none;cursor:pointer;font-size:13px;font-weight:700;color:var(--navy);text-align:left;transition:background .18s ease;gap:10px}
+.mv-accordion-btn:hover{background:#f7fbff}
+.mv-accordion-chevron{flex-shrink:0;transition:transform .25s ease;color:var(--muted)}
+.mv-accordion-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.mv-accordion.open .mv-accordion-body{max-height:2000px}
+.mv-accordion.open .mv-accordion-chevron{transform:rotate(180deg);color:var(--navy)}
+.mv-accordion-inner{padding:0 20px 20px}
+.mv-accordion-inner p{font-size:13px;line-height:1.8;color:var(--text);margin:0 0 12px}
+.mv-accordion-inner ul{margin:0;padding:0}
+
+/* Comparison cards */
+.compare-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.compare-card{background:#fff;border:1px solid var(--line2);border-radius:10px;padding:22px 18px;text-align:center;transition:all .2s ease}
+.compare-card:hover{border-color:var(--blue);box-shadow:var(--shadow-soft);transform:translateY(-2px)}
+.compare-card-icon{width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:var(--sky);border-radius:50%;color:var(--navy);margin:0 auto 12px}
+.compare-card h3{font-size:14px;font-weight:900;color:var(--navy);margin:0 0 8px}
+.compare-card p{font-size:12px;line-height:1.7;color:var(--text);margin:0 0 8px}
+.compare-card .compare-meta{font-size:11px;color:var(--muted);font-weight:700}
+@media(max-width:1024px){.compare-cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.compare-cards{grid-template-columns:1fr}}
+
