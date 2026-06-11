@@ -519,7 +519,7 @@ h1{margin:0;font-family:var(--serif);font-size:34px;line-height:1.6;letter-spaci
 
 
 /* ==============================
-   Milz2 Admin UI
+   CHAPTER JAPAN Admin UI
    ============================== */
 .admin-body{background:#f3f6fb;color:var(--ink)}
 .admin-shell{min-height:100vh;display:grid;grid-template-columns:260px minmax(0,1fr)}

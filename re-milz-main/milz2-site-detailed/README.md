@@ -1,4 +1,4 @@
-# Milz2 Return Support Site - Detailed Version
+# CHAPTER JAPAN Return Support Site - Detailed Version
 
 米国から日本への帰国サポートサイトの静的HTML一式です。
 Cloudflare Pages / GitHub Pages にそのままアップできます。
