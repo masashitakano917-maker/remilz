@@ -6,10 +6,10 @@
   <title>保険｜CHAPTER JAPAN</title>
   <meta name="description" content="帰国前後の保険を整理。米国の医療保険解約、日本の国民健康保険加入、空白期間の対応まで。" />
   <meta name="theme-color" content="#00327f" />
-  <script type="module" crossorigin src="/assets/insurance-Bqpd-s_s.js"></script>
+  <script type="module" crossorigin src="/assets/insurance-DilQlIEm.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/supabase-CGTu0p87.js">
   <link rel="modulepreload" crossorigin href="/assets/auth-Dtda0RQ8.js">
-  <link rel="stylesheet" crossorigin href="/assets/style-Bk-gbBgq.css">
+  <link rel="stylesheet" crossorigin href="/assets/style-66AxDtU-.css">
 </head>
 <body data-current="insurance">
 <header class="top-header">
@@ -49,7 +49,7 @@
       <h1 class="page-title">帰国前後の保険を確認する</h1>
       <p class="page-lead">米国側の保険整理から、日本帰国後の公的保険・年金まで。<br>保険の空白期間を作らないためのポイントをまとめています。</p>
       <div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap">
-        <a class="btn btn-primary" href="#us-cancel">米国側の整理を確認</a>
+        <a class="btn btn-primary" href="#diagnosis">自分に必要な手続きを確認</a>
         <a class="btn btn-outline" href="#gap">空白期間の対策を見る</a>
       </div>
     </div>
@@ -64,8 +64,49 @@
   </div>
 </section>
 
-<!-- ===== 要点 ===== -->
-<section class="section">
+<!-- ===== 診断カード ===== -->
+<section class="section" id="diagnosis">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">あなたの状況に近いものを選んでください</h2>
+      <p class="section-desc">選んだ項目に応じて、確認すべきポイントが表示されます。</p>
+    </div>
+    <div class="diagnosis-grid">
+      <button class="diagnosis-btn" data-diagnosis="permanent">
+        <span class="diagnosis-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></span>
+        <span>本帰国する</span>
+      </button>
+      <button class="diagnosis-btn" data-diagnosis="temporary">
+        <span class="diagnosis-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg></span>
+        <span>一時帰国する</span>
+      </button>
+      <button class="diagnosis-btn" data-diagnosis="employed">
+        <span class="diagnosis-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 00-8 0v2"/></svg></span>
+        <span>帰国後すぐ就職する</span>
+      </button>
+      <button class="diagnosis-btn" data-diagnosis="freelance">
+        <span class="diagnosis-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></span>
+        <span>しばらく無職・フリーランス</span>
+      </button>
+      <button class="diagnosis-btn" data-diagnosis="family">
+        <span class="diagnosis-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></span>
+        <span>家族・子どもあり</span>
+      </button>
+      <button class="diagnosis-btn" data-diagnosis="us-active">
+        <span class="diagnosis-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+        <span>米国の保険がまだ残っている</span>
+      </button>
+    </div>
+    <div class="diagnosis-result" id="diagnosis-result" style="display:none">
+      <div class="info-panel" style="border-left:4px solid var(--navy)">
+        <p id="diagnosis-text" style="margin:0;font-size:13px;line-height:1.8;color:var(--text)"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== まず押さえる3つ ===== -->
+<section class="section soft">
   <div class="container">
     <div class="section-head">
       <h2 class="section-title">まず押さえる3つのポイント</h2>
@@ -91,7 +132,7 @@
 </section>
 
 <!-- ===== 本帰国 vs 一時帰国 ===== -->
-<section class="section soft">
+<section class="section">
   <div class="container">
     <div class="section-head">
       <h2 class="section-title">帰国直後の医療保険はどうなる？</h2>
@@ -102,9 +143,9 @@
         <div>
           <h3 style="color:var(--navy)">本帰国の場合</h3>
           <ul class="compact-list">
-            <li>転入届を提出（14日以内）</li>
-            <li>住民登録後に国保に加入可能</li>
-            <li>マイナ保険証または資格確認書</li>
+            <li>住み始めた日から14日以内に転入届を提出</li>
+            <li>住民登録後に国保の手続きが可能に</li>
+            <li>マイナ保険証または資格確認書で受診</li>
             <li>医療費は3割負担（保険適用）</li>
           </ul>
         </div>
@@ -121,20 +162,14 @@
         </div>
       </article>
     </div>
-    <div class="alert-box alert-box-info" style="margin-top:24px">
-      <div class="alert-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-      </div>
-      <div>
-        <strong>住民登録が起点になります</strong>
-        <p>日本で国民健康保険に加入するには、まず市区町村に転入届を出して住民登録する必要があります。住民登録前は保険加入ができないため、渡航中の保険が切れないようスケジュールを組みましょう。</p>
-      </div>
+    <div class="info-panel" style="margin-top:20px;border-left:4px solid var(--blue)">
+      <p style="margin:0;font-size:13px;line-height:1.8;color:var(--text)">国民健康保険への加入は、住民登録後に市区町村で手続きします。必要書類や手続き方法は自治体により異なるため、転入届の提出時にあわせて確認しましょう。</p>
     </div>
   </div>
 </section>
 
 <!-- ===== 国保 vs 社保 ===== -->
-<section class="section">
+<section class="section soft">
   <div class="container">
     <div class="section-head">
       <h2 class="section-title">国民健康保険と会社の健康保険</h2>
@@ -172,6 +207,42 @@
   </div>
 </section>
 
+<!-- ===== 空白期間 ===== -->
+<section class="section" id="gap">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">保険の空白期間をどうする？</h2>
+      <p class="section-desc">米国の保険終了〜日本の保険開始の間をカバーする方法は3つあります。</p>
+    </div>
+    <div class="top3-grid">
+      <div class="top3-card">
+        <div class="top3-num" style="background:var(--blue)">A</div>
+        <h3>COBRA（米国側）</h3>
+        <p>退職後も通常最大18ヶ月、元の保険を継続できる場合があります。対象者や条件により異なり、保険料は全額自己負担となるため高額になりやすいです。</p>
+      </div>
+      <div class="top3-card">
+        <div class="top3-num" style="background:var(--blue)">B</div>
+        <h3>海外旅行保険</h3>
+        <p>帰国移動中のカバーとして利用。日本到着後は対象外になるプランが多いため、適用期間を必ず確認してください。</p>
+      </div>
+      <div class="top3-card">
+        <div class="top3-num" style="background:var(--blue)">C</div>
+        <h3>国民健康保険</h3>
+        <p>資格取得日から加入となる場合があります。マイナ保険証や資格確認書がない状態で受診した場合、一旦全額を支払い、後日「療養費」として申請できる場合があります。</p>
+      </div>
+    </div>
+    <div class="alert-box alert-box-warning" style="margin-top:20px">
+      <div class="alert-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div>
+        <strong>空白期間中の受診に注意</strong>
+        <p>住民登録前や保険証が届く前に受診した場合、一旦全額を自費で支払う必要があります。後日「療養費」として還付請求できる場合がありますが、対象外の費用や自己負担分は戻りません。事前に自治体へ確認しましょう。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== 米国の保険解約 ===== -->
 <section class="section soft" id="us-cancel">
   <div class="container">
@@ -198,76 +269,82 @@
         <div class="step-num">3</div>
         <div class="step-body">
           <h3>空白期間の対策</h3>
-          <p>米国保険の終了日から日本の保険開始日まで間が空く場合、海外旅行保険やCOBRA（米国）でカバーする選択肢があります。</p>
+          <p>米国保険の終了日から日本の保険開始日まで間が空く場合、海外旅行保険やCOBRAでカバーする選択肢があります。</p>
         </div>
       </div>
       <div class="step-item">
         <div class="step-num">4</div>
         <div class="step-body">
           <h3>日本到着後すぐに住民登録</h3>
-          <p>住民登録した日から国民健康保険に遡って加入できるため、到着後すぐに役所へ行きましょう。</p>
+          <p>住民登録後に国民健康保険の手続きができるため、到着後すぐに役所へ行きましょう。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mv-accordion" style="margin-top:24px">
+      <button class="mv-accordion-btn" type="button">
+        COBRAの詳細と注意点
+        <svg class="mv-accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="mv-accordion-body">
+        <div class="mv-accordion-inner">
+          <ul class="detail-list">
+            <li><strong>対象者：</strong>従業員20人以上の企業に雇用されていた方が対象。対象外の場合もあります。</li>
+            <li><strong>期間：</strong>通常最大18ヶ月。一定のライフイベント（障害認定等）では36ヶ月まで延長される場合があります。</li>
+            <li><strong>費用：</strong>保険料は全額自己負担（会社負担分もなくなるため、在職中の2〜3倍になることが多い）。</li>
+            <li><strong>通知：</strong>退職後60日以内に加入の選択をする必要があります。</li>
+            <li><strong>適用範囲：</strong>米国内の医療費が対象。日本帰国後の医療費は対象外となるプランが一般的。</li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== 空白期間 ===== -->
-<section class="section" id="gap">
-  <div class="container">
-    <div class="section-head">
-      <h2 class="section-title">保険の空白期間をどうする？</h2>
-      <p class="section-desc">米国の保険終了〜日本の保険開始の間をカバーする方法は3つあります。</p>
-    </div>
-    <div class="top3-grid">
-      <div class="top3-card">
-        <div class="top3-num" style="background:var(--blue)">A</div>
-        <h3>COBRA（米国側）</h3>
-        <p>退職後も最大18ヶ月、元の保険を継続できる制度。ただし保険料は全額自己負担になるため高額。短期間のカバーに向いています。</p>
-      </div>
-      <div class="top3-card">
-        <div class="top3-num" style="background:var(--blue)">B</div>
-        <h3>海外旅行保険</h3>
-        <p>帰国移動中のカバーとして利用。日本到着後は対象外になるプランが多いため、適用期間を必ず確認してください。</p>
-      </div>
-      <div class="top3-card">
-        <div class="top3-num" style="background:var(--blue)">C</div>
-        <h3>国民健康保険（遡り加入）</h3>
-        <p>住民登録日に遡って加入できます。ただし登録前に受診した医療費は一旦全額自費。後日「療養費」として請求可能ですが、還付に時間がかかります。</p>
-      </div>
-    </div>
-    <div class="alert-box alert-box-warning" style="margin-top:20px">
-      <div class="alert-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      </div>
-      <div>
-        <strong>空白期間中の受診に注意</strong>
-        <p>住民登録前に受診した場合、一旦全額を自費で支払う必要があります。後日「療養費」として還付請求できますが、全額が戻らない場合もあります。空白期間中は可能な限り受診を避けるか、別の保険でカバーしてください。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ===== 米国側の保険整理 ===== -->
-<section class="section soft">
+<section class="section">
   <div class="container">
     <div class="section-head">
       <h2 class="section-title">帰国前に整理すべき米国側の保険</h2>
       <p class="section-desc">医療保険以外にも、帰国前に解約・変更が必要な保険があります。</p>
     </div>
-    <div class="checklist-grid">
-      <div class="check-item"><span class="check-bullet"></span><div><strong>自動車保険（Auto Insurance）</strong><p>車を売却する場合は売却後に解約。途中解約で返金がある場合も。</p></div></div>
-      <div class="check-item"><span class="check-bullet"></span><div><strong>レンター保険（Renter's Insurance）</strong><p>アパート退去時に解約。退去日に合わせて終了日を設定。</p></div></div>
-      <div class="check-item"><span class="check-bullet"></span><div><strong>生命保険（Life Insurance）</strong><p>日本帰国後も維持可能な場合がある。住所変更の通知が必要。</p></div></div>
-      <div class="check-item"><span class="check-bullet"></span><div><strong>歯科保険（Dental Insurance）</strong><p>日本では一般的な歯科治療は健康保険適用（3割負担）。インプラント・矯正・セラミック等の自由診療は全額自費のため、治療中の方は米国で完了させるのが得策。</p></div></div>
-      <div class="check-item"><span class="check-bullet"></span><div><strong>視力保険（Vision Insurance）</strong><p>帰国前にメガネ・コンタクトの処方を済ませておくと良い。</p></div></div>
-      <div class="check-item"><span class="check-bullet"></span><div><strong>ペット保険（Pet Insurance）</strong><p>日本の保険に切り替えが必要。既往歴の引継ぎができない場合が多い。</p></div></div>
+
+    <div class="mv-accordion open">
+      <button class="mv-accordion-btn" type="button">
+        自動車保険・レンター保険・生命保険
+        <svg class="mv-accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="mv-accordion-body">
+        <div class="mv-accordion-inner">
+          <div class="checklist-grid">
+            <div class="check-item"><span class="check-bullet"></span><div><strong>自動車保険（Auto Insurance）</strong><p>車を売却する場合は売却後に解約。途中解約で返金がある場合も。</p></div></div>
+            <div class="check-item"><span class="check-bullet"></span><div><strong>レンター保険（Renter's Insurance）</strong><p>アパート退去時に解約。退去日に合わせて終了日を設定。</p></div></div>
+            <div class="check-item"><span class="check-bullet"></span><div><strong>生命保険（Life Insurance）</strong><p>日本帰国後も維持可能な場合がある。住所変更の通知が必要。</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mv-accordion">
+      <button class="mv-accordion-btn" type="button">
+        歯科保険・視力保険・ペット保険
+        <svg class="mv-accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="mv-accordion-body">
+        <div class="mv-accordion-inner">
+          <div class="checklist-grid">
+            <div class="check-item"><span class="check-bullet"></span><div><strong>歯科保険（Dental Insurance）</strong><p>日本では一般的な歯科治療は健康保険適用（3割負担）。インプラント・矯正・セラミック等の自由診療は全額自費のため、治療中の方は米国で完了させるのが得策。</p></div></div>
+            <div class="check-item"><span class="check-bullet"></span><div><strong>視力保険（Vision Insurance）</strong><p>帰国前にメガネ・コンタクトの処方を済ませておくと良い。</p></div></div>
+            <div class="check-item"><span class="check-bullet"></span><div><strong>ペット保険（Pet Insurance）</strong><p>日本の保険に切り替えが必要。既往歴の引継ぎができない場合が多い。</p></div></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ===== 国民年金 ===== -->
-<section class="section">
+<section class="section soft">
   <div class="container">
     <div class="section-head">
       <h2 class="section-title">国民年金について</h2>
@@ -279,18 +356,8 @@
           <h3>基本情報</h3>
           <ul class="compact-list">
             <li>住民登録と同時に市区町村で手続き可能</li>
-            <li>保険料は月額約17,000円前後（年度で変動）</li>
+            <li>2026年度の保険料は月額17,920円</li>
             <li>就職予定がある場合は入社後に厚生年金へ</li>
-          </ul>
-        </div>
-      </article>
-      <article class="category-card">
-        <div>
-          <h3>海外在住期間の扱い</h3>
-          <ul class="compact-list">
-            <li>「合算対象期間（カラ期間）」として受給資格期間に算入</li>
-            <li>ただし年金額には反映されない</li>
-            <li>帰国後に過去分を追納できる場合あり（10年以内）</li>
           </ul>
         </div>
       </article>
@@ -305,11 +372,28 @@
         </div>
       </article>
     </div>
+
+    <div class="mv-accordion" style="margin-top:20px">
+      <button class="mv-accordion-btn" type="button">
+        海外在住期間の年金の扱い
+        <svg class="mv-accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="mv-accordion-body">
+        <div class="mv-accordion-inner">
+          <ul class="detail-list">
+            <li>海外在住期間は、合算対象期間（カラ期間）として受給資格期間に算入される場合があります。ただし年金額には反映されません。</li>
+            <li>海外在住中に国民年金に任意加入していた場合は、年金額に反映されます。</li>
+            <li>免除・猶予の承認期間がある場合は、10年以内に追納することで年金額に反映させることができます。</li>
+            <li>任意加入や免除・猶予期間の有無によって扱いが変わるため、詳しくは年金事務所で確認しましょう。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ===== CTA ===== -->
-<section class="section soft">
+<section class="section">
   <div class="container">
     <div class="section-head">
       <h2 class="section-title">次のステップ</h2>

@@ -825,3 +825,15 @@ h1{margin:0;font-family:var(--serif);font-size:34px;line-height:1.6;letter-spaci
 @media(max-width:1024px){.compare-cards{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:640px){.compare-cards{grid-template-columns:1fr}}
 
+/* Diagnosis */
+.diagnosis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.diagnosis-btn{display:flex;align-items:center;gap:10px;padding:14px 18px;background:#fff;border:1px solid var(--line2);border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:var(--navy);text-align:left;transition:all .18s ease}
+.diagnosis-btn:hover{border-color:var(--blue);box-shadow:var(--shadow-soft);transform:translateY(-1px)}
+.diagnosis-btn.active{border-color:var(--navy);background:var(--sky);box-shadow:0 0 0 2px var(--navy)}
+.diagnosis-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--sky);border-radius:50%;color:var(--navy);flex-shrink:0}
+.diagnosis-btn.active .diagnosis-icon{background:var(--navy);color:#fff}
+.diagnosis-result{margin-top:20px;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:768px){.diagnosis-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.diagnosis-grid{grid-template-columns:1fr}}
+
